@@ -1,10 +1,12 @@
 ﻿using System;
-
-public class Categoria
+namespace CrowdSisters.Models
 {
-    public int IDCategoria { get; set; }
-    public string Nombre { get; set; }
+    public class Categoria
+    {
+        public int IDCategoria { get; set; }
+        public string Nombre { get; set; }
 
-    // Navigation property
-    public ICollection<Subcategoria> Subcategorias { get; set; }
+        // Navigation property
+        public ICollection<Subcategoria> Subcategorias { get; set; }
+    }
 }
