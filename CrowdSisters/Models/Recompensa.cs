@@ -1,15 +1,37 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Recompensa
+namespace CrowdSisters.Models
 {
-    public int IDRecompensa { get; set; }
-    public int FKProyecto { get; set; }
-    public string Descripcion { get; set; }
-    public decimal MontoMinimo { get; set; }
-    public decimal? MontoMaximo { get; set; }
-    public int CantidadDisponible { get; set; }
-    public string URLImagenRecompensa { get; set; }
+    [Table("Recompensa")]
+    public class Recompensa
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int IDRecompensa { get; set; }
 
-    // Navigation property
-    public Proyecto Proyecto { get; set; }
+        [Required]
+        [ForeignKey("Proyecto")]
+        public int FKProyecto { get; set; }
+
+        public Proyecto Proyecto { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string Descripcion { get; set; }
+
+        [Required]
+        [Column(TypeName = "money")]
+        public decimal MontoMinimo { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal? MontoMaximo { get; set; }
+
+        [Required]
+        public int CantidadDisponible { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string URLImagenRecompensa { get; set; }
+    }
 }
