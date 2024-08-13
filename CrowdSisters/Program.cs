@@ -1,7 +1,12 @@
+using CrowdSisters.Conections;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Register the Connection class with dependency injection
+builder.Services.AddSingleton<Connection>();
 
 var app = builder.Build();
 
