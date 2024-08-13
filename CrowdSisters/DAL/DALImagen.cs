@@ -1,142 +1,141 @@
-﻿using CrowdSisters.Models;
+﻿using CrowdSisters.Conections;
+using CrowdSisters.Models;
+using Microsoft.Data.SqlClient;
 using System.Data.Common;
 
 namespace CrowdSisters.DAL
 {
     public class DALImagen
     {
-        private DbConnection connection;
+        private readonly Connection _connection;
+        private DALProyecto _dalProyecto;
 
-        public DALImagen()
+        public DALImagen(Connection connection)
         {
-            this.connection = new DbConnection();
+            _connection = connection;
+            _dalProyecto = new DALProyecto();
         }
-        public void insertImagen(Imagen imagen)
-        {
-            connection.Open();
 
-            string sql = @"
+        // Método para obtener una conexión abierta
+        private SqlConnection GetOpenConnection()
+        {
+            var connection = _connection.GetConnection();
+            connection.Open();
+            return connection;
+        }
+
+        // Crear
+        public async Task<bool> CreateAsync(Imagen imagen)
+        {
+            const string query = @"
                 INSERT INTO IMAGEN (FKProyecto, URLImagenProyecto) 
                 VALUES (@FKProyecto, @URLImagenProyecto)";
-
-            SqlCommand cmd = new SqlCommand(sql, connection.GetConnection());
-
-            cmd.Parameters.AddWithValue("@FKProyecto", imagen.FKProyecto);
-            cmd.Parameters.AddWithValue("@URLImagenProyecto", imagen.URLImagenProyecto);
-
-            cmd.ExecuteNonQuery();
-
-            connection.Close();
-        }
-
-
-        public List<Imagen> SelectAll()
-        {
-            connection.Open();
-
-            List<Imagen> imagenes = new List<Imagen>();
-
-            string query = "SELECT * FROM IMAGEN";
-            SqlCommand command = new SqlCommand(query, connection.GetConnection());
-
-            SqlDataReader records = command.ExecuteReader();
-
-            while (records.Read())
+            using (var connection = GetOpenConnection())
+            using (var command = new SqlCommand(query, connection))
             {
-                int idImagen = records.GetInt32(records.GetOrdinal("IDImagen"));
-                int fkProyecto = records.GetInt32(records.GetOrdinal("FKProyecto"));
-                Proyecto proyecto = null;
-                string urlImagenProyecto = records.GetString(records.GetOrdinal("URLImagenProyecto"));
 
-                Imagen imagen = new Imagen();
-
-                imagen.IDImagen = idImagen;
-                imagen.FKProyecto = fkProyecto;
-                imagen.Proyecto = proyecto;
-                imagen.URLImagenProyecto = urlImagenProyecto;
-
-
-                imagenes.Add(imagen);
+                command.Parameters.AddWithValue("@FKProyecto", imagen.FKProyecto);
+                command.Parameters.AddWithValue("@URLImagenProyecto", imagen.URLImagenProyecto);
+                return await command.ExecuteNonQueryAsync() > 0;
             }
-
-            records.Close();
-            connection.Close();
-            return imagenes;
-
         }
-
-        public Imagen SelectImagenById(int idImagen)
-        {
-            connection.Open();
-
-            Imagen imagen = null;
-
-            string query = "SELECT * FROM IMAGEN WHERE IDImagen = @IDImagen";
-            SqlCommand command = new SqlCommand(query, connection.GetConnection());
-            command.Parameters.AddWithValue("@IDImagen", idImagen);
-
-            SqlDataReader records = command.ExecuteReader();
-
-            if (records.Read())
-            {
-                int fkProyecto = records.GetInt32(records.GetOrdinal("FKProyecto"));
-                Proyecto proyecto = null;  
-                string urlImagenProyecto = records.GetString(records.GetOrdinal("URLImagenProyecto"));
-
-                imagen = new Imagen
+        /*
+                public List<Imagen> SelectAll()
                 {
-                    IDImagen = idImagen,
-                    FKProyecto = fkProyecto,
-                    Proyecto = proyecto,
-                    URLImagenProyecto = urlImagenProyecto
-                };
+                    connection.Open();
+
+                    List<Imagen> imagenes = new List<Imagen>();
+
+                    string query = "SELECT * FROM IMAGEN";
+                    SqlCommand command = new SqlCommand(query, connection.GetConnection());
+
+                    SqlDataReader records = command.ExecuteReader();
+
+                    while (records.Read())
+                    {
+                        int idImagen = records.GetInt32(records.GetOrdinal("IDImagen"));
+                        int fkProyecto = records.GetInt32(records.GetOrdinal("FKProyecto"));
+                        Proyecto proyecto = null;
+                        string urlImagenProyecto = records.GetString(records.GetOrdinal("URLImagenProyecto"));
+
+                        Imagen imagen = new Imagen();
+
+                        imagen.IDImagen = idImagen;
+                        imagen.FKProyecto = fkProyecto;
+                        imagen.Proyecto = proyecto;
+                        imagen.URLImagenProyecto = urlImagenProyecto;
+
+
+                        imagenes.Add(imagen);
+                    }
+
+                    records.Close();
+                    connection.Close();
+                    return imagenes;
+
+                }
+        */
+
+        // Leer
+        public async Task<Imagen> GetByIdAsync(int id)
+        {
+            const string query = "SELECT * FROM IMAGEN WHERE IDImagen = @IDImagen";
+
+            using (var connection = GetOpenConnection())
+            using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@IDImagen", id);
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        return new Imagen
+                        {
+                            IDImagen = reader.GetInt32(reader.GetOrdinal("IDImagen")),
+                            FKProyecto = reader.GetInt32(reader.GetOrdinal("FKProyecto")),
+                            Proyecto = await _dalProyecto.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("FKProyecto"))),
+                            URLImagenProyecto = reader.GetString(reader.GetOrdinal("URLImagenProyecto"))
+                        };
+                    }
+
+                    return null;
+                }
             }
-
-            records.Close();
-            connection.Close();
-
-            return imagen;
         }
 
-        public bool DeleteImagenById(int idImagen)
+
+        // Actualizar
+
+        public async Task<bool> UpdateAsync(Imagen imagen)
         {
-            connection.Open();
-
-            string query = "DELETE FROM IMAGEN WHERE IDImagen = @IDImagen";
-            SqlCommand command = new SqlCommand(query, connection.GetConnection());
-            command.Parameters.AddWithValue("@IDImagen", idImagen);
-
-            int rowsAffected = command.ExecuteNonQuery();
-
-            connection.Close();
-
-            return rowsAffected > 0;
-        }
-
-        public bool UpdateImagen(Imagen imagen)
-        {
-            connection.Open();
-
-            string query = @"UPDATE IMAGEN 
+            const string query = @"UPDATE IMAGEN 
                      SET FKProyecto = @FKProyecto,
                          URLImagenProyecto = @URLImagenProyecto
                      WHERE IDImagen = @IDImagen";
 
-            SqlCommand command = new SqlCommand(query, connection.GetConnection());
-            command.Parameters.AddWithValue("@IDImagen", imagen.IDImagen);
-            command.Parameters.AddWithValue("@FKProyecto", imagen.FKProyecto);
-            command.Parameters.AddWithValue("@URLImagenProyecto", imagen.URLImagenProyecto);
-
-            int rowsAffected = command.ExecuteNonQuery();
-
-            connection.Close();
-
-            // Devuelve true si se actualizó alguna fila, false si no se encontró la imagen
-            return rowsAffected > 0;
+            using (var connection = GetOpenConnection())
+            using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@IDImagen", imagen.IDImagen);
+                command.Parameters.AddWithValue("@FKProyecto", imagen.FKProyecto);
+                command.Parameters.AddWithValue("@URLImagenProyecto", imagen.URLImagenProyecto);
+                return await command.ExecuteNonQueryAsync() > 0;
+            }
         }
 
+        // Eliminar
 
+        public async Task<bool> DeleteAsync(int id)
+        {
+            const string query = "DELETE FROM IMAGEN WHERE IDImagen = @IDImagen";
+            using (var connection = GetOpenConnection())
+            using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@IDImagen", id);
 
+                return await command.ExecuteNonQueryAsync() > 0;
+            }
+        }
 
     }
 
