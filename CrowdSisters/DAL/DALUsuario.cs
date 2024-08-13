@@ -1,149 +1,130 @@
-﻿using CrowdSisters.Models;
+﻿using CrowdSisters.Conections;
+using CrowdSisters.Models;
+using Microsoft.Data.SqlClient;
 using System.Data.Common;
 
 namespace CrowdSisters.DAL
 {
     public class DALUsuario
     {
-        private DbConnection connection;
+        private readonly Connection _connection;
 
-        public DALUsuario()
+        public DALUsuario(Connection connection)
         {
-            this.connection = new DbConnection();
+            _connection = connection;
         }
 
-        public void insertUsuario(Usuario usuario)
-        {
-            connection.Open();
 
-            string sql = @"
+        // Crear
+        public async Task<bool> CreateAsync(Usuario usuario)
+        {
+            const string query = @"
                 INSERT INTO USUARIO (Nombre, Email, Contrasena, FechaRegistro, IsAdmin, PerfilPublico, 
                 URLImagenUsuario, Monedero) 
                 VALUES (@Nombre, @Email, @Contrasena, @FechaRegistro, @IsAdmin, @PerfilPublico, @URLImagenUsuario,
                 @Monedero)";
 
-            SqlCommand cmd = new SqlCommand(sql, connection.GetConnection());
-
-            cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre);
-            cmd.Parameters.AddWithValue("@Email", usuario.Email);
-            cmd.Parameters.AddWithValue("@Contrasena", usuario.Contrasena);
-            cmd.Parameters.AddWithValue("@FechaRegistro", usuario.FechaRegistro);
-            cmd.Parameters.AddWithValue("@IsAdmin", usuario.IsAdmin);
-            cmd.Parameters.AddWithValue("@PerfilPublico", usuario.PerfilPublico);
-            cmd.Parameters.AddWithValue("@URLImagenUsuario", usuario.URLImagenUsuario);
-            cmd.Parameters.AddWithValue("@Monedero", usuario.Monedero);
-
-
-
-            cmd.ExecuteNonQuery();
-
-            connection.Close();
-        }
-
-
-        public List<Usuario> SelectAll()
-        {
-            connection.Open();
-
-            List<Usuario> usuarios = new List<Usuario>();
-
-            string query = "SELECT * FROM USUARIO";
-            SqlCommand command = new SqlCommand(query, connection.GetConnection());
-
-            SqlDataReader records = command.ExecuteReader();
-
-            while (records.Read())
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
             {
-                int idUsuario = records.GetInt32(records.GetOrdinal("IDUsuario"));
-                string nombre = records.GetString(records.GetOrdinal("Nombre"));
-                string email = records.GetString(records.GetOrdinal("Email"));
-                string contrasena = records.GetString(records.GetOrdinal("Contrasena"));
-                DateTime fechaRegistro = records.GetDateTime(records.GetOrdinal("FechaRegistro"));
-                bool isAdmin = records.GetBoolean(records.GetOrdinal("IsAdmin"));
-                string perfilPublico = records.GetString(records.GetOrdinal("PerfilPublico"));
-                string urlImagenUsuario = records.GetString(records.GetOrdinal("URLImagenUsuario"));
-                decimal monedero = records.GetDecimal(records.GetOrdinal("Monedero"));
-
-
-
-                Usuario usuario = new Usuario();
-
-                usuario.IDUsuario = idUsuario;
-                usuario.Nombre = nombre;
-                usuario.Email = email;
-                usuario.Contrasena = contrasena;
-                usuario.FechaRegistro = fechaRegistro;
-                usuario.IsAdmin = isAdmin;
-                usuario.PerfilPublico = perfilPublico;
-                usuario.URLImagenUsuario = urlImagenUsuario;
-                usuario.Monedero = monedero;
-
-
-                usuarios.Add(usuario);
+                command.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                command.Parameters.AddWithValue("@Email", usuario.Email);
+                command.Parameters.AddWithValue("@Contrasena", usuario.Contrasena);
+                command.Parameters.AddWithValue("@FechaRegistro", usuario.FechaRegistro);
+                command.Parameters.AddWithValue("@IsAdmin", usuario.IsAdmin);
+                command.Parameters.AddWithValue("@PerfilPublico", usuario.PerfilPublico);
+                command.Parameters.AddWithValue("@URLImagenUsuario", usuario.URLImagenUsuario);
+                command.Parameters.AddWithValue("@Monedero", usuario.Monedero);
+                return await command.ExecuteNonQueryAsync() > 0;
             }
-
-            records.Close();
-            connection.Close();
-            return usuarios;
-
         }
 
-        public Usuario SelectUsuarioById(int idUsuario)
-        {
-            connection.Open();
-
-            Usuario usuario = null;
-
-            string query = "SELECT * FROM USUARIO WHERE IDUsuario = @IDUsuario";
-            SqlCommand command = new SqlCommand(query, connection.GetConnection());
-            command.Parameters.AddWithValue("@IDUsuario", idUsuario);
-
-            SqlDataReader records = command.ExecuteReader();
-
-            if (records.Read())
-            {
-                // Asignación de los valores del registro a las propiedades del objeto Usuario
-                usuario = new Usuario
+        /*
+                public List<Usuario> SelectAll()
                 {
-                    IDUsuario = records.GetInt32(records.GetOrdinal("IDUsuario")),
-                    Nombre = records.GetString(records.GetOrdinal("Nombre")),
-                    Email = records.GetString(records.GetOrdinal("Email")),
-                    Contrasena = records.GetString(records.GetOrdinal("Contrasena")),
-                    FechaRegistro = records.GetDateTime(records.GetOrdinal("FechaRegistro")),
-                    IsAdmin = records.GetBoolean(records.GetOrdinal("IsAdmin")),
-                    PerfilPublico = records.GetString(records.GetOrdinal("PerfilPublico")),
-                    URLImagenUsuario = records.GetString(records.GetOrdinal("URLImagenUsuario")),
-                    Monedero = records.GetDecimal(records.GetOrdinal("Monedero"))
-                };
+                    connection.Open();
+
+                    List<Usuario> usuarios = new List<Usuario>();
+
+                    string query = "SELECT * FROM USUARIO";
+                    SqlCommand command = new SqlCommand(query, connection.GetConnection());
+
+                    SqlDataReader records = command.ExecuteReader();
+
+                    while (records.Read())
+                    {
+                        int idUsuario = records.GetInt32(records.GetOrdinal("IDUsuario"));
+                        string nombre = records.GetString(records.GetOrdinal("Nombre"));
+                        string email = records.GetString(records.GetOrdinal("Email"));
+                        string contrasena = records.GetString(records.GetOrdinal("Contrasena"));
+                        DateTime fechaRegistro = records.GetDateTime(records.GetOrdinal("FechaRegistro"));
+                        bool isAdmin = records.GetBoolean(records.GetOrdinal("IsAdmin"));
+                        string perfilPublico = records.GetString(records.GetOrdinal("PerfilPublico"));
+                        string urlImagenUsuario = records.GetString(records.GetOrdinal("URLImagenUsuario"));
+                        decimal monedero = records.GetDecimal(records.GetOrdinal("Monedero"));
+
+
+
+                        Usuario usuario = new Usuario();
+
+                        usuario.IDUsuario = idUsuario;
+                        usuario.Nombre = nombre;
+                        usuario.Email = email;
+                        usuario.Contrasena = contrasena;
+                        usuario.FechaRegistro = fechaRegistro;
+                        usuario.IsAdmin = isAdmin;
+                        usuario.PerfilPublico = perfilPublico;
+                        usuario.URLImagenUsuario = urlImagenUsuario;
+                        usuario.Monedero = monedero;
+
+
+                        usuarios.Add(usuario);
+                    }
+
+                    records.Close();
+                    connection.Close();
+                    return usuarios;
+
+                }
+        */
+
+        // Leer
+        public async Task<Usuario> GetByIdAsync(int id)
+        {
+            const string query = @"SELECT * FROM USUARIO WHERE IDUsuario = @IDUsuario";
+
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
+            {
+                command.Parameters.AddWithValue("@IDUsuario", id);
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        return new Usuario
+                        {
+                            IDUsuario = reader.GetInt32(reader.GetOrdinal("IDUsuario")),
+                            Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                            Email = reader.GetString(reader.GetOrdinal("Email")),
+                            Contrasena = reader.GetString(reader.GetOrdinal("Contrasena")),
+                            FechaRegistro = reader.GetDateTime(reader.GetOrdinal("FechaRegistro")),
+                            IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin")),
+                            PerfilPublico = reader.GetString(reader.GetOrdinal("PerfilPublico")),
+                            URLImagenUsuario = reader.GetString(reader.GetOrdinal("URLImagenUsuario")),
+                            Monedero = reader.GetDecimal(reader.GetOrdinal("Monedero"))
+                        };
+                    }
+                    return null;
+                }
             }
-
-            records.Close();
-            connection.Close();
-
-            return usuario;
         }
 
-        public bool DeleteUsuarioById(int idUsuario)
+
+        // Actualizar
+
+        public async Task<bool> UpdateAsync(Usuario usuario)
         {
-            connection.Open();
-
-            string query = "DELETE FROM USUARIO WHERE IDUsuario = @IDUsuario";
-            SqlCommand command = new SqlCommand(query, connection.GetConnection());
-            command.Parameters.AddWithValue("@IDUsuario", idUsuario);
-
-            int rowsAffected = command.ExecuteNonQuery();
-
-            connection.Close();
-
-            // Devuelve true si se eliminó alguna fila, false si no se encontró el usuario
-            return rowsAffected > 0;
-        }
-
-        public bool UpdateUsuario(Usuario usuario)
-        {
-            connection.Open();
-
-            string query = @"UPDATE USUARIO 
+            const string query = @"UPDATE USUARIO 
                      SET Nombre = @Nombre,
                          Email = @Email,
                          Contrasena = @Contrasena,
@@ -154,25 +135,36 @@ namespace CrowdSisters.DAL
                          Monedero = @Monedero
                      WHERE IDUsuario = @IDUsuario";
 
-            SqlCommand command = new SqlCommand(query, connection.GetConnection());
-            command.Parameters.AddWithValue("@IDUsuario", usuario.IDUsuario);
-            command.Parameters.AddWithValue("@Nombre", usuario.Nombre);
-            command.Parameters.AddWithValue("@Email", usuario.Email);
-            command.Parameters.AddWithValue("@Contrasena", usuario.Contrasena);
-            command.Parameters.AddWithValue("@FechaRegistro", usuario.FechaRegistro);
-            command.Parameters.AddWithValue("@IsAdmin", usuario.IsAdmin);
-            command.Parameters.AddWithValue("@PerfilPublico", usuario.PerfilPublico);
-            command.Parameters.AddWithValue("@URLImagenUsuario", usuario.URLImagenUsuario);
-            command.Parameters.AddWithValue("@Monedero", usuario.Monedero);
-
-            int rowsAffected = command.ExecuteNonQuery();
-
-            connection.Close();
-
-            // Devuelve true si se actualizó alguna fila, false si no se encontró el usuario
-            return rowsAffected > 0;
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
+            {
+                command.Parameters.AddWithValue("@IDUsuario", usuario.IDUsuario);
+                command.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                command.Parameters.AddWithValue("@Email", usuario.Email);
+                command.Parameters.AddWithValue("@Contrasena", usuario.Contrasena);
+                command.Parameters.AddWithValue("@FechaRegistro", usuario.FechaRegistro);
+                command.Parameters.AddWithValue("@IsAdmin", usuario.IsAdmin);
+                command.Parameters.AddWithValue("@PerfilPublico", usuario.PerfilPublico);
+                command.Parameters.AddWithValue("@URLImagenUsuario", usuario.URLImagenUsuario);
+                command.Parameters.AddWithValue("@Monedero", usuario.Monedero);
+                return await command.ExecuteNonQueryAsync() > 0;
+            }
         }
 
+
+        // Eliminar
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            const string query = @"DELETE FROM USUARIO WHERE IDUsuario = @IDUsuario"
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
+            {
+                command.Parameters.AddWithValue("@IDUsuario", id);
+
+                return await command.ExecuteNonQueryAsync() > 0;
+            }
+        }
 
     }
 

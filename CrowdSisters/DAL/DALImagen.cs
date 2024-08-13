@@ -13,15 +13,6 @@ namespace CrowdSisters.DAL
         public DALImagen(Connection connection)
         {
             _connection = connection;
-            _dalProyecto = new DALProyecto();
-        }
-
-        // Método para obtener una conexión abierta
-        private SqlConnection GetOpenConnection()
-        {
-            var connection = _connection.GetConnection();
-            connection.Open();
-            return connection;
         }
 
         // Crear
@@ -30,8 +21,9 @@ namespace CrowdSisters.DAL
             const string query = @"
                 INSERT INTO IMAGEN (FKProyecto, URLImagenProyecto) 
                 VALUES (@FKProyecto, @URLImagenProyecto)";
-            using (var connection = GetOpenConnection())
-            using (var command = new SqlCommand(query, connection))
+
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
             {
 
                 command.Parameters.AddWithValue("@FKProyecto", imagen.FKProyecto);
@@ -79,10 +71,10 @@ namespace CrowdSisters.DAL
         // Leer
         public async Task<Imagen> GetByIdAsync(int id)
         {
-            const string query = "SELECT * FROM IMAGEN WHERE IDImagen = @IDImagen";
+            const string query = @"SELECT * FROM IMAGEN WHERE IDImagen = @IDImagen";
 
-            using (var connection = GetOpenConnection())
-            using (var command = new SqlCommand(query, connection))
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
             {
                 command.Parameters.AddWithValue("@IDImagen", id);
                 using (var reader = await command.ExecuteReaderAsync())
@@ -113,8 +105,8 @@ namespace CrowdSisters.DAL
                          URLImagenProyecto = @URLImagenProyecto
                      WHERE IDImagen = @IDImagen";
 
-            using (var connection = GetOpenConnection())
-            using (var command = new SqlCommand(query, connection))
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
             {
                 command.Parameters.AddWithValue("@IDImagen", imagen.IDImagen);
                 command.Parameters.AddWithValue("@FKProyecto", imagen.FKProyecto);
@@ -127,9 +119,9 @@ namespace CrowdSisters.DAL
 
         public async Task<bool> DeleteAsync(int id)
         {
-            const string query = "DELETE FROM IMAGEN WHERE IDImagen = @IDImagen";
-            using (var connection = GetOpenConnection())
-            using (var command = new SqlCommand(query, connection))
+            const string query = @"DELETE FROM IMAGEN WHERE IDImagen = @IDImagen";
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
             {
                 command.Parameters.AddWithValue("@IDImagen", id);
 
