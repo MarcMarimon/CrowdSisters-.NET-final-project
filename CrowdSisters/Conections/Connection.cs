@@ -6,15 +6,16 @@ namespace CrowdSisters.Conections
     public class Connection
     {
         private readonly string _connectionString;
-
+        SqlConnection connection;
         public Connection(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
+            connection = new SqlConnection(_connectionString);
+
         }
 
-        public SqlConnection GetConnection()
+        public SqlConnection GetSqlConn()
         {
-            var connection = new SqlConnection(_connectionString);
             connection.Open();
             return connection;
         }
