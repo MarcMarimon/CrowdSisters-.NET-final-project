@@ -123,6 +123,57 @@ namespace CrowdSisters.DAL
             return usuario;
         }
 
+        public bool DeleteUsuarioById(int idUsuario)
+        {
+            connection.Open();
+
+            string query = "DELETE FROM USUARIO WHERE IDUsuario = @IDUsuario";
+            SqlCommand command = new SqlCommand(query, connection.GetConnection());
+            command.Parameters.AddWithValue("@IDUsuario", idUsuario);
+
+            int rowsAffected = command.ExecuteNonQuery();
+
+            connection.Close();
+
+            // Devuelve true si se eliminó alguna fila, false si no se encontró el usuario
+            return rowsAffected > 0;
+        }
+
+        public bool UpdateUsuario(Usuario usuario)
+        {
+            connection.Open();
+
+            string query = @"UPDATE USUARIO 
+                     SET Nombre = @Nombre,
+                         Email = @Email,
+                         Contrasena = @Contrasena,
+                         FechaRegistro = @FechaRegistro,
+                         IsAdmin = @IsAdmin,
+                         PerfilPublico = @PerfilPublico,
+                         URLImagenUsuario = @URLImagenUsuario,
+                         Monedero = @Monedero
+                     WHERE IDUsuario = @IDUsuario";
+
+            SqlCommand command = new SqlCommand(query, connection.GetConnection());
+            command.Parameters.AddWithValue("@IDUsuario", usuario.IDUsuario);
+            command.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+            command.Parameters.AddWithValue("@Email", usuario.Email);
+            command.Parameters.AddWithValue("@Contrasena", usuario.Contrasena);
+            command.Parameters.AddWithValue("@FechaRegistro", usuario.FechaRegistro);
+            command.Parameters.AddWithValue("@IsAdmin", usuario.IsAdmin);
+            command.Parameters.AddWithValue("@PerfilPublico", usuario.PerfilPublico);
+            command.Parameters.AddWithValue("@URLImagenUsuario", usuario.URLImagenUsuario);
+            command.Parameters.AddWithValue("@Monedero", usuario.Monedero);
+
+            int rowsAffected = command.ExecuteNonQuery();
+
+            connection.Close();
+
+            // Devuelve true si se actualizó alguna fila, false si no se encontró el usuario
+            return rowsAffected > 0;
+        }
+
+
     }
 
 }

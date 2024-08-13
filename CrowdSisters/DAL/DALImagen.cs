@@ -65,6 +65,79 @@ namespace CrowdSisters.DAL
 
         }
 
+        public Imagen SelectImagenById(int idImagen)
+        {
+            connection.Open();
+
+            Imagen imagen = null;
+
+            string query = "SELECT * FROM IMAGEN WHERE IDImagen = @IDImagen";
+            SqlCommand command = new SqlCommand(query, connection.GetConnection());
+            command.Parameters.AddWithValue("@IDImagen", idImagen);
+
+            SqlDataReader records = command.ExecuteReader();
+
+            if (records.Read())
+            {
+                int fkProyecto = records.GetInt32(records.GetOrdinal("FKProyecto"));
+                Proyecto proyecto = null;  
+                string urlImagenProyecto = records.GetString(records.GetOrdinal("URLImagenProyecto"));
+
+                imagen = new Imagen
+                {
+                    IDImagen = idImagen,
+                    FKProyecto = fkProyecto,
+                    Proyecto = proyecto,
+                    URLImagenProyecto = urlImagenProyecto
+                };
+            }
+
+            records.Close();
+            connection.Close();
+
+            return imagen;
+        }
+
+        public bool DeleteImagenById(int idImagen)
+        {
+            connection.Open();
+
+            string query = "DELETE FROM IMAGEN WHERE IDImagen = @IDImagen";
+            SqlCommand command = new SqlCommand(query, connection.GetConnection());
+            command.Parameters.AddWithValue("@IDImagen", idImagen);
+
+            int rowsAffected = command.ExecuteNonQuery();
+
+            connection.Close();
+
+            return rowsAffected > 0;
+        }
+
+        public bool UpdateImagen(Imagen imagen)
+        {
+            connection.Open();
+
+            string query = @"UPDATE IMAGEN 
+                     SET FKProyecto = @FKProyecto,
+                         URLImagenProyecto = @URLImagenProyecto
+                     WHERE IDImagen = @IDImagen";
+
+            SqlCommand command = new SqlCommand(query, connection.GetConnection());
+            command.Parameters.AddWithValue("@IDImagen", imagen.IDImagen);
+            command.Parameters.AddWithValue("@FKProyecto", imagen.FKProyecto);
+            command.Parameters.AddWithValue("@URLImagenProyecto", imagen.URLImagenProyecto);
+
+            int rowsAffected = command.ExecuteNonQuery();
+
+            connection.Close();
+
+            // Devuelve true si se actualizó alguna fila, false si no se encontró la imagen
+            return rowsAffected > 0;
+        }
+
+
+
+
     }
 
 }
