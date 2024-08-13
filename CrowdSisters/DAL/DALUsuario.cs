@@ -156,7 +156,7 @@ namespace CrowdSisters.DAL
 
         public async Task<bool> DeleteAsync(int id)
         {
-            const string query = @"DELETE FROM USUARIO WHERE IDUsuario = @IDUsuario"
+            const string query = @"DELETE FROM USUARIO WHERE IDUsuario = @IDUsuario";
             using (var sqlConn = _connection.GetSqlConn())
             using (var command = new SqlCommand(query, sqlConn))
             {
