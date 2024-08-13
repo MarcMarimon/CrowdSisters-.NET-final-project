@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using Microsoft.Data.SqlClient;
 using System.Threading.Tasks;
 using CrowdSisters.Conections;
@@ -17,14 +15,6 @@ namespace CrowdSisters.DAL
             _connection = connection;
         }
 
-        // Método para obtener una conexión abierta
-        private SqlConnection GetOpenConnection()
-        {
-            var connection = _connection.GetConnection();
-            connection.Open();
-            return connection;
-        }
-
         // Crear
         public async Task<bool> CreateAsync(Proyecto proyecto)
         {
@@ -32,8 +22,8 @@ namespace CrowdSisters.DAL
                 INSERT INTO Proyecto (IDProyecto, FKUsuario, FKSubcategoria, Titulo, Descripcion, FechaCreacion, FechaFinalizacion, MontoObjetivo, MontoRecaudado, Estado)
                 VALUES (@IDProyecto, @FKUsuario, @FKSubcategoria, @Titulo, @Descripcion, @FechaCreacion, @FechaFinalizacion, @MontoObjetivo, @MontoRecaudado, @Estado)";
 
-            using (var connection = GetOpenConnection())
-            using (var command = new SqlCommand(query, connection))
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
             {
                 command.Parameters.AddWithValue("@IDProyecto", proyecto.IDProyecto);
                 command.Parameters.AddWithValue("@FKUsuario", proyecto.FKUsuario);
@@ -57,8 +47,8 @@ namespace CrowdSisters.DAL
                 SELECT * FROM Proyecto
                 WHERE IDProyecto = @IDProyecto";
 
-            using (var connection = GetOpenConnection())
-            using (var command = new SqlCommand(query, connection))
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
             {
                 command.Parameters.AddWithValue("@IDProyecto", id);
 
@@ -102,8 +92,8 @@ namespace CrowdSisters.DAL
                     Estado = @Estado
                 WHERE IDProyecto = @IDProyecto";
 
-            using (var connection = GetOpenConnection())
-            using (var command = new SqlCommand(query, connection))
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
             {
                 command.Parameters.AddWithValue("@IDProyecto", proyecto.IDProyecto);
                 command.Parameters.AddWithValue("@FKUsuario", proyecto.FKUsuario);
@@ -127,8 +117,8 @@ namespace CrowdSisters.DAL
                 DELETE FROM Proyecto
                 WHERE IDProyecto = @IDProyecto";
 
-            using (var connection = GetOpenConnection())
-            using (var command = new SqlCommand(query, connection))
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
             {
                 command.Parameters.AddWithValue("@IDProyecto", id);
 
