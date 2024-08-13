@@ -1,7 +1,14 @@
+using CrowdSisters.Conections;
+using CrowdSisters.DAL;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Register the Connection class with dependency injection
+builder.Services.AddScoped<Connection>();
+builder.Services.AddScoped<DALProyecto>();
 
 var app = builder.Build();
 
