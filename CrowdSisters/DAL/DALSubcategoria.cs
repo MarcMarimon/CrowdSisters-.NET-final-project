@@ -20,68 +20,91 @@ namespace CrowdSisters.DAL
             const string query = @"
                 INSERT INTO Subcategoria (Nombre,FKCategoria)
                 VALUES (@Nombre,@FKCategoria)";
-
-            using (var sqlConn = _connection.GetSqlConn())
-            using (var command = new SqlCommand(query, sqlConn))
+            try
             {
-                command.Parameters.AddWithValue("@Nombre", subcategoria.Nombre);
-                command.Parameters.AddWithValue("@FKCategoria", subcategoria.FKCategoria);
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    command.Parameters.AddWithValue("@Nombre", subcategoria.Nombre);
+                    command.Parameters.AddWithValue("@FKCategoria", subcategoria.FKCategoria);
 
 
-                return await command.ExecuteNonQueryAsync() > 0;
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
 
         // Leer
-        public async Task<List<Subcategoria>> GetAllAsync()
+        public async Task<IEnumerable<Subcategoria>> GetAllAsync()
         {
             List<Subcategoria> subcategorias = new List<Subcategoria>();
-
-            const string query = @"SELECT * FROM Subcategoria;";
-            using (var sqlConn = _connection.GetSqlConn())
-            using (var command = new SqlCommand(query, sqlConn))
+            try
             {
-                using (var reader = await command.ExecuteReaderAsync())
-                {
-                    if (await reader.ReadAsync())
-                    {
-                        subcategorias.Add(new Subcategoria
-                        {
-                            IDSubcategoria = reader.GetInt32(reader.GetOrdinal("IDCategoria")),
-                            Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
-                            FKCategoria = reader.GetInt32(reader.GetOrdinal("FKCategoria"))
-                        });
 
+                const string query = @"SELECT * FROM Subcategoria;";
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            subcategorias.Add(new Subcategoria
+                            {
+                                IDSubcategoria = reader.GetInt32(reader.GetOrdinal("IDCategoria")),
+                                Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                                FKCategoria = reader.GetInt32(reader.GetOrdinal("FKCategoria"))
+                            });
+
+                        }
                     }
                 }
+                return subcategorias;
             }
-            return subcategorias;
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
         public async Task<Subcategoria> GetByIdAsync(int id)
         {
             const string query = @"
                 SELECT * FROM Subcategoria
                 WHERE IDSubcategoria = @IDSubcategoria";
-
-            using (var sqlConn = _connection.GetSqlConn())
-            using (var command = new SqlCommand(query, sqlConn))
+            try
             {
-                command.Parameters.AddWithValue("@IDSubcategoria", id);
 
-                using (var reader = await command.ExecuteReaderAsync())
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
                 {
-                    if (await reader.ReadAsync())
-                    {
-                        return new Subcategoria
-                        {
-                            IDSubcategoria = reader.GetInt32(reader.GetOrdinal("IDSubcategoria")),
-                            Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
-                            FKCategoria = reader.GetInt32(reader.GetOrdinal("FKCategoria"))
-                        };
-                    }
+                    command.Parameters.AddWithValue("@IDSubcategoria", id);
 
-                    return null;
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            return new Subcategoria
+                            {
+                                IDSubcategoria = reader.GetInt32(reader.GetOrdinal("IDSubcategoria")),
+                                Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                                FKCategoria = reader.GetInt32(reader.GetOrdinal("FKCategoria"))
+                            };
+                        }
+
+                        return null;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
             }
         }
 
@@ -92,14 +115,21 @@ namespace CrowdSisters.DAL
                 UPDATE Subcategoria
                 SET Nombre = @Nombre,
                 WHERE IDSubcategoria = @IDSubcategoria";
-
-            using (var sqlConn = _connection.GetSqlConn())
-            using (var command = new SqlCommand(query, sqlConn))
+            try
             {
-                command.Parameters.AddWithValue("@IDSubcateogira", subcategoria.IDSubcategoria);
-                command.Parameters.AddWithValue("@Nombre",subcategoria.Nombre);
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    command.Parameters.AddWithValue("@IDSubcateogira", subcategoria.IDSubcategoria);
+                    command.Parameters.AddWithValue("@Nombre", subcategoria.Nombre);
 
-                return await command.ExecuteNonQueryAsync() > 0;
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
 
@@ -109,13 +139,20 @@ namespace CrowdSisters.DAL
             const string query = @"
                 DELETE FROM Subcategoria
                 WHERE IDSubcategoria = @IDSubcategoria";
-
-            using (var sqlConn = _connection.GetSqlConn())
-            using (var command = new SqlCommand(query, sqlConn))
+            try
             {
-                command.Parameters.AddWithValue("@IDSubcategoria", id);
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    command.Parameters.AddWithValue("@IDSubcategoria", id);
 
-                return await command.ExecuteNonQueryAsync() > 0;
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
     }

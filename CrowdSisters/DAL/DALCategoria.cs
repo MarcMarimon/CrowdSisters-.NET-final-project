@@ -20,64 +20,88 @@ namespace CrowdSisters.DAL
             const string query = @"
                 INSERT INTO Categoria (Nombre)
                 VALUES (@Nombre)";
-
-            using (var sqlConn = _connection.GetSqlConn())
-            using (var command = new SqlCommand(query, sqlConn))
+            try
             {
-                command.Parameters.AddWithValue("@Nombre", categoria.Nombre);
 
-                return await command.ExecuteNonQueryAsync() > 0;
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    command.Parameters.AddWithValue("@Nombre", categoria.Nombre);
+
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
 
         // Leer
-        public async Task<List<Categoria>> GetAllAsync()
+        public async Task<IEnumerable<Categoria>> GetAllAsync()
         {
             List<Categoria> categorias = new List<Categoria>();
-
-            const string query = @"SELECT * FROM Categoria;";
-            using (var sqlConn = _connection.GetSqlConn())
-            using (var command = new SqlCommand(query, sqlConn))
+            try
             {
-                using (var reader = await command.ExecuteReaderAsync())
-                {
-                    if (await reader.ReadAsync())
-                    {
-                        categorias.Add(new Categoria
-                        {
-                            IDCategoria = reader.GetInt32(reader.GetOrdinal("IDCategoria")),
-                            Nombre = reader.GetString(reader.GetOrdinal("Nombre"))
-                        });
 
+                const string query = @"SELECT * FROM Categoria;";
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            categorias.Add(new Categoria
+                            {
+                                IDCategoria = reader.GetInt32(reader.GetOrdinal("IDCategoria")),
+                                Nombre = reader.GetString(reader.GetOrdinal("Nombre"))
+                            });
+
+                        }
                     }
                 }
+                return categorias;
             }
-            return categorias;
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
         public async Task<Categoria> GetByIdAsync(int id)
         {
             const string query = @"
                 SELECT * FROM Categoria
                 WHERE IDCategoria = @IDCategoria";
-
-            using (var sqlConn = _connection.GetSqlConn())
-            using (var command = new SqlCommand(query, sqlConn))
+            try
             {
-                command.Parameters.AddWithValue("@IDCategoria", id);
 
-                using (var reader = await command.ExecuteReaderAsync())
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
                 {
-                    if (await reader.ReadAsync())
-                    {
-                        return new Categoria
-                        {
-                            IDCategoria = reader.GetInt32(reader.GetOrdinal("IDCategoria")),
-                            Nombre = reader.GetString(reader.GetOrdinal("Nombre"))
-                        };
-                    }
+                    command.Parameters.AddWithValue("@IDCategoria", id);
 
-                    return null;
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            return new Categoria
+                            {
+                                IDCategoria = reader.GetInt32(reader.GetOrdinal("IDCategoria")),
+                                Nombre = reader.GetString(reader.GetOrdinal("Nombre"))
+                            };
+                        }
+
+                        return null;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
             }
         }
 
@@ -89,13 +113,21 @@ namespace CrowdSisters.DAL
                 SET Nombre = @Nombre,
                 WHERE IDCategoria = @IDCategoria";
 
-            using (var sqlConn = _connection.GetSqlConn())
-            using (var command = new SqlCommand(query, sqlConn))
+            try
             {
-                command.Parameters.AddWithValue("@IDCategoria", categoria.IDCategoria);
-                command.Parameters.AddWithValue("@Nombre", categoria.Nombre);
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    command.Parameters.AddWithValue("@IDCategoria", categoria.IDCategoria);
+                    command.Parameters.AddWithValue("@Nombre", categoria.Nombre);
 
-                return await command.ExecuteNonQueryAsync() > 0;
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
 
@@ -105,13 +137,20 @@ namespace CrowdSisters.DAL
             const string query = @"
                 DELETE FROM Categoria
                 WHERE IDCategoria = @IDCategoria";
-
-            using (var sqlConn = _connection.GetSqlConn())
-            using (var command = new SqlCommand(query, sqlConn))
+            try
             {
-                command.Parameters.AddWithValue("@IDCategoria", id);
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    command.Parameters.AddWithValue("@IDCategoria", id);
 
-                return await command.ExecuteNonQueryAsync() > 0;
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
     }
