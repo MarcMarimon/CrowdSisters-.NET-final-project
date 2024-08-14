@@ -17,6 +17,10 @@ namespace CrowdSisters.Models
         public Proyecto Proyecto { get; set; }
 
         [Required]
+        [StringLength(50)]
+        public string Titulo { get; set; }
+
+        [Required]
         [StringLength(200)]
         public string Descripcion { get; set; }
 

@@ -9,8 +9,8 @@ builder.Services.AddControllersWithViews();
 
 // Register the Connection class with dependency injection
 builder.Services.AddScoped<Connection>();
-builder.Services.AddScoped<DALProyecto>();
 builder.Services.AddScoped<ServiceProyecto>();
+builder.Services.AddScoped<DALProyecto>();
 
 var app = builder.Build();
 
