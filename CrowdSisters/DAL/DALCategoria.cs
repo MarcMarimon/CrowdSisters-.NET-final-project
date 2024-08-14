@@ -31,7 +31,7 @@ namespace CrowdSisters.DAL
         }
 
         // Leer
-        public async Task<List<Categoria>> GetAllCategoria()
+        public async Task<List<Categoria>> GetAll()
         {
             List<Categoria> categorias = new List<Categoria>();
 
@@ -92,8 +92,8 @@ namespace CrowdSisters.DAL
             using (var sqlConn = _connection.GetSqlConn())
             using (var command = new SqlCommand(query, sqlConn))
             {
-                command.Parameters.AddWithValue("@IDProyecto", categoria.IDCategoria);
-
+                command.Parameters.AddWithValue("@IDCategoria", categoria.IDCategoria);
+                command.Parameters.AddWithValue("@Nombre", categoria.Nombre);
 
                 return await command.ExecuteNonQueryAsync() > 0;
             }
