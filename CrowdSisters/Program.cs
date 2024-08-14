@@ -11,6 +11,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<Connection>();
 builder.Services.AddScoped<ServiceProyecto>();
 builder.Services.AddScoped<DALProyecto>();
+builder.Services.AddScoped<DALDonacion>();
+builder.Services.AddScoped<DALImagen>();
+builder.Services.AddScoped<DALUsuario>();
+
+builder.Services.AddScoped<ServiceProyecto>();
 
 var app = builder.Build();
 
