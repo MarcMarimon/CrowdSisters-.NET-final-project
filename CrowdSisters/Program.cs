@@ -18,8 +18,6 @@ builder.Services.AddScoped<DALCategoria>();
 builder.Services.AddScoped<DALRecompensa>();
 builder.Services.AddScoped<DALSubcategoria>();
 
-builder.Services.AddScoped<ServiceProyecto>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
