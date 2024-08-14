@@ -1,47 +1,118 @@
-﻿using CrowdSisters.Models;
+﻿using CrowdSisters.Conections;
+using CrowdSisters.Models;
+using Microsoft.Data.SqlClient;
 using System.Data.Common;
 
 namespace CrowdSisters.DAL
 {
     public class DALCategoria
     {
-        private SqlConnection _connection { get; set; }
+        private readonly Connection _connection;
 
-        public List<Categoria> SelectAllCategoria()
+        public DALCategoria(Connection connection)
         {
-            List<Categoria> categorias = new List<Categoria>();
-            _connection.Open();
-
-            string query = "SELECT * FROM Categoria;";
-            SqlCommand cmd = new SqlCommand(query, _connection);
-
-            SqlDataReader records = cmd.ExecuteReader();
-
-            while (records.Read())
-            {
-                Categoria categoria = new Categoria();
-                categoria.IDCategoria = records.GetInt32(records.GetOrdinal("IDCategoria"));
-                categoria.Nombre = records.GetString(records.GetOrdinal("Nombre"));
-                
-                categorias.Add(categoria);
-            }
-
-            return categorias;
+            _connection = connection;
         }
 
-        public static Categoria SelectCategoriaById(int id)
+        // Crear
+        public async Task<bool> CreateAsync(Categoria categoria)
         {
-            Categoria categoria = new Categoria();
-            string query = $"SELECT * FROM Categoria WHERE IDCategoria = {id}";
+            const string query = @"
+                INSERT INTO Categoria (Nombre)
+                VALUES (@Nombre)";
 
-            SqlCommand cmd = new SqlCommand(query, _connection);
-            SqlDataReader records = cmd.ExecuteReader();
-            while (records.Read())
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
             {
-                categoria.IDCategoria = (Categoria)records.GetInt32(records.GetOrdinal("IDCategoria"));
-                categoria.Nombre = records.GetString(records.GetOrdinal("Nombre"));
+                command.Parameters.AddWithValue("@Nombre", categoria.Nombre);
+
+                return await command.ExecuteNonQueryAsync() > 0;
             }
-            return categoria;
+        }
+
+        // Leer
+        public async Task<List<Categoria>> GetAllCategoria()
+        {
+            List<Categoria> categorias = new List<Categoria>();
+
+            const string query = @"SELECT * FROM Categoria;";
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
+            {
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        categorias.Add(new Categoria
+                        {
+                            IDCategoria = reader.GetInt32(reader.GetOrdinal("IDCategoria")),
+                            Nombre = reader.GetString(reader.GetOrdinal("Nombre"))
+                        });
+
+                    }
+                }
+            }
+            return categorias;
+        }
+        public async Task<Categoria> GetByIdAsync(int id)
+        {
+            const string query = @"
+                SELECT * FROM Categoria
+                WHERE IDCategoria = @IDCategoria";
+
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
+            {
+                command.Parameters.AddWithValue("@IDCategoria", id);
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        return new Categoria
+                        {
+                            IDCategoria = reader.GetInt32(reader.GetOrdinal("IDCategoria")),
+                            Nombre = reader.GetString(reader.GetOrdinal("Nombre"))
+                        };
+                    }
+
+                    return null;
+                }
+            }
+        }
+
+        // Actualizar
+        public async Task<bool> UpdateAsync(Categoria categoria)
+        {
+            const string query = @"
+                UPDATE Categoria
+                SET Nombre = @Nombre,
+                WHERE IDCategoria = @IDCategoria";
+
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
+            {
+                command.Parameters.AddWithValue("@IDProyecto", categoria.IDCategoria);
+
+
+                return await command.ExecuteNonQueryAsync() > 0;
+            }
+        }
+
+        // Eliminar
+        public async Task<bool> DeleteAsync(int id)
+        {
+            const string query = @"
+                DELETE FROM Categoria
+                WHERE IDCategoria = @IDCategoria";
+
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
+            {
+                command.Parameters.AddWithValue("@IDCategoria", id);
+
+                return await command.ExecuteNonQueryAsync() > 0;
+            }
         }
     }
 }
