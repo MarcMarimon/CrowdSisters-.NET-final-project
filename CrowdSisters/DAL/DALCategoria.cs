@@ -31,7 +31,7 @@ namespace CrowdSisters.DAL
         }
 
         // Leer
-        public async Task<List<Categoria>> GetAll()
+        public async Task<List<Categoria>> GetAllAsync()
         {
             List<Categoria> categorias = new List<Categoria>();
 

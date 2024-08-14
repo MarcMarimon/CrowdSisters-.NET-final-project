@@ -33,7 +33,7 @@ namespace CrowdSisters.DAL
         }
 
         // Leer
-        public async Task<List<Subcategoria>> GetAll()
+        public async Task<List<Subcategoria>> GetAllAsync()
         {
             List<Subcategoria> subcategorias = new List<Subcategoria>();
 
