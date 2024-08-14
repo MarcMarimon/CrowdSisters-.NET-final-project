@@ -1,5 +1,6 @@
 using CrowdSisters.Conections;
 using CrowdSisters.DAL;
+using CrowdSisters.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,9 +11,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<Connection>();
 builder.Services.AddScoped<ServiceProyecto>();
 builder.Services.AddScoped<DALProyecto>();
-builder.Services.AddScoped<DALCategoria>();
-builder.Services.AddScoped<DALRecompensa>();
-builder.Services.AddScoped<DALSubcategoria>();
 
 var app = builder.Build();
 
