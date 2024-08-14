@@ -8,7 +8,6 @@ namespace CrowdSisters.DAL
     public class DALImagen
     {
         private readonly Connection _connection;
-        private DALProyecto _dalProyecto;
 
         public DALImagen(Connection connection)
         {
@@ -71,6 +70,8 @@ namespace CrowdSisters.DAL
         // Leer
         public async Task<Imagen> GetByIdAsync(int id)
         {
+            DALProyecto dalProyecto = new DALProyecto(_connection);
+
             const string query = @"SELECT * FROM IMAGEN WHERE IDImagen = @IDImagen";
 
             using (var sqlConn = _connection.GetSqlConn())
@@ -85,7 +86,7 @@ namespace CrowdSisters.DAL
                         {
                             IDImagen = reader.GetInt32(reader.GetOrdinal("IDImagen")),
                             FKProyecto = reader.GetInt32(reader.GetOrdinal("FKProyecto")),
-                            Proyecto = await _dalProyecto.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("FKProyecto"))),
+                            Proyecto = await dalProyecto.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("FKProyecto"))),
                             URLImagenProyecto = reader.GetString(reader.GetOrdinal("URLImagenProyecto"))
                         };
                     }
