@@ -13,6 +13,8 @@ builder.Services.AddScoped<DALDonacion>();
 builder.Services.AddScoped<DALImagen>();
 builder.Services.AddScoped<DALUsuario>();
 
+builder.Services.AddScoped<ServiceProyecto>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
