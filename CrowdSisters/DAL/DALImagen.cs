@@ -2,6 +2,7 @@
 using CrowdSisters.Models;
 using Microsoft.Data.SqlClient;
 using System.Data.Common;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CrowdSisters.DAL
 {
@@ -30,44 +31,39 @@ namespace CrowdSisters.DAL
                 return await command.ExecuteNonQueryAsync() > 0;
             }
         }
-        /*
-                public List<Imagen> SelectAll()
-                {
-                    connection.Open();
 
-                    List<Imagen> imagenes = new List<Imagen>();
-
-                    string query = "SELECT * FROM IMAGEN";
-                    SqlCommand command = new SqlCommand(query, connection.GetConnection());
-
-                    SqlDataReader records = command.ExecuteReader();
-
-                    while (records.Read())
-                    {
-                        int idImagen = records.GetInt32(records.GetOrdinal("IDImagen"));
-                        int fkProyecto = records.GetInt32(records.GetOrdinal("FKProyecto"));
-                        Proyecto proyecto = null;
-                        string urlImagenProyecto = records.GetString(records.GetOrdinal("URLImagenProyecto"));
-
-                        Imagen imagen = new Imagen();
-
-                        imagen.IDImagen = idImagen;
-                        imagen.FKProyecto = fkProyecto;
-                        imagen.Proyecto = proyecto;
-                        imagen.URLImagenProyecto = urlImagenProyecto;
-
-
-                        imagenes.Add(imagen);
-                    }
-
-                    records.Close();
-                    connection.Close();
-                    return imagenes;
-
-                }
-        */
 
         // Leer
+
+        public async Task<List<Imagen>> GetAllAsync()
+          {
+            DALProyecto dalProyecto = new DALProyecto(_connection);
+
+            List<Imagen> imagenes = new List<Imagen>();
+
+                const string query = @"SELECT * FROM IMAGEN;";
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            imagenes.Add(new Imagen
+                            {
+                                IDImagen = reader.GetInt32(reader.GetOrdinal("IDImagen")),
+                                FKProyecto = reader.GetInt32(reader.GetOrdinal("FKProyecto")),
+                                Proyecto = await dalProyecto.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("FKProyecto")));
+                                URLImagenProyecto = reader.GetString(reader.GetOrdinal("URLImagenProyecto"))
+                            });
+
+                        }
+                    }
+                }
+                return imagenes;
+            }
+
+
         public async Task<Imagen> GetByIdAsync(int id)
         {
             DALProyecto dalProyecto = new DALProyecto(_connection);

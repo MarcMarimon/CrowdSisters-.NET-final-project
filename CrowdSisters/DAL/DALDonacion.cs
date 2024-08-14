@@ -1,6 +1,7 @@
 ﻿using CrowdSisters.Conections;
 using CrowdSisters.Models;
 using Microsoft.Data.SqlClient;
+using System.Threading;
 
 namespace CrowdSisters.DAL
 {
@@ -33,54 +34,45 @@ namespace CrowdSisters.DAL
             }
         }
 
-        /*
-        public List<Donacion> SelectAll()
+
+        // Leer
+
+        public async Task<List<Donacion>> GetAllAsync()
         {
-            connection.Open();
+            DALProyecto dalProyecto = new DALProyecto(_connection);
+
+            DALUsuario dalUsuario = new DALUsuario(_connection);
 
             List<Donacion> donaciones = new List<Donacion>();
 
-            string query = "SELECT * FROM DONACION";
-            SqlCommand command = new SqlCommand(query, connection.GetConnection());
-
-            SqlDataReader records = command.ExecuteReader();
-
-            while (records.Read())
+            const string query = @"SELECT * FROM DONACION;";
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
             {
-                int idDonacion = records.GetInt32(records.GetOrdinal("IDDonacion"));
-                int fkProyecto = records.GetInt32(records.GetOrdinal("FKProyecto"));
-                Proyecto proyecto = null;
-                int fkUsuario = records.GetInt32(records.GetOrdinal("FKUsuario"));
-                Usuario usuario = dalUsuario.SelectUsuarioById(fkUsuario);
-                decimal monto = records.GetDecimal(records.GetOrdinal("Monto"));
-                DateTime fechaDonacion = records.GetDateTime(records.GetOrdinal("FechaDonacion"));
-                int metodoPago = records.GetInt32(records.GetOrdinal("MetodoPago"));
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        donaciones.Add(new Donacion
+                        {
+                            IDDonacion = reader.GetInt32(reader.GetOrdinal("IDDonacion")),
+                            FKProyecto = reader.GetInt32(reader.GetOrdinal("FKProyecto")),
+                            Proyecto = await dalProyecto.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("FKProyecto"))),
+                            FKUsuario = reader.GetInt32(reader.GetOrdinal("FKUsuario")),
+                            Usuario = await dalUsuario.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("FKUsuario"))),
+                            Monto = reader.GetDecimal(reader.GetOrdinal("Monto")),
+                            FechaDonacion = reader.GetDateTime(reader.GetOrdinal("FechaDonacion")),
+                            MetodoPago = reader.GetInt32(reader.GetOrdinal("MetodoPago"))
+                        });
 
-                
-                Donacion donacion = new Donacion();
-
-                donacion.IDDonacion = idDonacion;
-                donacion.FKProyecto = fkProyecto;
-                donacion.Proyecto = proyecto;
-                donacion.FKUsuario = fkUsuario;
-                donacion.Usuario = usuario;
-                donacion.Monto = monto;
-                donacion.FechaDonacion = fechaDonacion;
-                donacion.MetodoPago = metodoPago;
-
-                
-                donaciones.Add(donacion);
+                    }
+                }
             }
-
-            records.Close();
-            connection.Close();
             return donaciones;
-
         }
-        */
 
+        
 
-        // Leer
         public async Task<Donacion> GetByIdAsync(int id)
         {
           DALProyecto dalProyecto = new DALProyecto(_connection);
