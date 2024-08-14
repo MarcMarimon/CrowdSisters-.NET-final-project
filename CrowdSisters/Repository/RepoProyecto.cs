@@ -69,5 +69,20 @@ namespace CrowdSisters.Repository
                 return false;
             }
         }
+
+        // Obtener todos los proyectos
+        public async Task<IEnumerable<Proyecto>> GetAllProyectosAsync()
+        {
+            try
+            {
+                return await _dalProyecto.GetAllAsync();
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores
+                Console.WriteLine($"Error al obtener todos los proyectos: {ex.Message}");
+                return new List<Proyecto>(); // Retorna una lista vacía en caso de error
+            }
+        }
     }
 }

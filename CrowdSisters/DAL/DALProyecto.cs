@@ -19,13 +19,12 @@ namespace CrowdSisters.DAL
         public async Task<bool> CreateAsync(Proyecto proyecto)
         {
             const string query = @"
-                INSERT INTO Proyecto (IDProyecto, FKUsuario, FKSubcategoria, Titulo, Descripcion, FechaCreacion, FechaFinalizacion, MontoObjetivo, MontoRecaudado, Estado)
-                VALUES (@IDProyecto, @FKUsuario, @FKSubcategoria, @Titulo, @Descripcion, @FechaCreacion, @FechaFinalizacion, @MontoObjetivo, @MontoRecaudado, @Estado)";
+                INSERT INTO Proyecto (FKUsuario, FKSubcategoria, Titulo, Descripcion, FechaCreacion, FechaFinalizacion, MontoObjetivo, MontoRecaudado, Estado)
+                VALUES (@FKUsuario, @FKSubcategoria, @Titulo, @Descripcion, @FechaCreacion, @FechaFinalizacion, @MontoObjetivo, @MontoRecaudado, @Estado)";
 
             using (var sqlConn = _connection.GetSqlConn())
             using (var command = new SqlCommand(query, sqlConn))
             {
-                command.Parameters.AddWithValue("@IDProyecto", proyecto.IDProyecto);
                 command.Parameters.AddWithValue("@FKUsuario", proyecto.FKUsuario);
                 command.Parameters.AddWithValue("@FKSubcategoria", proyecto.FKSubcategoria);
                 command.Parameters.AddWithValue("@Titulo", proyecto.Titulo);
@@ -124,6 +123,38 @@ namespace CrowdSisters.DAL
 
                 return await command.ExecuteNonQueryAsync() > 0;
             }
+        }
+
+        public async Task<IEnumerable<Proyecto>> GetAllAsync()
+        {
+            const string query = @"
+                SELECT * FROM Proyecto";
+
+            var proyectos = new List<Proyecto>();
+
+            using (var sqlConn = _connection.GetSqlConn())
+            using (var command = new SqlCommand(query, sqlConn))
+            using (var reader = await command.ExecuteReaderAsync())
+            {
+                while (await reader.ReadAsync())
+                {
+                    proyectos.Add(new Proyecto
+                    {
+                        IDProyecto = reader.GetInt32(reader.GetOrdinal("IDProyecto")),
+                        FKUsuario = reader.GetInt32(reader.GetOrdinal("FKUsuario")),
+                        FKSubcategoria = reader.GetInt32(reader.GetOrdinal("FKSubcategoria")),
+                        Titulo = reader.GetString(reader.GetOrdinal("Titulo")),
+                        Descripcion = reader.GetString(reader.GetOrdinal("Descripcion")),
+                        FechaCreacion = reader.GetDateTime(reader.GetOrdinal("FechaCreacion")),
+                        FechaFinalizacion = reader.GetDateTime(reader.GetOrdinal("FechaFinalizacion")),
+                        MontoObjetivo = reader.GetDecimal(reader.GetOrdinal("MontoObjetivo")),
+                        MontoRecaudado = reader.GetDecimal(reader.GetOrdinal("MontoRecaudado")),
+                        Estado = reader.GetInt32(reader.GetOrdinal("Estado"))
+                    });
+                }
+            }
+
+            return proyectos;
         }
     }
 }
