@@ -49,10 +49,8 @@ namespace CrowdSisters.Models
         [Required]
         public int Estado { get; set; }
 
-        public ICollection<Actualizacion> Actualizaciones { get; set; }
         public ICollection<Donacion> Donaciones { get; set; }
         public ICollection<Recompensa> Recompensas { get; set; }
         public ICollection<Imagen> Imagenes { get; set; }
-        public ICollection<FAQ> FAQs { get; set; }
     }
 }

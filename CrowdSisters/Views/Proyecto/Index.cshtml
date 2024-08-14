@@ -3,34 +3,37 @@
 @{
     ViewData["Title"] = "Proyecto Page";
 }
+
 <h1>Lista de Proyectos</h1>
 
-<table>
-    <thead>
-        <tr>
-            <th>ID Proyecto</th>
-            <th>Título</th>
-            <th>Descripción</th>
-            <th>Fecha Creación</th>
-            <th>Fecha Finalización</th>
-            <th>Monto Objetivo</th>
-            <th>Monto Recaudado</th>
-            <th>Estado</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var proyecto in Model)
-        {
+
+    <table>
+        <thead>
             <tr>
-                <td>@proyecto.IDProyecto</td>
-                <td>@proyecto.Titulo</td>
-                <td>@proyecto.Descripcion</td>
-                <td>@proyecto.FechaCreacion.ToShortDateString()</td>
-                <td>@proyecto.FechaFinalizacion.ToShortDateString()</td>
-                <td>@proyecto.MontoObjetivo.ToString("C")</td>
-                <td>@proyecto.MontoRecaudado.ToString("C")</td>
-                <td>@proyecto.Estado</td>
+                <th>ID Proyecto</th>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Fecha Creación</th>
+                <th>Fecha Finalización</th>
+                <th>Monto Objetivo</th>
+                <th>Monto Recaudado</th>
+                <th>Estado</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var proyecto in Model)
+            {
+                <tr>
+                    <td>@proyecto.IDProyecto</td>
+                    <td>@proyecto.Titulo</td>
+                    <td>@proyecto.Descripcion</td>
+                    <td>@proyecto.FechaCreacion.ToShortDateString()</td>
+                    <td>@proyecto.FechaFinalizacion.ToShortDateString()</td>
+                    <td>@proyecto.MontoObjetivo.ToString("C")</td>
+                    <td>@proyecto.MontoRecaudado.ToString("C")</td>
+                    <td>@proyecto.Estado</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+

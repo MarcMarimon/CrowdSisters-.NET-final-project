@@ -1,20 +1,88 @@
-﻿using CrowdSisters.Models;
-using CrowdSisters.Repository;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using CrowdSisters.DAL;
+using CrowdSisters.Models;
 
 namespace CrowdSisters.Services
 {
     public class ServiceProyecto
     {
-        private readonly RepoProyecto _repoProyecto;
+        private readonly DALProyecto _dalProyecto;
 
-        public ServiceProyecto(RepoProyecto repoProyecto)
+        public ServiceProyecto(DALProyecto dalProyecto)
         {
-            _repoProyecto = repoProyecto;
+            _dalProyecto = dalProyecto;
         }
 
+        // Crear Proyecto
+        public async Task<bool> CreateProyectoAsync(Proyecto proyecto)
+        {
+            try
+            {
+                return await _dalProyecto.CreateAsync(proyecto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en Service al crear el proyecto: {ex.Message}");
+                return false;
+            }
+        }
+
+        // Obtener Proyecto por ID
+        public async Task<Proyecto> GetProyectoByIdAsync(int id)
+        {
+            try
+            {
+                return await _dalProyecto.GetByIdAsync(id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en Service al obtener el proyecto por ID: {ex.Message}");
+                return null;
+            }
+        }
+
+        // Actualizar Proyecto
+        public async Task<bool> UpdateProyectoAsync(Proyecto proyecto)
+        {
+            try
+            {
+                return await _dalProyecto.UpdateAsync(proyecto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en Service al actualizar el proyecto: {ex.Message}");
+                return false;
+            }
+        }
+
+        // Eliminar Proyecto
+        public async Task<bool> DeleteProyectoAsync(int id)
+        {
+            try
+            {
+                return await _dalProyecto.DeleteAsync(id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en Service al eliminar el proyecto: {ex.Message}");
+                return false;
+            }
+        }
+
+        // Obtener todos los Proyectos
         public async Task<IEnumerable<Proyecto>> GetAllProyectosAsync()
         {
-            return await _repoProyecto.GetAllProyectosAsync();
+            try
+            {
+                return await _dalProyecto.GetAllAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en Service al obtener todos los proyectos: {ex.Message}");
+                return null;
+            }
         }
     }
 }
