@@ -22,26 +22,36 @@ namespace CrowdSisters.DAL
                 INSERT INTO IMAGEN (FKProyecto, URLImagenProyecto) 
                 VALUES (@FKProyecto, @URLImagenProyecto)";
 
-            using (var sqlConn = _connection.GetSqlConn())
-            using (var command = new SqlCommand(query, sqlConn))
+            try
             {
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
 
-                command.Parameters.AddWithValue("@FKProyecto", imagen.FKProyecto);
-                command.Parameters.AddWithValue("@URLImagenProyecto", imagen.URLImagenProyecto);
-                return await command.ExecuteNonQueryAsync() > 0;
+                    command.Parameters.AddWithValue("@FKProyecto", imagen.FKProyecto);
+                    command.Parameters.AddWithValue("@URLImagenProyecto", imagen.URLImagenProyecto);
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
             }
+                
         }
 
 
         // Leer
 
-        public async Task<List<Imagen>> GetAllAsync()
+        public async Task<IEnumerable<Imagen>> GetAllAsync()
           {
             DALProyecto dalProyecto = new DALProyecto(_connection);
 
             List<Imagen> imagenes = new List<Imagen>();
 
                 const string query = @"SELECT * FROM IMAGEN;";
+            try
+            {
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
@@ -61,6 +71,11 @@ namespace CrowdSisters.DAL
                     }
                 }
                 return imagenes;
+            }catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
             }
 
 
@@ -70,25 +85,33 @@ namespace CrowdSisters.DAL
 
             const string query = @"SELECT * FROM IMAGEN WHERE IDImagen = @IDImagen";
 
-            using (var sqlConn = _connection.GetSqlConn())
-            using (var command = new SqlCommand(query, sqlConn))
+            try
             {
-                command.Parameters.AddWithValue("@IDImagen", id);
-                using (var reader = await command.ExecuteReaderAsync())
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
                 {
-                    if (await reader.ReadAsync())
+                    command.Parameters.AddWithValue("@IDImagen", id);
+                    using (var reader = await command.ExecuteReaderAsync())
                     {
-                        return new Imagen
+                        if (await reader.ReadAsync())
                         {
-                            IDImagen = reader.GetInt32(reader.GetOrdinal("IDImagen")),
-                            FKProyecto = reader.GetInt32(reader.GetOrdinal("FKProyecto")),
-                            Proyecto = await dalProyecto.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("FKProyecto"))),
-                            URLImagenProyecto = reader.GetString(reader.GetOrdinal("URLImagenProyecto"))
-                        };
-                    }
+                            return new Imagen
+                            {
+                                IDImagen = reader.GetInt32(reader.GetOrdinal("IDImagen")),
+                                FKProyecto = reader.GetInt32(reader.GetOrdinal("FKProyecto")),
+                                Proyecto = await dalProyecto.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("FKProyecto"))),
+                                URLImagenProyecto = reader.GetString(reader.GetOrdinal("URLImagenProyecto"))
+                            };
+                        }
 
-                    return null;
+                        return null;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
             }
         }
 
@@ -102,13 +125,22 @@ namespace CrowdSisters.DAL
                          URLImagenProyecto = @URLImagenProyecto
                      WHERE IDImagen = @IDImagen";
 
-            using (var sqlConn = _connection.GetSqlConn())
-            using (var command = new SqlCommand(query, sqlConn))
+            try
             {
-                command.Parameters.AddWithValue("@IDImagen", imagen.IDImagen);
-                command.Parameters.AddWithValue("@FKProyecto", imagen.FKProyecto);
-                command.Parameters.AddWithValue("@URLImagenProyecto", imagen.URLImagenProyecto);
-                return await command.ExecuteNonQueryAsync() > 0;
+
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    command.Parameters.AddWithValue("@IDImagen", imagen.IDImagen);
+                    command.Parameters.AddWithValue("@FKProyecto", imagen.FKProyecto);
+                    command.Parameters.AddWithValue("@URLImagenProyecto", imagen.URLImagenProyecto);
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
 
@@ -117,12 +149,21 @@ namespace CrowdSisters.DAL
         public async Task<bool> DeleteAsync(int id)
         {
             const string query = @"DELETE FROM IMAGEN WHERE IDImagen = @IDImagen";
-            using (var sqlConn = _connection.GetSqlConn())
-            using (var command = new SqlCommand(query, sqlConn))
-            {
-                command.Parameters.AddWithValue("@IDImagen", id);
 
-                return await command.ExecuteNonQueryAsync() > 0;
+            try
+            {
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    command.Parameters.AddWithValue("@IDImagen", id);
+
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
 
