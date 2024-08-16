@@ -37,5 +37,29 @@ namespace CrowdSisters.Models
         [Required]
         [Column(TypeName = "money")]
         public decimal Monedero { get; set; } = 0;
+
+        [StringLength(50)]
+        public string PrimerApellido { get; set; }
+
+        [StringLength(50)]
+        public string SegundoApellido { get; set; }
+
+        [StringLength(10)]
+        public string DNI { get; set; }
+
+        [StringLength(200)]
+        public string Direccion { get; set; }
+
+        [StringLength(5)]
+        public string CodigoPostal { get; set; }
+
+        [StringLength(50)]
+        public string Poblacion { get; set; }
+
+        [StringLength(12)]
+        public string Telefono { get; set; }
+
+        [StringLength(50)]
+        public string Pais { get; set; }
     }
 }
