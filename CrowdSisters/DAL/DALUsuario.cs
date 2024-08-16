@@ -176,7 +176,7 @@ namespace CrowdSisters.DAL
                          CodigoPostal = @CodigoPostal,
                          Poblacion = @Poblacion,
                          Telefono = @Telefono,
-                         Pais = Pais
+                         Pais = @Pais
                      WHERE IDUsuario = @IDUsuario";
 
             try
