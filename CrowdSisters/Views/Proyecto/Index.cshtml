@@ -1,12 +1,20 @@
 ﻿@model IEnumerable<CrowdSisters.Models.Proyecto>
 
 @{
-    ViewData["Title"] = "Proyecto Page";
+    ViewData["Title"] = "Lista de Proyectos";
 }
 
 <h1>Lista de Proyectos</h1>
 
-
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-warning">
+        <p>@ViewBag.ErrorMessage</p>
+        <img src="~/images/no-projects.png" alt="No hay proyectos disponibles" style="width:200px;" />
+    </div>
+}
+else
+{
     <table>
         <thead>
             <tr>
@@ -36,4 +44,4 @@
             }
         </tbody>
     </table>
-
+}
