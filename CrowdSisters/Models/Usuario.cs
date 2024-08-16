@@ -61,5 +61,9 @@ namespace CrowdSisters.Models
 
         [StringLength(50)]
         public string Pais { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Nick { get; set; }
     }
 }
