@@ -63,7 +63,7 @@ namespace CrowdSisters.DAL
                             {
                                 IDImagen = reader.GetInt32(reader.GetOrdinal("IDImagen")),
                                 FKProyecto = reader.GetInt32(reader.GetOrdinal("FKProyecto")),
-                                Proyecto = await dalProyecto.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("FKProyecto")));
+                                Proyecto = await dalProyecto.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("FKProyecto"))),
                                 URLImagenProyecto = reader.GetString(reader.GetOrdinal("URLImagenProyecto"))
                             });
 
