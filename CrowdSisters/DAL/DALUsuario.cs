@@ -2,6 +2,7 @@
 using CrowdSisters.Models;
 using Microsoft.Data.SqlClient;
 using System.Data.Common;
+using System.Net;
 
 namespace CrowdSisters.DAL
 {
@@ -20,9 +21,11 @@ namespace CrowdSisters.DAL
         {
             const string query = @"
                 INSERT INTO USUARIO (Nombre, Email, Contrasena, FechaRegistro, IsAdmin, PerfilPublico, 
-                URLImagenUsuario, Monedero) 
+                URLImagenUsuario, Monedero, PrimerApellido, SegundoApellido, DNI, Direccion, CodigoPostal, Poblacion,
+                Telofono, Pais) 
                 VALUES (@Nombre, @Email, @Contrasena, @FechaRegistro, @IsAdmin, @PerfilPublico, @URLImagenUsuario,
-                @Monedero)";
+                @Monedero, @PrimerApellido, @SegundoApellido, @DNI, @Direccion, @CodigoPostal, @Poblacion,
+                @Telofono, @Pais)";
 
             try
             {
@@ -37,6 +40,14 @@ namespace CrowdSisters.DAL
                     command.Parameters.AddWithValue("@PerfilPublico", usuario.PerfilPublico);
                     command.Parameters.AddWithValue("@URLImagenUsuario", usuario.URLImagenUsuario);
                     command.Parameters.AddWithValue("@Monedero", usuario.Monedero);
+                    command.Parameters.AddWithValue("@PrimerApellido", usuario.PrimerApellido);
+                    command.Parameters.AddWithValue("@SegundoApellido", usuario.SegundoApellido);
+                    command.Parameters.AddWithValue("@DNI", usuario.DNI);
+                    command.Parameters.AddWithValue("@Direccion", usuario.Direccion);
+                    command.Parameters.AddWithValue("@CodigoPostal", usuario.CodigoPostal);
+                    command.Parameters.AddWithValue("@Poblacion", usuario.Poblacion);
+                    command.Parameters.AddWithValue("@Telefono", usuario.Telefono);
+                    command.Parameters.AddWithValue("@Pais", usuario.Pais);
                     return await command.ExecuteNonQueryAsync() > 0;
                 }
             }
@@ -74,7 +85,15 @@ namespace CrowdSisters.DAL
                                 IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin")),
                                 PerfilPublico = reader.GetString(reader.GetOrdinal("PerfilPublico")),
                                 URLImagenUsuario = reader.GetString(reader.GetOrdinal("URLImagenUsuario")),
-                                Monedero = reader.GetDecimal(reader.GetOrdinal("Monedero"))
+                                Monedero = reader.GetDecimal(reader.GetOrdinal("Monedero")),
+                                PrimerApellido = reader.GetString(reader.GetOrdinal("PrimerApellido")),
+                                SegundoApellido = reader.GetString(reader.GetOrdinal("SegundoApellido")),
+                                DNI = reader.GetString(reader.GetOrdinal("DNI")),
+                                Direccion = reader.GetString(reader.GetOrdinal("Direccion")),
+                                CodigoPostal = reader.GetString(reader.GetOrdinal("CodigoPostal")),
+                                Poblacion = reader.GetString(reader.GetOrdinal("Poblacion")),
+                                Telefono = reader.GetString(reader.GetOrdinal("Telefono")),
+                                Pais = reader.GetString(reader.GetOrdinal("Pais"))
                             });
 
                         }
@@ -114,7 +133,15 @@ namespace CrowdSisters.DAL
                                 IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin")),
                                 PerfilPublico = reader.GetString(reader.GetOrdinal("PerfilPublico")),
                                 URLImagenUsuario = reader.GetString(reader.GetOrdinal("URLImagenUsuario")),
-                                Monedero = reader.GetDecimal(reader.GetOrdinal("Monedero"))
+                                Monedero = reader.GetDecimal(reader.GetOrdinal("Monedero")),
+                                PrimerApellido = reader.GetString(reader.GetOrdinal("PrimerApellido")),
+                                SegundoApellido = reader.GetString(reader.GetOrdinal("SegundoApellido")),
+                                DNI = reader.GetString(reader.GetOrdinal("DNI")),
+                                Direccion = reader.GetString(reader.GetOrdinal("Direccion")),
+                                CodigoPostal = reader.GetString(reader.GetOrdinal("CodigoPostal")),
+                                Poblacion = reader.GetString(reader.GetOrdinal("Poblacion")),
+                                Telefono = reader.GetString(reader.GetOrdinal("Telefono")),
+                                Pais = reader.GetString(reader.GetOrdinal("Pais"))
                             };
                         }
                         return null;
@@ -141,7 +168,15 @@ namespace CrowdSisters.DAL
                          IsAdmin = @IsAdmin,
                          PerfilPublico = @PerfilPublico,
                          URLImagenUsuario = @URLImagenUsuario,
-                         Monedero = @Monedero
+                         Monedero = @Monedero,
+                         PrimerApellido = @PrimerApellido,
+                         SegundoApellido = @SegundoApellido,
+                         DNI = @DNI,
+                         Direccion = @Direccion,
+                         CodigoPostal = @CodigoPostal,
+                         Poblacion = @Poblacion,
+                         Telefono = @Telefono,
+                         Pais = @Pais
                      WHERE IDUsuario = @IDUsuario";
 
             try
@@ -159,6 +194,14 @@ namespace CrowdSisters.DAL
                     command.Parameters.AddWithValue("@PerfilPublico", usuario.PerfilPublico);
                     command.Parameters.AddWithValue("@URLImagenUsuario", usuario.URLImagenUsuario);
                     command.Parameters.AddWithValue("@Monedero", usuario.Monedero);
+                    command.Parameters.AddWithValue("@PrimerApellido", usuario.PrimerApellido);
+                    command.Parameters.AddWithValue("@SegundoApellido", usuario.SegundoApellido);
+                    command.Parameters.AddWithValue("@DNI", usuario.DNI);
+                    command.Parameters.AddWithValue("@Direccion", usuario.Direccion);
+                    command.Parameters.AddWithValue("@CodigoPostal", usuario.CodigoPostal);
+                    command.Parameters.AddWithValue("@Poblacion", usuario.Poblacion);
+                    command.Parameters.AddWithValue("@Telefono", usuario.Telefono);
+                    command.Parameters.AddWithValue("@Pais", usuario.Pais);
                     return await command.ExecuteNonQueryAsync() > 0;
                 }
             }
