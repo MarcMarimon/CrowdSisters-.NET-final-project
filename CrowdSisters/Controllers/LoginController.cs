@@ -1,4 +1,5 @@
 ﻿using CrowdSisters.Models;
+using CrowdSisters.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,12 +29,11 @@ namespace CrowdSisters.Controllers
         // POST: LoginController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Usuario  usuario)
         {
-            Usuario usuario = new Usuario();
-            usuario.Nombre = collection.ToString();
             try
             {
+                //ServiceLogin.CreateAsync(usuario);
                 return RedirectToAction(nameof(Index));
             }
             catch
