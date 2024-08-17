@@ -22,10 +22,10 @@ namespace CrowdSisters.DAL
             const string query = @"
                 INSERT INTO USUARIO (Nombre, Email, Contrasena, FechaRegistro, IsAdmin, PerfilPublico, 
                 URLImagenUsuario, Monedero, PrimerApellido, SegundoApellido, DNI, Direccion, CodigoPostal, Poblacion,
-                Telofono, Pais) 
+                Telofono, Pais, Nick) 
                 VALUES (@Nombre, @Email, @Contrasena, @FechaRegistro, @IsAdmin, @PerfilPublico, @URLImagenUsuario,
                 @Monedero, @PrimerApellido, @SegundoApellido, @DNI, @Direccion, @CodigoPostal, @Poblacion,
-                @Telofono, @Pais)";
+                @Telofono, @Pais, @Nick)";
 
             try
             {
@@ -48,6 +48,7 @@ namespace CrowdSisters.DAL
                     command.Parameters.AddWithValue("@Poblacion", usuario.Poblacion);
                     command.Parameters.AddWithValue("@Telefono", usuario.Telefono);
                     command.Parameters.AddWithValue("@Pais", usuario.Pais);
+                    command.Parameters.AddWithValue("@Nick", usuario.Nick);
                     return await command.ExecuteNonQueryAsync() > 0;
                 }
             }
@@ -93,7 +94,8 @@ namespace CrowdSisters.DAL
                                 CodigoPostal = reader.GetString(reader.GetOrdinal("CodigoPostal")),
                                 Poblacion = reader.GetString(reader.GetOrdinal("Poblacion")),
                                 Telefono = reader.GetString(reader.GetOrdinal("Telefono")),
-                                Pais = reader.GetString(reader.GetOrdinal("Pais"))
+                                Pais = reader.GetString(reader.GetOrdinal("Pais")),
+                                Nick = reader.GetString(reader.GetOrdinal("Nick"))
                             });
 
                         }
@@ -141,7 +143,8 @@ namespace CrowdSisters.DAL
                                 CodigoPostal = reader.GetString(reader.GetOrdinal("CodigoPostal")),
                                 Poblacion = reader.GetString(reader.GetOrdinal("Poblacion")),
                                 Telefono = reader.GetString(reader.GetOrdinal("Telefono")),
-                                Pais = reader.GetString(reader.GetOrdinal("Pais"))
+                                Pais = reader.GetString(reader.GetOrdinal("Pais")),
+                                Nick = reader.GetString(reader.GetOrdinal("Nick"))
                             };
                         }
                         return null;
@@ -176,7 +179,8 @@ namespace CrowdSisters.DAL
                          CodigoPostal = @CodigoPostal,
                          Poblacion = @Poblacion,
                          Telefono = @Telefono,
-                         Pais = @Pais
+                         Pais = @Pais,
+                         Nick = @Nick
                      WHERE IDUsuario = @IDUsuario";
 
             try
@@ -202,6 +206,7 @@ namespace CrowdSisters.DAL
                     command.Parameters.AddWithValue("@Poblacion", usuario.Poblacion);
                     command.Parameters.AddWithValue("@Telefono", usuario.Telefono);
                     command.Parameters.AddWithValue("@Pais", usuario.Pais);
+                    command.Parameters.AddWithValue("@Nick", usuario.Nick);
                     return await command.ExecuteNonQueryAsync() > 0;
                 }
             }
