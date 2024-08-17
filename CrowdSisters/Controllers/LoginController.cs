@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CrowdSisters.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrowdSisters.Controllers
@@ -20,6 +21,7 @@ namespace CrowdSisters.Controllers
         // GET: LoginController/Create
         public ActionResult Create()
         {
+
             return View();
         }
 
@@ -28,6 +30,8 @@ namespace CrowdSisters.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
+            Usuario usuario = new Usuario();
+            usuario.Nombre = collection.ToString();
             try
             {
                 return RedirectToAction(nameof(Index));
