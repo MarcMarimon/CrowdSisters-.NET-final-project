@@ -1,0 +1,84 @@
+﻿@model IEnumerable<CrowdSisters.Models.Proyecto>
+
+@{
+    ViewData["Title"] = "Lista de Proyectos";
+}
+
+<h1>Lista de Proyectos</h1>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+        <div class="alert alert-warning">
+            <p>@ViewBag.ErrorMessage</p>
+            <img src="~/images/no-projects.png" alt="No hay proyectos disponibles" style="width:200px;" />
+        </div>
+}
+else
+{
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID Proyecto</th>
+                    <th>Título</th>
+                    <th>Descripción General</th>
+                    <th>Fecha Creación</th>
+                    <th>Fecha Finalización</th>
+                    <th>Monto Objetivo</th>
+                    <th>Monto Recaudado</th>
+                    <th>Estado</th>
+                    <th>Subtítulo</th>
+                    <th>Descripción Finalidad</th>
+                    <th>Descripción Presupuesto</th>
+                    <th>URL Foto Encabezado</th>
+                    <th>URL Foto 1</th>
+                    <th>URL Foto 2</th>
+                    <th>URL Foto 3</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var proyecto in Model)
+            {
+                        <tr>
+                            <td>@proyecto.IDProyecto</td>
+                            <td>@proyecto.Titulo</td>
+                            <td>@proyecto.DescripcionGeneral</td>
+                            <td>@proyecto.FechaCreacion.ToShortDateString()</td>
+                            <td>@proyecto.FechaFinalizacion.ToShortDateString()</td>
+                            <td>@proyecto.MontoObjetivo.ToString("C")</td>
+                            <td>@proyecto.MontoRecaudado.ToString("C")</td>
+                            <td>
+                        @* Puedes mapear el estado a un texto más descriptivo aquí si lo deseas *@
+                        @proyecto.Estado
+                            </td>
+                                    <td>@proyecto.Subtitulo</td>
+                            <td>@proyecto.DescripcionFinalidad</td>
+                            <td>@proyecto.DescripcionPresupuesto</td>
+                            <td>
+                        @if (!string.IsNullOrEmpty(proyecto.UrlFotoEncabezado))
+                        {
+                                        <a href="@proyecto.UrlFotoEncabezado" target="_blank">Ver Imagen</a>
+                        }
+                            </td>
+                            <td>
+                        @if (!string.IsNullOrEmpty(proyecto.UrlFoto1))
+                        {
+                                        <a href="@proyecto.UrlFoto1" target="_blank">Ver Imagen</a>
+                        }
+                            </td>
+                            <td>
+                        @if (!string.IsNullOrEmpty(proyecto.UrlFoto2))
+                        {
+                                        <a href="@proyecto.UrlFoto2" target="_blank">Ver Imagen</a>
+                        }
+                            </td>
+                            <td>
+                        @if (!string.IsNullOrEmpty(proyecto.UrlFoto3))
+                        {
+                                        <a href="@proyecto.UrlFoto3" target="_blank">Ver Imagen</a>
+                        }
+                            </td>
+                        </tr>
+            }
+            </tbody>
+        </table>
+}
