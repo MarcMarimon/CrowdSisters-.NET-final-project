@@ -1,6 +1,10 @@
-﻿using CrowdSisters.Services;
+﻿using CrowdSisters.DAL;
+using CrowdSisters.Models;
+using CrowdSisters.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace CrowdSisters.Controllers
@@ -8,6 +12,7 @@ namespace CrowdSisters.Controllers
     public class ProyectoController : Controller
     {
         private readonly ServiceProyecto _serviceProyecto;
+
 
         public ProyectoController(ServiceProyecto serviceProyecto)
         {
@@ -35,5 +40,6 @@ namespace CrowdSisters.Controllers
                 return View("Error"); 
             }
         }
+
     }
 }
