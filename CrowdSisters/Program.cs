@@ -10,6 +10,7 @@ builder.Services.AddControllersWithViews();
 // Register the Connection class with dependency injection
 builder.Services.AddScoped<Connection>();
 builder.Services.AddScoped<ServiceProyecto>();
+builder.Services.AddScoped<ServiceCrearProyecto>();
 builder.Services.AddScoped<DALProyecto>();
 builder.Services.AddScoped<DALDonacion>();
 builder.Services.AddScoped<DALUsuario>();
