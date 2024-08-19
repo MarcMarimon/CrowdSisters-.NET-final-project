@@ -9,19 +9,17 @@ namespace CrowdSisters.Models
     public class Proyecto
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IDProyecto { get; set; }
 
         [Required]
         [ForeignKey("Usuario")]
         public int FKUsuario { get; set; }
-
         public Usuario Usuario { get; set; }
 
         [Required]
         [ForeignKey("Subcategoria")]
         public int FKSubcategoria { get; set; }
-
         public Subcategoria Subcategoria { get; set; }
 
         [Required]
@@ -29,8 +27,8 @@ namespace CrowdSisters.Models
         public string Titulo { get; set; }
 
         [Required]
-        [StringLength(200)]
-        public string Descripcion { get; set; }
+        [StringLength(500)]
+        public string DescripcionGeneral { get; set; }
 
         [Required]
         public DateTime FechaCreacion { get; set; }
@@ -47,10 +45,37 @@ namespace CrowdSisters.Models
         public decimal MontoRecaudado { get; set; } = 0;
 
         [Required]
-        public int Estado { get; set; }
+        public int? Estado { get; set; }
+
+        [Required]
+        [StringLength(150)]
+        public string Subtitulo { get; set; }
+
+        [Required]
+        [StringLength(500)]
+        public string DescripcionFinalidad { get; set; }
+
+        [Required]
+        [StringLength(500)]
+        public string DescripcionPresupuesto { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string UrlFotoEncabezado { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string UrlFoto1 { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string UrlFoto2 { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string UrlFoto3 { get; set; }
 
         public ICollection<Donacion> Donaciones { get; set; }
         public ICollection<Recompensa> Recompensas { get; set; }
-        public ICollection<Imagen> Imagenes { get; set; }
     }
 }
