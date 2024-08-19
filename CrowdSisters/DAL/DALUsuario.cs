@@ -1,8 +1,9 @@
 ﻿using CrowdSisters.Conections;
 using CrowdSisters.Models;
 using Microsoft.Data.SqlClient;
-using System.Data.Common;
-using System.Net;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CrowdSisters.DAL
 {
@@ -15,7 +16,6 @@ namespace CrowdSisters.DAL
             _connection = connection;
         }
 
-
         // Crear
         public async Task<bool> CreateAsync(Usuario usuario)
         {
@@ -23,9 +23,11 @@ namespace CrowdSisters.DAL
                 INSERT INTO USUARIO (Nombre, Email, Contrasena, FechaRegistro, IsAdmin, PerfilPublico, 
                 URLImagenUsuario, Monedero, PrimerApellido, SegundoApellido, DNI, Direccion, CodigoPostal, Poblacion,
                 Telofono, Pais, Nick) 
+                Telefono, Pais) 
                 VALUES (@Nombre, @Email, @Contrasena, @FechaRegistro, @IsAdmin, @PerfilPublico, @URLImagenUsuario,
                 @Monedero, @PrimerApellido, @SegundoApellido, @DNI, @Direccion, @CodigoPostal, @Poblacion,
                 @Telofono, @Pais, @Nick)";
+                @Telefono, @Pais)";
 
             try
             {
@@ -59,10 +61,9 @@ namespace CrowdSisters.DAL
             }
         }
 
-        // Leer
+        // Leer todos
         public async Task<IEnumerable<Usuario>> GetAllAsync()
         {
-
             List<Usuario> usuarios = new List<Usuario>();
 
             const string query = @"SELECT * FROM USUARIO;";
@@ -74,7 +75,7 @@ namespace CrowdSisters.DAL
                 {
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        if (await reader.ReadAsync())
+                        while (await reader.ReadAsync())
                         {
                             usuarios.Add(new Usuario
                             {
@@ -97,7 +98,6 @@ namespace CrowdSisters.DAL
                                 Pais = reader.GetString(reader.GetOrdinal("Pais")),
                                 Nick = reader.GetString(reader.GetOrdinal("Nick"))
                             });
-
                         }
                     }
                 }
@@ -110,7 +110,7 @@ namespace CrowdSisters.DAL
             }
         }
 
-       
+        // Leer por ID
         public async Task<Usuario> GetByIdAsync(int id)
         {
             const string query = @"SELECT * FROM USUARIO WHERE IDUsuario = @IDUsuario";
@@ -158,9 +158,7 @@ namespace CrowdSisters.DAL
             }
         }
 
-
         // Actualizar
-
         public async Task<bool> UpdateAsync(Usuario usuario)
         {
             const string query = @"UPDATE USUARIO 
@@ -185,7 +183,6 @@ namespace CrowdSisters.DAL
 
             try
             {
-
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
@@ -217,9 +214,7 @@ namespace CrowdSisters.DAL
             }
         }
 
-
         // Eliminar
-
         public async Task<bool> DeleteAsync(int id)
         {
             const string query = @"DELETE FROM USUARIO WHERE IDUsuario = @IDUsuario";
@@ -229,17 +224,14 @@ namespace CrowdSisters.DAL
                 using (var command = new SqlCommand(query, sqlConn))
                 {
                     command.Parameters.AddWithValue("@IDUsuario", id);
-
                     return await command.ExecuteNonQueryAsync() > 0;
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return false;
             }
         }
-
     }
-
 }
