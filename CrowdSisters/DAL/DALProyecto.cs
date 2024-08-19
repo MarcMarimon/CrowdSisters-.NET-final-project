@@ -112,7 +112,6 @@ namespace CrowdSisters.DAL
                                 FechaFinalizacion = reader.GetDateTime(reader.GetOrdinal("FechaFinalizacion")),
                                 MontoObjetivo = reader.GetDecimal(reader.GetOrdinal("MontoObjetivo")),
                                 MontoRecaudado = reader.GetDecimal(reader.GetOrdinal("MontoRecaudado")),
-                                Estado = reader.GetInt32(reader.GetOrdinal("Estado")),
                                 Subtitulo = reader.GetString(reader.GetOrdinal("Subtitulo")),
                                 DescripcionFinalidad = reader.GetString(reader.GetOrdinal("DescripcionFinalidad")),
                                 DescripcionPresupuesto = reader.GetString(reader.GetOrdinal("DescripcionPresupuesto")),
@@ -159,7 +158,6 @@ namespace CrowdSisters.DAL
                                 FechaFinalizacion = reader.GetDateTime(reader.GetOrdinal("FechaFinalizacion")),
                                 MontoObjetivo = reader.GetDecimal(reader.GetOrdinal("MontoObjetivo")),
                                 MontoRecaudado = reader.GetDecimal(reader.GetOrdinal("MontoRecaudado")),
-                                Estado = reader.GetInt32(reader.GetOrdinal("Estado")),
                                 Subtitulo = reader.GetString(reader.GetOrdinal("Subtitulo")),
                                 DescripcionFinalidad = reader.GetString(reader.GetOrdinal("DescripcionFinalidad")),
                                 DescripcionPresupuesto = reader.GetString(reader.GetOrdinal("DescripcionPresupuesto")),
@@ -194,7 +192,6 @@ namespace CrowdSisters.DAL
                     FechaFinalizacion = @FechaFinalizacion,
                     MontoObjetivo = @MontoObjetivo,
                     MontoRecaudado = @MontoRecaudado,
-                    Estado = @Estado,
                     Subtitulo = @Subtitulo,
                     DescripcionFinalidad = @DescripcionFinalidad,
                     DescripcionPresupuesto = @DescripcionPresupuesto,
@@ -218,7 +215,6 @@ namespace CrowdSisters.DAL
                     command.Parameters.AddWithValue("@FechaFinalizacion", proyecto.FechaFinalizacion);
                     command.Parameters.AddWithValue("@MontoObjetivo", proyecto.MontoObjetivo);
                     command.Parameters.AddWithValue("@MontoRecaudado", proyecto.MontoRecaudado);
-                    command.Parameters.AddWithValue("@Estado", proyecto.Estado);
                     command.Parameters.AddWithValue("@Subtitulo", proyecto.Subtitulo);
                     command.Parameters.AddWithValue("@DescripcionFinalidad", proyecto.DescripcionFinalidad);
                     command.Parameters.AddWithValue("@DescripcionPresupuesto", proyecto.DescripcionPresupuesto);

@@ -10,9 +10,8 @@ namespace CrowdSisters.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IDUsuario { get; set; }
 
-        [Required]
         [StringLength(50)]
-        public string Nombre { get; set; }
+        public string? Nombre { get; set; }
 
         [Required]
         [StringLength(50)]

@@ -22,12 +22,10 @@ namespace CrowdSisters.DAL
             const string query = @"
                 INSERT INTO USUARIO (Nombre, Email, Contrasena, FechaRegistro, IsAdmin, PerfilPublico, 
                 URLImagenUsuario, Monedero, PrimerApellido, SegundoApellido, DNI, Direccion, CodigoPostal, Poblacion,
-                Telofono, Pais, Nick) 
-                Telefono, Pais) 
+                Telofono, Pais, Nick)
                 VALUES (@Nombre, @Email, @Contrasena, @FechaRegistro, @IsAdmin, @PerfilPublico, @URLImagenUsuario,
                 @Monedero, @PrimerApellido, @SegundoApellido, @DNI, @Direccion, @CodigoPostal, @Poblacion,
                 @Telofono, @Pais, @Nick)";
-                @Telefono, @Pais)";
 
             try
             {
@@ -80,22 +78,22 @@ namespace CrowdSisters.DAL
                             usuarios.Add(new Usuario
                             {
                                 IDUsuario = reader.GetInt32(reader.GetOrdinal("IDUsuario")),
-                                Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                                Nombre = reader.IsDBNull(reader.GetOrdinal("Nombre")) ? null : reader.GetString(reader.GetOrdinal("Nombre")),
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
                                 Contrasena = reader.GetString(reader.GetOrdinal("Contrasena")),
                                 FechaRegistro = reader.GetDateTime(reader.GetOrdinal("FechaRegistro")),
                                 IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin")),
-                                PerfilPublico = reader.GetString(reader.GetOrdinal("PerfilPublico")),
-                                URLImagenUsuario = reader.GetString(reader.GetOrdinal("URLImagenUsuario")),
+                                PerfilPublico = reader.IsDBNull(reader.GetOrdinal("PerfilPublico")) ? null : reader.GetString(reader.GetOrdinal("PerfilPublico")),
+                                URLImagenUsuario = reader.IsDBNull(reader.GetOrdinal("URLImagenUsuario")) ? null : reader.GetString(reader.GetOrdinal("URLImagenUsuario")),
                                 Monedero = reader.GetDecimal(reader.GetOrdinal("Monedero")),
-                                PrimerApellido = reader.GetString(reader.GetOrdinal("PrimerApellido")),
-                                SegundoApellido = reader.GetString(reader.GetOrdinal("SegundoApellido")),
-                                DNI = reader.GetString(reader.GetOrdinal("DNI")),
-                                Direccion = reader.GetString(reader.GetOrdinal("Direccion")),
-                                CodigoPostal = reader.GetString(reader.GetOrdinal("CodigoPostal")),
-                                Poblacion = reader.GetString(reader.GetOrdinal("Poblacion")),
-                                Telefono = reader.GetString(reader.GetOrdinal("Telefono")),
-                                Pais = reader.GetString(reader.GetOrdinal("Pais")),
+                                PrimerApellido = reader.IsDBNull(reader.GetOrdinal("PrimerApellido")) ? null : reader.GetString(reader.GetOrdinal("PrimerApellido")),
+                                SegundoApellido = reader.IsDBNull(reader.GetOrdinal("SegundoApellido")) ? null : reader.GetString(reader.GetOrdinal("SegundoApellido")),
+                                DNI = reader.IsDBNull(reader.GetOrdinal("DNI")) ? null : reader.GetString(reader.GetOrdinal("DNI")),
+                                Direccion = reader.IsDBNull(reader.GetOrdinal("Direccion")) ? null : reader.GetString(reader.GetOrdinal("Direccion")),
+                                CodigoPostal = reader.IsDBNull(reader.GetOrdinal("CodigoPostal")) ? null : reader.GetString(reader.GetOrdinal("CodigoPostal")),
+                                Poblacion = reader.IsDBNull(reader.GetOrdinal("Poblacion")) ? null : reader.GetString(reader.GetOrdinal("Poblacion")),
+                                Telefono = reader.IsDBNull(reader.GetOrdinal("Telefono")) ? null : reader.GetString(reader.GetOrdinal("Telefono")),
+                                Pais = reader.IsDBNull(reader.GetOrdinal("Pais")) ? null : reader.GetString(reader.GetOrdinal("Pais")),
                                 Nick = reader.GetString(reader.GetOrdinal("Nick"))
                             });
                         }
@@ -113,7 +111,6 @@ namespace CrowdSisters.DAL
 
         public async Task<Usuario> GetByIdAsync(int id)
         {
-            Console.WriteLine("Hola");
             const string query = @"SELECT * FROM Usuario WHERE IDUsuario = IDUsuario";
 
             try
@@ -129,7 +126,7 @@ namespace CrowdSisters.DAL
                             return new Usuario
                             {
                                 IDUsuario = reader.GetInt32(reader.GetOrdinal("IDUsuario")),
-                                Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                                Nombre = reader.IsDBNull(reader.GetOrdinal("Nombre")) ? null : reader.GetString(reader.GetOrdinal("Nombre")),
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
                                 Contrasena = reader.GetString(reader.GetOrdinal("Contrasena")),
                                 FechaRegistro = reader.GetDateTime(reader.GetOrdinal("FechaRegistro")),
@@ -158,38 +155,6 @@ namespace CrowdSisters.DAL
                 return null;
             }
         }
-
-
-        public async Task<Usuario> MostrarUser()
-        {
-
-            const string query = @"SELECT Nombre FROM Usuario WHERE IDUsuario = 1";
-            try
-            {
-                using (var sqlConn = _connection.GetSqlConn())
-                using (var command = new SqlCommand(query, sqlConn))
-                {
-                    using (var reader = await command.ExecuteReaderAsync())
-                    {
-                        if (await reader.ReadAsync())
-                        {
-                            return new Usuario
-                            {
-                                IDUsuario = 1,
-                                Nombre = reader.GetString(reader.GetOrdinal("Nombre"))
-                            };
-                        }
-                        return null;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
-        }
-
 
 
         // Actualizar
