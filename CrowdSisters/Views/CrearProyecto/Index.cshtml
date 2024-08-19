@@ -1,0 +1,155 @@
+﻿@model CrowdSisters.Models.CrearProyectoViewModel
+
+@{
+    ViewData["Title"] = "Crear Proyecto";
+}
+
+@using (Html.BeginForm("Index", "CrearProyecto", FormMethod.Post, new { id = "crearProyectoForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Paso 1: Datos Personales -->
+    <div id="DatosPersonales">
+        <h3>Datos Personales</h3>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Usuario.Nombre)
+            @Html.TextBoxFor(m => m.Usuario.Nombre, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Usuario.Nombre, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Usuario.PrimerApellido)
+            @Html.TextBoxFor(m => m.Usuario.PrimerApellido, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Usuario.PrimerApellido, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Usuario.SegundoApellido)
+            @Html.TextBoxFor(m => m.Usuario.SegundoApellido, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Usuario.SegundoApellido, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Usuario.DNI)
+            @Html.TextBoxFor(m => m.Usuario.DNI, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Usuario.DNI, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Usuario.Direccion)
+            @Html.TextBoxFor(m => m.Usuario.Direccion, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Usuario.Direccion, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Usuario.CodigoPostal)
+            @Html.TextBoxFor(m => m.Usuario.CodigoPostal, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Usuario.CodigoPostal, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Usuario.Poblacion)
+            @Html.TextBoxFor(m => m.Usuario.Poblacion, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Usuario.Poblacion, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Usuario.Telefono)
+            @Html.TextBoxFor(m => m.Usuario.Telefono, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Usuario.Telefono, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Usuario.Pais)
+            @Html.TextBoxFor(m => m.Usuario.Pais, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Usuario.Pais, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Paso 2: Tu Perfil -->
+    <div id="TuPerfil" style="display:none;">
+        <h3>Tu Perfil</h3>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Usuario.Email)
+            @Html.TextBoxFor(m => m.Usuario.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Usuario.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Paso 3: Tu Proyecto -->
+    <div id="TuProyecto" style="display:none;">
+        <h3>Tu Proyecto</h3>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Proyecto.Titulo, "Título del Proyecto")
+            @Html.TextBoxFor(m => m.Proyecto.Titulo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Proyecto.Titulo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Proyecto.Descripcion)
+            @Html.TextBoxFor(m => m.Proyecto.Descripcion, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Proyecto.Descripcion, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Proyecto.MontoObjetivo)
+            @Html.TextBoxFor(m => m.Proyecto.MontoObjetivo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Proyecto.MontoObjetivo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label for="imagen">Selecciona una imagen:</label>
+            <input type="file" id="imagen" name="imagen" accept="image/*">
+        </div>
+    </div>
+
+    <!-- Botones de navegación -->
+    <div>
+        <button type="button" id="nextBtn" class="btn btn-primary">Siguiente Paso</button>
+        <button type="submit" id="submitBtn" class="btn btn-success" style="display:none;">Confirmar</button>
+    </div>
+}
+
+@section Scripts {
+
+    @await Html.PartialAsync("_ValidationScriptsPartial");
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const steps = ["DatosPersonales", "TuPerfil", "TuProyecto"];
+            let currentStep = 0;
+
+            function showStep(stepIndex) {
+                steps.forEach((stepId, index) => {
+                    document.getElementById(stepId).style.display = index === stepIndex ? 'block' : 'none';
+                });
+                // Controla la visibilidad de los botones
+                document.getElementById("nextBtn").style.display = stepIndex < steps.length - 1 ? 'inline' : 'none';
+                document.getElementById("submitBtn").style.display = stepIndex === steps.length - 1 ? 'inline' : 'none';
+            }
+
+            // Mostrar el primer paso
+            showStep(currentStep);
+
+            // Validación y navegación
+            function validateSection() {
+                const form = $("#crearProyectoForm");
+                form.validate(); // Inicia la validación del formulario
+                return form.valid();
+            }
+
+            // Evento para el botón "Siguiente Paso"
+            document.getElementById("nextBtn").addEventListener("click", function () {
+                if (validateSection()) {
+                    if (currentStep < steps.length - 1) {
+                        currentStep++;
+                        showStep(currentStep);
+                    }
+                }
+            });
+        });
+    </script>
+}
