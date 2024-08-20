@@ -1,8 +1,9 @@
 ﻿using CrowdSisters.Conections;
 using CrowdSisters.Models;
 using Microsoft.Data.SqlClient;
-using System.Linq.Expressions;
-using System.Threading;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CrowdSisters.DAL
 {
@@ -15,13 +16,19 @@ namespace CrowdSisters.DAL
             _connection = connection;
         }
 
-
         // Crear
         public async Task<bool> CreateAsync(Donacion donacion)
         {
             const string query = @"
-                INSERT INTO DONACION (FKProyecto, FKUsuario, Monto, FechaDonacion, MetodoPago) 
-                VALUES (@FKProyecto, @FKUsuario, @Monto, @FechaDonacion, @MetodoPago)";
+                INSERT INTO Donacion (
+                    FKProyecto, 
+                    FKUsuario, 
+                    FKRecompensa
+                ) VALUES (
+                    @FKProyecto, 
+                    @FKUsuario, 
+                    @FKRecompensa
+                )";
 
             try
             {
@@ -30,9 +37,8 @@ namespace CrowdSisters.DAL
                 {
                     command.Parameters.AddWithValue("@FKProyecto", donacion.FKProyecto);
                     command.Parameters.AddWithValue("@FKUsuario", donacion.FKUsuario);
-                    command.Parameters.AddWithValue("@Monto", donacion.Monto);
-                    command.Parameters.AddWithValue("@FechaDonacion", donacion.FechaDonacion);
-                    command.Parameters.AddWithValue("@MetodoPago", donacion.MetodoPago);
+                    command.Parameters.AddWithValue("@FKRecompensa", donacion.FKRecompensa);
+
                     return await command.ExecuteNonQueryAsync() > 0;
                 }
             }
@@ -43,18 +49,12 @@ namespace CrowdSisters.DAL
             }
         }
 
-
-        // Leer
-
+        // Leer todos
         public async Task<IEnumerable<Donacion>> GetAllAsync()
         {
-            DALProyecto dalProyecto = new DALProyecto(_connection);
-
-            DALUsuario dalUsuario = new DALUsuario(_connection);
-
             List<Donacion> donaciones = new List<Donacion>();
 
-            const string query = @"SELECT * FROM DONACION;";
+            const string query = @"SELECT * FROM Donacion;";
 
             try
             {
@@ -63,40 +63,31 @@ namespace CrowdSisters.DAL
                 {
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        if (await reader.ReadAsync())
+                        while (await reader.ReadAsync())
                         {
                             donaciones.Add(new Donacion
                             {
                                 IDDonacion = reader.GetInt32(reader.GetOrdinal("IDDonacion")),
                                 FKProyecto = reader.GetInt32(reader.GetOrdinal("FKProyecto")),
-                                Proyecto = await dalProyecto.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("FKProyecto"))),
                                 FKUsuario = reader.GetInt32(reader.GetOrdinal("FKUsuario")),
-                                Usuario = await dalUsuario.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("FKUsuario"))),
-                                Monto = reader.GetDecimal(reader.GetOrdinal("Monto")),
-                                FechaDonacion = reader.GetDateTime(reader.GetOrdinal("FechaDonacion")),
-                                MetodoPago = reader.GetInt32(reader.GetOrdinal("MetodoPago"))
+                                FKRecompensa = reader.GetInt32(reader.GetOrdinal("FKRecompensa")),
                             });
-
                         }
                     }
                 }
                 return donaciones;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return null;
             }
         }
 
-        
-
+        // Leer por ID
         public async Task<Donacion> GetByIdAsync(int id)
         {
-          DALProyecto dalProyecto = new DALProyecto(_connection);
-
-          DALUsuario dalUsuario = new DALUsuario(_connection);
-
-        const string query = @"SELECT * FROM DONACION WHERE IDDonacion = @IDDonacion";
+            const string query = @"SELECT * FROM Donacion WHERE IDDonacion = @IDDonacion";
 
             try
             {
@@ -112,12 +103,8 @@ namespace CrowdSisters.DAL
                             {
                                 IDDonacion = reader.GetInt32(reader.GetOrdinal("IDDonacion")),
                                 FKProyecto = reader.GetInt32(reader.GetOrdinal("FKProyecto")),
-                                Proyecto = await dalProyecto.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("FKProyecto"))),
                                 FKUsuario = reader.GetInt32(reader.GetOrdinal("FKUsuario")),
-                                Usuario = await dalUsuario.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("FKUsuario"))),
-                                Monto = reader.GetDecimal(reader.GetOrdinal("Monto")),
-                                FechaDonacion = reader.GetDateTime(reader.GetOrdinal("FechaDonacion")),
-                                MetodoPago = reader.GetInt32(reader.GetOrdinal("MetodoPago"))
+                                FKRecompensa = reader.GetInt32(reader.GetOrdinal("FKRecompensa")),
                             };
                         }
                         return null;
@@ -131,49 +118,17 @@ namespace CrowdSisters.DAL
             }
         }
 
-
-
-
         // Actualizar
         public async Task<bool> UpdateAsync(Donacion donacion)
         {
-            const string query = @"UPDATE DONACION 
-                     SET FKProyecto = @FKProyecto,
-                         FKUsuario = @FKUsuario,
-                         Monto = @Monto,
-                         FechaDonacion = @FechaDonacion,
-                         MetodoPago = @MetodoPago
-                     WHERE IDDonacion = @IDDonacion";
-
-            try
-            {
-
-                using (var sqlConn = _connection.GetSqlConn())
-                using (var command = new SqlCommand(query, sqlConn))
-                {
-                    command.Parameters.AddWithValue("@IDDonacion", donacion.IDDonacion);
-                    command.Parameters.AddWithValue("@FKProyecto", donacion.FKProyecto);
-                    command.Parameters.AddWithValue("@FKUsuario", donacion.FKUsuario);
-                    command.Parameters.AddWithValue("@Monto", donacion.Monto);
-                    command.Parameters.AddWithValue("@FechaDonacion", donacion.FechaDonacion);
-                    command.Parameters.AddWithValue("@MetodoPago", donacion.MetodoPago);
-                    return await command.ExecuteNonQueryAsync() > 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
+            // El modelo actual no tiene campos actualizables, solo se podría usar este método si se añaden campos
+            throw new NotImplementedException("El método UpdateAsync no está implementado ya que la tabla Donacion no tiene campos actualizables.");
         }
 
-
-
         // Eliminar
-
         public async Task<bool> DeleteAsync(int id)
         {
-            const string query = @"DELETE FROM DONACION WHERE IDDonacion = @IDDonacion";
+            const string query = @"DELETE FROM Donacion WHERE IDDonacion = @IDDonacion";
 
             try
             {
@@ -181,7 +136,6 @@ namespace CrowdSisters.DAL
                 using (var command = new SqlCommand(query, sqlConn))
                 {
                     command.Parameters.AddWithValue("@IDDonacion", id);
-
                     return await command.ExecuteNonQueryAsync() > 0;
                 }
             }
@@ -191,8 +145,5 @@ namespace CrowdSisters.DAL
                 return false;
             }
         }
-
     }
-
 }
-

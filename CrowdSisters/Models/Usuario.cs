@@ -10,9 +10,8 @@ namespace CrowdSisters.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IDUsuario { get; set; }
 
-        [Required]
         [StringLength(50)]
-        public string Nombre { get; set; }
+        public string? Nombre { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -29,38 +28,38 @@ namespace CrowdSisters.Models
         public bool IsAdmin { get; set; }
 
         [StringLength(200)]
-        public string PerfilPublico { get; set; }
+        public string? PerfilPublico { get; set; }
 
         [StringLength(200)]
-        public string URLImagenUsuario { get; set; }
+        public string? URLImagenUsuario { get; set; }
 
         [Required]
         [Column(TypeName = "money")]
         public decimal Monedero { get; set; } = 0;
 
         [StringLength(50)]
-        public string PrimerApellido { get; set; }
+        public string? PrimerApellido { get; set; }
 
         [StringLength(50)]
-        public string SegundoApellido { get; set; }
+        public string? SegundoApellido { get; set; }
 
         [StringLength(10)]
-        public string DNI { get; set; }
+        public string? DNI { get; set; }
 
         [StringLength(200)]
-        public string Direccion { get; set; }
+        public string? Direccion { get; set; }
 
         [StringLength(5)]
-        public string CodigoPostal { get; set; }
+        public string? CodigoPostal { get; set; }
 
         [StringLength(50)]
-        public string Poblacion { get; set; }
+        public string? Poblacion { get; set; }
 
         [StringLength(12)]
-        public string Telefono { get; set; }
+        public string? Telefono { get; set; }
 
         [StringLength(50)]
-        public string Pais { get; set; }
+        public string? Pais { get; set; }
 
         [Required]
         [StringLength(50)]
