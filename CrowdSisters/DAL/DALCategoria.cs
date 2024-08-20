@@ -26,6 +26,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@Nombre", categoria.Nombre);
 
                     return await command.ExecuteNonQueryAsync() > 0;
@@ -44,21 +45,20 @@ namespace CrowdSisters.DAL
             List<Categoria> categorias = new List<Categoria>();
             try
             {
-
                 const string query = @"SELECT * FROM Categoria;";
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        if (await reader.ReadAsync())
+                        while (await reader.ReadAsync()) // Cambiado a 'while' para leer todas las filas
                         {
                             categorias.Add(new Categoria
                             {
                                 IDCategoria = reader.GetInt32(reader.GetOrdinal("IDCategoria")),
                                 Nombre = reader.GetString(reader.GetOrdinal("Nombre"))
                             });
-
                         }
                     }
                 }
@@ -66,10 +66,11 @@ namespace CrowdSisters.DAL
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                Console.WriteLine($"Error al obtener todas las categorías: {ex.Message}");
+                return null; // Considera devolver una lista vacía en lugar de 'null' para evitar excepciones aguas abajo.
             }
         }
+
         public async Task<Categoria> GetByIdAsync(int id)
         {
             const string query = @"
@@ -81,6 +82,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDCategoria", id);
 
                     using (var reader = await command.ExecuteReaderAsync())
@@ -118,6 +120,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDCategoria", categoria.IDCategoria);
                     command.Parameters.AddWithValue("@Nombre", categoria.Nombre);
 
@@ -142,6 +145,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDCategoria", id);
 
                     return await command.ExecuteNonQueryAsync() > 0;
