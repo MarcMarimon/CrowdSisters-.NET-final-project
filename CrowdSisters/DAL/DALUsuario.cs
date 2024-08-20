@@ -27,7 +27,6 @@ namespace CrowdSisters.DAL
                 VALUES (@Nombre, @Email, @Contrasena, @FechaRegistro, @IsAdmin, @PerfilPublico, @URLImagenUsuario,
                 @Monedero, @PrimerApellido, @SegundoApellido, @DNI, @Direccion, @CodigoPostal, @Poblacion,
                 @Telofono, @Pais, @Nick)";
-                @Telefono, @Pais)";
 
             try
             {

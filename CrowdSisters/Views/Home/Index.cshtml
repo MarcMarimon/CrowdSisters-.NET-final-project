@@ -1,3 +1,173 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Esto depende de cómo tengas configurado tu proyecto.
+}
 
-<h1>Home index</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="~/css/global.css" />
+    <link rel="stylesheet" href="~/css/desktop.css" />
+    <link rel="stylesheet" href="~/css/desktop.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    
+    <div class="home">
+        <img class="imagenproyecto-icon" alt="" src="~/img/ProyectoEcoBeauty.jpg" />
+        <section class="project-header">
+            <div class="ttuloproyecto-parent">
+                <div class="ttuloproyecto">
+                    <h1 class="ttulo">
+                        <p class="ecobeauty-">EcoBeauty -</p>
+                        <p class="ecobeauty-">Cosméticos Sostenibles</p>
+                    </h1>
+                </div>
+                <div class="project-details">
+                    <div class="project-countdown">
+                        <div class="countdown-details">
+                            <div class="days-remaining-container-parent">
+                                <div class="days-remaining-container">
+                                    <img class="flecha-izquierda-icon" loading="lazy" alt="" src="~/img/FlechaIzquierdaBlanco.png" />
+                                </div>
+                                <div class="das-restantes">
+                                    <p class="ecobeauty-">
+                                        <span>25</span>
+                                        <span class="span"> </span>
+                                    </p>
+                                    <p class="das">DÍAS</p>
+                                </div>
+                            </div>
+                            <div class="recaudacin">
+                                <p class="ecobeauty-">2.000 €</p>
+                                <p class="das">DE 4.000€</p>
+                            </div>
+                        </div>
+                        <div class="project-buttons">
+                            <div class="botn-descubre-ms-proyectos-wrapper">
+                                <button class="botn-descubre-ms-proyectos">
+                                    <img class="star-icon3" alt="" src="~/images/star3.svg" />
+                                    <div class="button3">Descubre más proyectos</div>
+                                    <img class="star-icon3" alt="" src="~/images/x3.svg" />
+                                </button>
+                            </div>
+                            <div class="projects-boosted">
+                                <h1 class="proyectos-impulsados">¡Proyectos impulsados!</h1>
+                            </div>
+                            <div class="projects-slider">
+                                <div class="flecha-izquierda-wrapper">
+                                    <img class="flecha-izquierda-icon1" loading="lazy" alt="" src="~/img/FlechaIzquierdaColor.png" />
+                                </div>
+                                <div class="project-cards">
+                                    <div class="card-1">
+                                        <img class="image-icon" loading="lazy" alt="" src="~/img/card1 (1).png" />
+                                        <div class="image-overlay"></div>
+                                        <div class="project-card-details"> 
+                                            <div class="ttulo1">
+                                                <div class="ttulo2">
+                                                    <p class="ecobeauty-">EcoFashion Revolution -</p>
+                                                    <p class="ecobeauty-">Moda Sostenible por Mujeres</p>
+                                                </div>
+                                            </div>
+                                            <div class="project-card-footer">
+                                                <img class="crowdsisterslogomanoverde-1-icon" loading="lazy" alt="" src="~/img/CrowdSistersLogoManoVerde.png" />
+                                                <div class="project-euro">
+                                                    <div class="de-8500">
+                                                        <p class="ecobeauty-">12.000 €</p>
+                                                        <p class="de-85001">DE 8.500€</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-2">
+                                    <img class="image-icon" loading="lazy" alt="" src="~/img/card2.png" />
+                                    <div class="image-overlay"></div>
+                                    <div class="project-card-details">
+                                        <div class="ttulo-wrapper">
+                                            <div class="ttulo3">
+                                                <div class="ttulo2">
+                                                    <p class="ecobeauty-">Community Bloom -</p>
+                                                    <p class="ecobeauty-">Empoderando Mujeres Locales</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="second-card-footer">
+                                            <img class="crowdsisterslogomanoverde-1-icon" loading="lazy" alt="" src="~/img/CrowdSistersLogoManoVerde.png" />
+                                            <div class="project-euro">
+                                                <div class="de-8500">
+                                                    <p class="ecobeauty-">5.600 €</p>
+                                                    <p class="de-40002">DE 4.000€</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flecha-derecha-parent">
+                        <img class="flecha-izquierda-icon" loading="lazy" alt="" src="~/img/FlechaDerechaBlanco.png" />
+                        <div class="card-1-parent">
+                            <div class="card-11">
+                                <img class="image-icon" loading="lazy" alt="" src="~/img/card3.png" />
+                                <div class="image-overlay"></div>
+                                <div class="project-card-details">
+                                    <div class="ttulo5">
+                                        <div class="ttulo6">
+                                            <p class="ecobeauty-">Mompreneur Network -</p>
+                                            <p class="ecobeauty-">Conectando Madres Emprendedoras</p>
+                                        </div>
+                                    </div>
+                                    <div class="project-card-footer">
+                                        <img class="crowdsisterslogomanoverde-1-icon" loading="lazy" alt="" src="~/img/CrowdSistersLogoManoVerde.png" />
+                                        <div class="project-euro">
+                                            <div class="de-8500">
+                                                <p class="ecobeauty-">2.500 €</p>
+                                                <p class="de-85001">DE 1.000€</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flecha-izquierda-wrapper">
+                                <img class="flecha-izquierda-icon1" loading="lazy" alt="" src="~/img/FlechaDerechaColor.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="descripcin-crowdsisters">
+            <div class="logo">
+                <div class="logo-container">
+                    <img class="crowdsisterslogomano-1-icon" loading="lazy" alt="" src="~/img/CrowdSistersManoYLogo.png" />
+                </div>
+            </div>
+            <div class="description-container">
+                <div class="description-details">
+                    <div class="title-description">
+                        <h1 class="ttulo7">¡Haz realidad tu proyecto con CrowdSisters!</h1>
+                        <div class="descripcin">
+                            Somos un equipo apasionado por empoderar a las mujeres emprendedoras y estamos aquí para acompañarte en toda tu aventura. Con las herramientas más efectivas y una comunidad global de impulsoras entusiastas, estamos listas para ayudarte a alcanzar tus sueños empresariales. ¿Qué estás esperando para dar el siguiente paso en tu emprendimiento?
+                        </div>
+                    </div>
+                    <div class="botn-empieza-tu-proyecto-wrapper">
+                        <div class="botn-empieza-tu-proyecto">
+                            <img class="star-icon3" alt="" src="~/images/star3.svg" />
+                            <div class="button4">¡Empieza tu proyecto!</div>
+                            <img class="star-icon3" alt="" src="~/images/x3.svg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

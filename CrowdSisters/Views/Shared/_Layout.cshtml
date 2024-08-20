@@ -4,43 +4,214 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CrowdSisters</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/global.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/desktop.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CrowdSisters.styles.css" asp-append-version="true" />
+    
+    <link rel="stylesheet" href="./global.css" />
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CrowdSisters</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <div class="desktop-1">
+        <header class="desktop-1-inner">
+            <div class="frame-parent">
+                <div class="inicia-sesin-regstrate-parent">
+                    <div class="inicia-sesin-regstrate">
+                        <img class="star-icon" alt="" src="./public/star.svg" />
+                        <b class="button">Descubrir proyectos </b>
+                        <img class="star-icon" alt="" src="./public/x.svg" />
+                    </div>
+                    <div class="inicia-sesin-regstrate-wrapper">
+                        <div class="inicia-sesin-regstrate1">
+                            <img class="star-icon" alt="" src="./public/star1.svg" />
+                            <b class="button">Empieza tu proyecto</b>
+                            <img class="star-icon" alt="" src="./public/x1.svg" />
+                        </div>
+                    </div>
+                    <img class="logoblanco-icon" loading="lazy" alt="" src="~/img/CrowdsistersLogoBlanco2.png" />
+                </div>
+                <div class="buscador-parent">
+                    <div class="buscador">
+                        <b class="value">Buscar</b>
+                        <div class="search-wrapper">
+                            <img class="search-icon" loading="lazy" alt="" src="~/img/lupa.png" />
+                        </div>
+                    </div>
+                    <div class="inicia-sesin-regstrate2">
+                        <img class="star-icon" alt="" src="./public/star2.svg" />
+                        <b class="button2">Iniciar sesión / Regístrate</b>
+                        <img class="star-icon" alt="" src="./public/x2.svg" />
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        </header>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - CrowdSisters - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <main role="main">
+            @RenderBody()
+        </main>
+    
+    <section class="footer">
+    <div class="footer-child"></div>
+    <div class="footer-columns">
+        <div class="first-footer-column">
+            <div class="contctanos">
+                <div class="descubre-proyectos">
+                    <div class="text-strong">
+                        <div class="text-strong1">Contáctanos</div>
+                    </div>
+                </div>
+                <div class="preguntas-frecuentes">
+                    <div class="list-item">info@crowdsisters.com</div>
+                </div>
+                <div class="ayuda-para-emprendedoras">
+                    <div class="list-item1">+34 693 209 154</div>
+                </div>
+                <div class="text-link-list-item">
+                    <div class="list-item2">Canales CrowdSisters</div>
+                </div>
+                <div class="text-link-list-item">
+                    <div class="list-item2">Salud y Bienestar</div>
+                </div>
+                <div class="text-link-list-item">
+                    <div class="list-item2">¿Quiénes somos?</div>
+                </div>
+                <div class="text-link-list-item">
+                    <div class="list-item5">Moda</div>
+                </div>
+                <div class="text-link-list-item">
+                    <div class="list-item2">Comunitario</div>
+                </div>
+            </div>
+            <div class="second-footer-column">
+                <div class="descubre-proyectos-categora">
+                    <div class="descubre-proyectos">
+                        <div class="text-strong">
+                            <div class="text-strong3">Descubre proyectos</div>
+                        </div>
+                    </div>
+                    <div class="preguntas-frecuentes">
+                        <div class="list-item7">Ciencia y Tecnología</div>
+                    </div>
+                    <div class="ayuda-para-emprendedoras">
+                        <div class="list-item8">Arte y Cultura</div>
+                    </div>
+                    <div class="preguntas-frecuentes">
+                        <div class="list-item9">Educación y Formación</div>
+                    </div>
+                    <div class="ayuda-para-emprendedoras">
+                        <div class="list-item10">Salud y Bienestar</div>
+                    </div>
+                    <div class="ayuda-para-emprendedoras">
+                        <div class="list-item11">Medio Ambiente</div>
+                    </div>
+                    <div class="preguntas-frecuentes">
+                        <div class="list-item12">Moda y Diseño</div>
+                    </div>
+                    <div class="comunidad">
+                        <div class="list-item13">Comunidad</div>
+                    </div>
+                </div>
+                <div class="descubre-proyectos-categora">
+                    <div class="descubre-proyectos">
+                        <div class="text-strong">
+                            <div class="text-strong3">Conoce CrowdSisters</div>
+                        </div>
+                    </div>
+                    <div class="ayuda-para-emprendedoras">
+                        <div class="list-item14">Blog de CrowdSisters</div>
+                    </div>
+                    <div class="preguntas-frecuentes">
+                        <div class="list-item15">Agenda y Prensa</div>
+                    </div>
+                    <div class="preguntas-frecuentes">
+                        <div class="list-item16">Canales CrowdSisters</div>
+                    </div>
+                    <div class="text-link-list-item">
+                        <div class="list-item5">Salud y Bienestar</div>
+                    </div>
+                    <div class="preguntas-frecuentes">
+                        <div class="list-item18">¿Quiénes somos?</div>
+                    </div>
+                    <div class="text-link-list-item">
+                        <div class="list-item5">Moda</div>
+                    </div>
+                    <div class="text-link-list-item">
+                        <div class="list-item2">Comunitario</div>
+                    </div>
+                </div>
+                <div class="descubre-proyectos-categora">
+                    <div class="descubre-proyectos">
+                        <div class="text-strong">
+                            <div class="text-strong3">¿Necesitas ayuda?</div>
+                        </div>
+                    </div>
+                    <div class="ayuda-para-emprendedoras">
+                        <div class="list-item14">Preguntas frecuentes</div>
+                    </div>
+                    <div class="preguntas-frecuentes">
+                        <div class="list-item22">Ayuda para emprendedoras</div>
+                    </div>
+                    <div class="text-link-list-item">
+                        <div class="list-item2">Canales CrowdSisters</div>
+                    </div>
+                    <div class="text-link-list-item">
+                        <div class="list-item2">Salud y Bienestar</div>
+                    </div>
+                    <div class="text-link-list-item">
+                        <div class="list-item2">¿Quiénes somos?</div>
+                    </div>
+                    <div class="text-link-list-item">
+                        <div class="list-item5">Moda</div>
+                    </div>
+                    <div class="text-link-list-item">
+                        <div class="list-item2">Comunitario</div>
+                    </div>
+                </div>
+            </div>
+            <div class="social-links">
+                <div class="sguenos">Síguenos</div>
+                <div class="social-icons">
+                    <div class="logo-x-wrapper">
+                        <img class="logo-x-icon"
+                             loading="lazy"
+                             alt=""
+                             src="~/img/IconosRedesSociales/Twitter.png" />
+                    </div>
+                    <img class="linkedin-icon"
+                         loading="lazy"
+                         alt=""
+                         src="~/img/IconosRedesSociales/LinkedIn.png" />
+
+                    <img class="linkedin-icon"
+                         loading="lazy"
+                         alt=""
+                         src="~/img/IconosRedesSociales/Instagram.png" />
+
+                    <div class="logo-x-wrapper">
+                        <img class="logo-youtube-icon"
+                             loading="lazy"
+                             alt=""
+                             src="~/img/IconosRedesSociales/YouTube.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="line-parent">
+        <div class="frame-child"></div>
+        <div class="social-icon-items1">
+            <b class="crowdsisters">© 2024 CrowdSisters </b>
         </div>
     </footer>
+    </section>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
