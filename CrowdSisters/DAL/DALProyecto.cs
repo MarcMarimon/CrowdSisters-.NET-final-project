@@ -59,6 +59,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@FKUsuario", proyecto.FKUsuario);
                     command.Parameters.AddWithValue("@FKSubcategoria", proyecto.FKSubcategoria);
                     command.Parameters.AddWithValue("@Titulo", proyecto.Titulo);
@@ -97,6 +98,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     using (var reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
@@ -112,7 +114,6 @@ namespace CrowdSisters.DAL
                                 FechaFinalizacion = reader.GetDateTime(reader.GetOrdinal("FechaFinalizacion")),
                                 MontoObjetivo = reader.GetDecimal(reader.GetOrdinal("MontoObjetivo")),
                                 MontoRecaudado = reader.GetDecimal(reader.GetOrdinal("MontoRecaudado")),
-                                Estado = reader.GetInt32(reader.GetOrdinal("Estado")),
                                 Subtitulo = reader.GetString(reader.GetOrdinal("Subtitulo")),
                                 DescripcionFinalidad = reader.GetString(reader.GetOrdinal("DescripcionFinalidad")),
                                 DescripcionPresupuesto = reader.GetString(reader.GetOrdinal("DescripcionPresupuesto")),
@@ -143,6 +144,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDProyecto", id);
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -159,7 +161,6 @@ namespace CrowdSisters.DAL
                                 FechaFinalizacion = reader.GetDateTime(reader.GetOrdinal("FechaFinalizacion")),
                                 MontoObjetivo = reader.GetDecimal(reader.GetOrdinal("MontoObjetivo")),
                                 MontoRecaudado = reader.GetDecimal(reader.GetOrdinal("MontoRecaudado")),
-                                Estado = reader.GetInt32(reader.GetOrdinal("Estado")),
                                 Subtitulo = reader.GetString(reader.GetOrdinal("Subtitulo")),
                                 DescripcionFinalidad = reader.GetString(reader.GetOrdinal("DescripcionFinalidad")),
                                 DescripcionPresupuesto = reader.GetString(reader.GetOrdinal("DescripcionPresupuesto")),
@@ -194,7 +195,6 @@ namespace CrowdSisters.DAL
                     FechaFinalizacion = @FechaFinalizacion,
                     MontoObjetivo = @MontoObjetivo,
                     MontoRecaudado = @MontoRecaudado,
-                    Estado = @Estado,
                     Subtitulo = @Subtitulo,
                     DescripcionFinalidad = @DescripcionFinalidad,
                     DescripcionPresupuesto = @DescripcionPresupuesto,
@@ -209,6 +209,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDProyecto", proyecto.IDProyecto);
                     command.Parameters.AddWithValue("@FKUsuario", proyecto.FKUsuario);
                     command.Parameters.AddWithValue("@FKSubcategoria", proyecto.FKSubcategoria);
@@ -218,7 +219,6 @@ namespace CrowdSisters.DAL
                     command.Parameters.AddWithValue("@FechaFinalizacion", proyecto.FechaFinalizacion);
                     command.Parameters.AddWithValue("@MontoObjetivo", proyecto.MontoObjetivo);
                     command.Parameters.AddWithValue("@MontoRecaudado", proyecto.MontoRecaudado);
-                    command.Parameters.AddWithValue("@Estado", proyecto.Estado);
                     command.Parameters.AddWithValue("@Subtitulo", proyecto.Subtitulo);
                     command.Parameters.AddWithValue("@DescripcionFinalidad", proyecto.DescripcionFinalidad);
                     command.Parameters.AddWithValue("@DescripcionPresupuesto", proyecto.DescripcionPresupuesto);
@@ -247,6 +247,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDProyecto", id);
                     return await command.ExecuteNonQueryAsync() > 0;
                 }

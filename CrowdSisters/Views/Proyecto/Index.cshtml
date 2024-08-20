@@ -4,81 +4,101 @@
     ViewData["Title"] = "Lista de Proyectos";
 }
 
-<h1>Lista de Proyectos</h1>
+<h1>¡Se están impulsando @Model.Count() proyectos!</h1>
 
 @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
 {
-        <div class="alert alert-warning">
-            <p>@ViewBag.ErrorMessage</p>
-            <img src="~/images/no-projects.png" alt="No hay proyectos disponibles" style="width:200px;" />
-        </div>
+    <div class="alert alert-warning">
+        <p>@ViewBag.ErrorMessage</p>
+        <img src="~/images/no-projects.png" alt="No hay proyectos disponibles" style="width:200px;" />
+    </div>
 }
 else
 {
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID Proyecto</th>
-                    <th>Título</th>
-                    <th>Descripción General</th>
-                    <th>Fecha Creación</th>
-                    <th>Fecha Finalización</th>
-                    <th>Monto Objetivo</th>
-                    <th>Monto Recaudado</th>
-                    <th>Estado</th>
-                    <th>Subtítulo</th>
-                    <th>Descripción Finalidad</th>
-                    <th>Descripción Presupuesto</th>
-                    <th>URL Foto Encabezado</th>
-                    <th>URL Foto 1</th>
-                    <th>URL Foto 2</th>
-                    <th>URL Foto 3</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach (var proyecto in Model)
-            {
-                        <tr>
-                            <td>@proyecto.IDProyecto</td>
-                            <td>@proyecto.Titulo</td>
-                            <td>@proyecto.DescripcionGeneral</td>
-                            <td>@proyecto.FechaCreacion.ToShortDateString()</td>
-                            <td>@proyecto.FechaFinalizacion.ToShortDateString()</td>
-                            <td>@proyecto.MontoObjetivo.ToString("C")</td>
-                            <td>@proyecto.MontoRecaudado.ToString("C")</td>
-                            <td>
-                        @* Puedes mapear el estado a un texto más descriptivo aquí si lo deseas *@
-                        @proyecto.Estado
-                            </td>
-                                    <td>@proyecto.Subtitulo</td>
-                            <td>@proyecto.DescripcionFinalidad</td>
-                            <td>@proyecto.DescripcionPresupuesto</td>
-                            <td>
-                        @if (!string.IsNullOrEmpty(proyecto.UrlFotoEncabezado))
-                        {
-                                        <a href="@proyecto.UrlFotoEncabezado" target="_blank">Ver Imagen</a>
-                        }
-                            </td>
-                            <td>
-                        @if (!string.IsNullOrEmpty(proyecto.UrlFoto1))
-                        {
-                                        <a href="@proyecto.UrlFoto1" target="_blank">Ver Imagen</a>
-                        }
-                            </td>
-                            <td>
-                        @if (!string.IsNullOrEmpty(proyecto.UrlFoto2))
-                        {
-                                        <a href="@proyecto.UrlFoto2" target="_blank">Ver Imagen</a>
-                        }
-                            </td>
-                            <td>
-                        @if (!string.IsNullOrEmpty(proyecto.UrlFoto3))
-                        {
-                                        <a href="@proyecto.UrlFoto3" target="_blank">Ver Imagen</a>
-                        }
-                            </td>
-                        </tr>
-            }
-            </tbody>
-        </table>
+    <div class="project-grid">
+        @foreach (var proyecto in Model)
+        {
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="@proyecto.UrlFotoEncabezado" alt="@proyecto.Titulo" />
+                </div>
+                <div class="project-details">
+                    <h3>@proyecto.Titulo</h3>
+                    <div class="project-status-bar">
+                        <span class="days-remaining">@((proyecto.FechaFinalizacion - DateTime.Now).Days) DÍAS</span>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: @(proyecto.MontoRecaudado / proyecto.MontoObjetivo * 100)%"></div>
+                        </div>
+                    </div>
+                    <div class="project-funding">
+                        <span class="amount-raised">@proyecto.MontoRecaudado.ToString("C")</span>
+                        de @proyecto.MontoObjetivo.ToString("C")
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }
+
+<style>
+    .project-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .project-card {
+        background-color: #f3e5f5;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        width: calc(33.333% - 20px);
+        max-width: 300px;
+        margin-bottom: 20px;
+    }
+
+    .project-image img {
+        width: 100%;
+        height: auto;
+    }
+
+    .project-details {
+        padding: 15px;
+        text-align: center;
+    }
+
+        .project-details h3 {
+            margin: 0 0 10px;
+            color: #4a148c;
+        }
+
+    .project-status-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .days-remaining {
+        font-weight: bold;
+        color: #7b1fa2;
+    }
+
+    .progress-bar {
+        background-color: #d1c4e9;
+        border-radius: 10px;
+        height: 5px;
+        width: 100px;
+        overflow: hidden;
+    }
+
+    .progress {
+        background-color: #4a148c;
+        height: 100%;
+    }
+
+    .project-funding {
+        font-weight: bold;
+        color: #7b1fa2;
+    }
+</style>

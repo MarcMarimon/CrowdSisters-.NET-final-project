@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CrowdSisters.Models;
+using CrowdSisters.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrowdSisters.Controllers
@@ -20,16 +22,18 @@ namespace CrowdSisters.Controllers
         // GET: LoginController/Create
         public ActionResult Create()
         {
+
             return View();
         }
 
         // POST: LoginController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Usuario  usuario)
         {
             try
             {
+                //ServiceLogin.CreateAsync(usuario);
                 return RedirectToAction(nameof(Index));
             }
             catch

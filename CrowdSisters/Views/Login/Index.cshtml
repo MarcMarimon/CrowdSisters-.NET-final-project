@@ -1,5 +1,25 @@
+<<<<<<< HEAD
 ﻿@{
     Layout = null; // O define el Layout si tienes uno
+=======
+﻿@model CrowdSisters.Models.Usuario
+<h2>Login</h2>
+
+@using (Html.BeginForm("Create", "Login", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Contrasena)
+        @Html.PasswordFor(m => m.Contrasena)
+    </div>
+    <div>
+        <input type="submit" value="Login" />
+    </div>
+>>>>>>> Marc
 }
 
 <!DOCTYPE html>

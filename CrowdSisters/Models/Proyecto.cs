@@ -44,7 +44,6 @@ namespace CrowdSisters.Models
         [Column(TypeName = "money")]
         public decimal MontoRecaudado { get; set; } = 0;
 
-        [Required]
         public int? Estado { get; set; }
 
         [Required]
