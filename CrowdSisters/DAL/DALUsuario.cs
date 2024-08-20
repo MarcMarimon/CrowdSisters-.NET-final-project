@@ -64,7 +64,7 @@ namespace CrowdSisters.DAL
         {
             List<Usuario> usuarios = new List<Usuario>();
 
-            const string query = @"SELECT * FROM USUARIO;";
+            const string query = @"SELECT * FROM Usuario;";
 
             try
             {

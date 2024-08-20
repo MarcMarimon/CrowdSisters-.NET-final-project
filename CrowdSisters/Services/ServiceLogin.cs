@@ -1,5 +1,6 @@
 ﻿using CrowdSisters.DAL;
 using CrowdSisters.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace CrowdSisters.Services
 {
@@ -10,6 +11,30 @@ namespace CrowdSisters.Services
         public ServiceLogin(DALUsuario dalUsuario)
         {
             _dalUsuario = dalUsuario;
+        }
+        //Verify User
+        public async Task<bool> VerifyMail(string email)
+        {
+            IEnumerable<Usuario> listUsuario = await _dalUsuario.GetAllAsync();
+
+            foreach (Usuario usuario in listUsuario)
+            {
+                if(usuario.Email == email)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public async Task<bool> VerifyPassword(string password)
+        {
+            //Usuario usuario = await _dalUsuario.GetByIdAsync(user.IDUsuario);
+            if ("1234" == password)
+            {
+                return true;
+            }
+            
+            return false;
         }
 
         // Crear Proyecto

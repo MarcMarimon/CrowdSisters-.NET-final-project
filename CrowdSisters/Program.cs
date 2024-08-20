@@ -11,6 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<Connection>();
 builder.Services.AddScoped<ServiceProyecto>();
 builder.Services.AddScoped<ServiceCrearProyecto>();
+builder.Services.AddScoped<ServiceLogin>();
 builder.Services.AddScoped<DALProyecto>();
 builder.Services.AddScoped<DALDonacion>();
 builder.Services.AddScoped<DALUsuario>();

@@ -1,12 +1,21 @@
-﻿using CrowdSisters.Models;
+﻿using CrowdSisters.DAL;
+using CrowdSisters.Models;
 using CrowdSisters.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
+using System.Diagnostics.Eventing.Reader;
 
 namespace CrowdSisters.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly ServiceLogin _serviceLogin;
+        public LoginController(ServiceLogin serviceLogin, DALUsuario dalUsuario)
+        {
+            _serviceLogin = serviceLogin;
+        }
+
         // GET: LoginController
         public ActionResult Index()
         {
@@ -22,19 +31,34 @@ namespace CrowdSisters.Controllers
         // GET: LoginController/Create
         public ActionResult Create()
         {
-
             return View();
         }
 
         // POST: LoginController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Usuario  usuario)
+        public async Task<ActionResult> Create(IFormCollection collection)
         {
             try
             {
-                //ServiceLogin.CreateAsync(usuario);
-                return RedirectToAction(nameof(Index));
+                if (await _serviceLogin.VerifyMail(collection["Email"]))
+                {
+                    if (await _serviceLogin.VerifyPassword(collection["Contrasena"]))
+                    {
+                        ViewBag.Login = "LoginCorrecto";
+                        return RedirectToAction(nameof(Index),ViewBag);
+                    }
+                    else
+                    {
+                        ViewBag.Login = "Contraseña incorrecta";
+                        return View();
+                    }
+                }
+                else
+                {
+                    ViewBag.Login = "Email incorrecto";
+                    return View();
+                }
             }
             catch
             {
