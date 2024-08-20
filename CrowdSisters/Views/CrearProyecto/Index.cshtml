@@ -1,0 +1,273 @@
+﻿@model CrowdSisters.Models.CrearProyectoViewModel
+
+@{
+    ViewData["Title"] = "Crear Proyecto";
+    Usuario usuario = new Usuario();
+    usuario = ViewBag.Usuario;
+}
+
+@using (Html.BeginForm("Index", "CrearProyecto", FormMethod.Post, new { id = "crearProyectoForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Paso 1: Datos Personales -->
+    <div id="DatosPersonales">
+        <h3>Datos Personales</h3>
+
+        @Html.Hidden("IDUsuario", usuario.IDUsuario, new { @class = "form-control" })
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.NombreApellidos, "Nombre y Apellidos")
+            @Html.TextBoxFor(m => m.NombreApellidos, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.NombreApellidos, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.DNI)
+            @Html.TextBoxFor(m => m.DNI, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DNI, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Direccion, "Dirección(calle, numero)")
+            @Html.TextBoxFor(m => m.Direccion, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CodigoPostal, "Código Postal")
+            @Html.TextBoxFor(m => m.CodigoPostal, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CodigoPostal, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Poblacion, "Población")
+            @Html.TextBoxFor(m => m.Poblacion, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Poblacion, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Telefono, "Teléfono")
+            @Html.TextBoxFor(m => m.Telefono, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Pais, "País")
+            @Html.DropDownListFor(m => m.Pais, (SelectList)ViewBag.ListCategoria, "Seleccione un país", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Pais, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Paso 2: Tu Perfil -->
+    <div id="TuPerfil" style="display:none;">
+        <h3>Tu Perfil</h3>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.PerfilPublico, "Perfil Público")
+            @Html.TextBoxFor(m => m.PerfilPublico, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.PerfilPublico, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Paso 3: Tu Proyecto -->
+    <div id="TuProyecto" style="display:none;">
+        <h3>Tu Proyecto</h3>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Titulo, "Título de la campaña")
+            @Html.TextBoxFor(m => m.Titulo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Titulo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Subtitulo, "Subtítulo (resume el proyecto en 140 caracteres)")
+            @Html.TextBoxFor(m => m.Subtitulo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Subtitulo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.IDCategoria, "Categoría")
+            @Html.DropDownListFor(m => m.IDCategoria, (SelectList)ViewBag.ListCategoria, "Seleccione una categoria", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.IDCategoria, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.FKSubcategoria, "Subcategoría")
+            @Html.DropDownListFor(m => m.FKSubcategoria, (SelectList)ViewBag.ListSubcategoria, "Seleccione una subcategoria", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.FKSubcategoria, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.MontoObjetivo, "Objetivo de recaudación (EUR)")
+            @Html.TextBoxFor(m => m.MontoObjetivo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.MontoObjetivo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.FechaFinalizacion, "Días para conseguir el objetivo")
+            @Html.EditorFor(m => m.FechaFinalizacion, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+            @Html.ValidationMessageFor(m => m.FechaFinalizacion, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.DescripcionGeneral, " Descripción general del proyecto")
+            @Html.TextBoxFor(m => m.DescripcionGeneral, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DescripcionGeneral, "", new { @class = "text-danger" })
+        </div>
+
+        <label>Añade imágenes para destacar tu proyecto</label>
+
+        <div class="form-group">
+            <input type="file" id="UrlFotoEncabezado" name="UrlFotoEncabezado" accept="image/*">
+        </div>
+
+         <div class="form-group">
+            <input type="file" id="UrlFoto1" name="UrlFoto1" accept="image/*">
+        </div>
+
+         <div class="form-group">
+            <input type="file" id="UrlFoto2" name="UrlFoto2" accept="image/*">
+        </div>
+
+        <div class="form-group">
+            <input type="file" id="UrlFoto3" name="UrlFoto3" accept="image/*">
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.DescripcionFinalidad, "¿Cuál es el objetivo de tu proyecto?")
+            @Html.TextBoxFor(m => m.DescripcionFinalidad, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DescripcionFinalidad, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.DescripcionPresupuesto, "¿A qué destinarás el dinero? Un pequeño presupuesto a grandes rasgos. ")
+            @Html.TextBoxFor(m => m.DescripcionPresupuesto, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DescripcionPresupuesto, "", new { @class = "text-danger" })
+        </div>
+
+        <label>¿Cuál es la recompensa principal que tienes previsto ofrecer y a qué precio?   Indica otras recompensas que podrás ofrecer. </label>
+
+
+        <div class="form-group">
+            <input type="file" id="URLImagenRecompensa" name="URLImagenRecompensa" accept="image/*">
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.TituloRecompensa, "Título de la recompensa 1")
+            @Html.TextBoxFor(m => m.TituloRecompensa, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.TituloRecompensa, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.DescripcionRecompensa, "Descripción de la recompensa 1")
+            @Html.TextBoxFor(m => m.DescripcionRecompensa, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DescripcionRecompensa, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Monto, "Precio de la recompensa")
+            @Html.TextBoxFor(m => m.Monto, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Monto, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div class="form-group">
+            <input type="file" id="URLImagenRecompensa1" name="URLImagenRecompensa1" accept="image/*">
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.TituloRecompensa1, "Título de la recompensa 1")
+            @Html.TextBoxFor(m => m.TituloRecompensa1, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.TituloRecompensa1, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.DescripcionRecompensa1, "Descripción de la recompensa 1")
+            @Html.TextBoxFor(m => m.DescripcionRecompensa1, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DescripcionRecompensa1, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Monto1, "Precio de la recompensa")
+            @Html.TextBoxFor(m => m.Monto1, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Monto1, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div class="form-group">
+            <input type="file" id="URLImagenRecompensa2" name="URLImagenRecompensa2" accept="image/*">
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.TituloRecompensa2, "Título de la recompensa 2")
+            @Html.TextBoxFor(m => m.TituloRecompensa2, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.TituloRecompensa2, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.DescripcionRecompensa2, "Descripción de la recompensa 2")
+            @Html.TextBoxFor(m => m.DescripcionRecompensa2, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DescripcionRecompensa2, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Monto2, "Precio de la recompensa2")
+            @Html.TextBoxFor(m => m.Monto2, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Monto2, "", new { @class = "text-danger" })
+        </div>
+
+
+
+    </div>
+
+    <!-- Botones de navegación -->
+    <div>
+        <button type="button" id="nextBtn" class="btn btn-primary">Siguiente Paso</button>
+        <button type="submit" id="submitBtn" class="btn btn-success" style="display:none;">Confirmar</button>
+    </div>
+}
+
+@section Scripts {
+
+    @await Html.PartialAsync("_ValidationScriptsPartial");
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const steps = ["DatosPersonales", "TuPerfil", "TuProyecto"];
+            let currentStep = 0;
+
+            function showStep(stepIndex) {
+                steps.forEach((stepId, index) => {
+                    document.getElementById(stepId).style.display = index === stepIndex ? 'block' : 'none';
+                });
+                // Controla la visibilidad de los botones
+                document.getElementById("nextBtn").style.display = stepIndex < steps.length - 1 ? 'inline' : 'none';
+                document.getElementById("submitBtn").style.display = stepIndex === steps.length - 1 ? 'inline' : 'none';
+            }
+
+            // Mostrar el primer paso
+            showStep(currentStep);
+
+            // Validación y navegación
+            function validateSection() {
+                const form = $("#crearProyectoForm");
+                form.validate(); // Inicia la validación del formulario
+                return form.valid();
+            }
+
+            // Evento para el botón "Siguiente Paso"
+            document.getElementById("nextBtn").addEventListener("click", function () {
+                if (validateSection()) {
+                    if (currentStep < steps.length - 1) {
+                        currentStep++;
+                        showStep(currentStep);
+                    }
+                }
+            });
+        });
+    </script>
+}

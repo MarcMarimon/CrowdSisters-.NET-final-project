@@ -22,8 +22,7 @@ namespace CrowdSisters.DAL
             const string query = @"
                 INSERT INTO USUARIO (Nombre, Email, Contrasena, FechaRegistro, IsAdmin, PerfilPublico, 
                 URLImagenUsuario, Monedero, PrimerApellido, SegundoApellido, DNI, Direccion, CodigoPostal, Poblacion,
-                Telofono, Pais, Nick) 
-                Telefono, Pais) 
+                Telofono, Pais, Nick)
                 VALUES (@Nombre, @Email, @Contrasena, @FechaRegistro, @IsAdmin, @PerfilPublico, @URLImagenUsuario,
                 @Monedero, @PrimerApellido, @SegundoApellido, @DNI, @Direccion, @CodigoPostal, @Poblacion,
                 @Telofono, @Pais, @Nick)";
@@ -33,6 +32,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@Nombre", usuario.Nombre);
                     command.Parameters.AddWithValue("@Email", usuario.Email);
                     command.Parameters.AddWithValue("@Contrasena", usuario.Contrasena);
@@ -72,6 +72,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     using (var reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
@@ -79,22 +80,22 @@ namespace CrowdSisters.DAL
                             usuarios.Add(new Usuario
                             {
                                 IDUsuario = reader.GetInt32(reader.GetOrdinal("IDUsuario")),
-                                Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                                Nombre = reader.IsDBNull(reader.GetOrdinal("Nombre")) ? null : reader.GetString(reader.GetOrdinal("Nombre")),
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
                                 Contrasena = reader.GetString(reader.GetOrdinal("Contrasena")),
                                 FechaRegistro = reader.GetDateTime(reader.GetOrdinal("FechaRegistro")),
                                 IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin")),
-                                PerfilPublico = reader.GetString(reader.GetOrdinal("PerfilPublico")),
-                                URLImagenUsuario = reader.GetString(reader.GetOrdinal("URLImagenUsuario")),
+                                PerfilPublico = reader.IsDBNull(reader.GetOrdinal("PerfilPublico")) ? null : reader.GetString(reader.GetOrdinal("PerfilPublico")),
+                                URLImagenUsuario = reader.IsDBNull(reader.GetOrdinal("URLImagenUsuario")) ? null : reader.GetString(reader.GetOrdinal("URLImagenUsuario")),
                                 Monedero = reader.GetDecimal(reader.GetOrdinal("Monedero")),
-                                PrimerApellido = reader.GetString(reader.GetOrdinal("PrimerApellido")),
-                                SegundoApellido = reader.GetString(reader.GetOrdinal("SegundoApellido")),
-                                DNI = reader.GetString(reader.GetOrdinal("DNI")),
-                                Direccion = reader.GetString(reader.GetOrdinal("Direccion")),
-                                CodigoPostal = reader.GetString(reader.GetOrdinal("CodigoPostal")),
-                                Poblacion = reader.GetString(reader.GetOrdinal("Poblacion")),
-                                Telefono = reader.GetString(reader.GetOrdinal("Telefono")),
-                                Pais = reader.GetString(reader.GetOrdinal("Pais")),
+                                PrimerApellido = reader.IsDBNull(reader.GetOrdinal("PrimerApellido")) ? null : reader.GetString(reader.GetOrdinal("PrimerApellido")),
+                                SegundoApellido = reader.IsDBNull(reader.GetOrdinal("SegundoApellido")) ? null : reader.GetString(reader.GetOrdinal("SegundoApellido")),
+                                DNI = reader.IsDBNull(reader.GetOrdinal("DNI")) ? null : reader.GetString(reader.GetOrdinal("DNI")),
+                                Direccion = reader.IsDBNull(reader.GetOrdinal("Direccion")) ? null : reader.GetString(reader.GetOrdinal("Direccion")),
+                                CodigoPostal = reader.IsDBNull(reader.GetOrdinal("CodigoPostal")) ? null : reader.GetString(reader.GetOrdinal("CodigoPostal")),
+                                Poblacion = reader.IsDBNull(reader.GetOrdinal("Poblacion")) ? null : reader.GetString(reader.GetOrdinal("Poblacion")),
+                                Telefono = reader.IsDBNull(reader.GetOrdinal("Telefono")) ? null : reader.GetString(reader.GetOrdinal("Telefono")),
+                                Pais = reader.IsDBNull(reader.GetOrdinal("Pais")) ? null : reader.GetString(reader.GetOrdinal("Pais")),
                                 Nick = reader.GetString(reader.GetOrdinal("Nick"))
                             });
                         }
@@ -109,16 +110,17 @@ namespace CrowdSisters.DAL
             }
         }
 
-        // Leer por ID
+
         public async Task<Usuario> GetByIdAsync(int id)
         {
-            const string query = @"SELECT * FROM USUARIO WHERE IDUsuario = @IDUsuario";
+            const string query = @"SELECT * FROM Usuario WHERE IDUsuario = IDUsuario";
 
             try
             {
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDUsuario", id);
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -127,22 +129,22 @@ namespace CrowdSisters.DAL
                             return new Usuario
                             {
                                 IDUsuario = reader.GetInt32(reader.GetOrdinal("IDUsuario")),
-                                Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                                Nombre = reader.IsDBNull(reader.GetOrdinal("Nombre")) ? null : reader.GetString(reader.GetOrdinal("Nombre")),
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
                                 Contrasena = reader.GetString(reader.GetOrdinal("Contrasena")),
                                 FechaRegistro = reader.GetDateTime(reader.GetOrdinal("FechaRegistro")),
                                 IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin")),
-                                PerfilPublico = reader.GetString(reader.GetOrdinal("PerfilPublico")),
-                                URLImagenUsuario = reader.GetString(reader.GetOrdinal("URLImagenUsuario")),
+                                PerfilPublico = reader.IsDBNull(reader.GetOrdinal("PerfilPublico")) ? null : reader.GetString(reader.GetOrdinal("PerfilPublico")),
+                                URLImagenUsuario = reader.IsDBNull(reader.GetOrdinal("URLImagenUsuario")) ? null : reader.GetString(reader.GetOrdinal("URLImagenUsuario")),
                                 Monedero = reader.GetDecimal(reader.GetOrdinal("Monedero")),
-                                PrimerApellido = reader.GetString(reader.GetOrdinal("PrimerApellido")),
-                                SegundoApellido = reader.GetString(reader.GetOrdinal("SegundoApellido")),
-                                DNI = reader.GetString(reader.GetOrdinal("DNI")),
-                                Direccion = reader.GetString(reader.GetOrdinal("Direccion")),
-                                CodigoPostal = reader.GetString(reader.GetOrdinal("CodigoPostal")),
-                                Poblacion = reader.GetString(reader.GetOrdinal("Poblacion")),
-                                Telefono = reader.GetString(reader.GetOrdinal("Telefono")),
-                                Pais = reader.GetString(reader.GetOrdinal("Pais")),
+                                PrimerApellido = reader.IsDBNull(reader.GetOrdinal("PrimerApellido")) ? null : reader.GetString(reader.GetOrdinal("PrimerApellido")),
+                                SegundoApellido = reader.IsDBNull(reader.GetOrdinal("SegundoApellido")) ? null : reader.GetString(reader.GetOrdinal("SegundoApellido")),
+                                DNI = reader.IsDBNull(reader.GetOrdinal("DNI")) ? null : reader.GetString(reader.GetOrdinal("DNI")),
+                                Direccion = reader.IsDBNull(reader.GetOrdinal("Direccion")) ? null : reader.GetString(reader.GetOrdinal("Direccion")),
+                                CodigoPostal = reader.IsDBNull(reader.GetOrdinal("CodigoPostal")) ? null : reader.GetString(reader.GetOrdinal("CodigoPostal")),
+                                Poblacion = reader.IsDBNull(reader.GetOrdinal("Poblacion")) ? null : reader.GetString(reader.GetOrdinal("Poblacion")),
+                                Telefono = reader.IsDBNull(reader.GetOrdinal("Telefono")) ? null : reader.GetString(reader.GetOrdinal("Telefono")),
+                                Pais = reader.IsDBNull(reader.GetOrdinal("Pais")) ? null : reader.GetString(reader.GetOrdinal("Pais")),
                                 Nick = reader.GetString(reader.GetOrdinal("Nick"))
                             };
                         }
@@ -156,6 +158,7 @@ namespace CrowdSisters.DAL
                 return null;
             }
         }
+
 
         // Actualizar
         public async Task<bool> UpdateAsync(Usuario usuario)
@@ -185,6 +188,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDUsuario", usuario.IDUsuario);
                     command.Parameters.AddWithValue("@Nombre", usuario.Nombre);
                     command.Parameters.AddWithValue("@Email", usuario.Email);
@@ -222,6 +226,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDUsuario", id);
                     return await command.ExecuteNonQueryAsync() > 0;
                 }

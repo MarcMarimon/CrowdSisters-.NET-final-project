@@ -1,5 +1,6 @@
 using CrowdSisters.Conections;
 using CrowdSisters.DAL;
+using CrowdSisters.Models;
 using CrowdSisters.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,8 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Register the Connection class with dependency injection
-builder.Services.AddScoped<Connection>();
+builder.Services.AddTransient<Connection>();
 builder.Services.AddScoped<ServiceProyecto>();
+builder.Services.AddScoped<ServiceCrearProyecto>();
+builder.Services.AddScoped<ServiceCategoria>();
+builder.Services.AddScoped<ServiceSubcategoria>();
 builder.Services.AddScoped<DALProyecto>();
 builder.Services.AddScoped<DALDonacion>();
 builder.Services.AddScoped<DALUsuario>();

@@ -16,7 +16,6 @@ namespace CrowdSisters.Conections
 
         public SqlConnection GetSqlConn()
         {
-            connection.Open();
             return connection;
         }
     }

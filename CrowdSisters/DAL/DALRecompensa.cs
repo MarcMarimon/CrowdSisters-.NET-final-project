@@ -39,6 +39,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@Titulo", recompensa.Titulo);
                     command.Parameters.AddWithValue("@Descripcion", recompensa.Descripcion);
                     command.Parameters.AddWithValue("@Monto", recompensa.Monto);
@@ -67,6 +68,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     using (var reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
@@ -102,6 +104,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDRecompensa", id);
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -146,6 +149,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDRecompensa", recompensa.IDRecompensa);
                     command.Parameters.AddWithValue("@Titulo", recompensa.Titulo);
                     command.Parameters.AddWithValue("@Descripcion", recompensa.Descripcion);
@@ -173,6 +177,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDRecompensa", id);
                     return await command.ExecuteNonQueryAsync() > 0;
                 }
