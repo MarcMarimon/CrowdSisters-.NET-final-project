@@ -1,4 +1,4 @@
-﻿@{
+﻿﻿@{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml"; // Esto depende de cómo tengas configurado tu proyecto.
 }
@@ -9,15 +9,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
     <link rel="stylesheet" href="~/css/global.css" />
+    <link rel="stylesheet" href="~/css/desktop.css" />
+    <link rel="stylesheet" href="~/css/desktop.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Home.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
     <title>@ViewData["Title"]</title>
 </head>
 <body>
+
     <div class="home">
         <img class="imagenproyecto-icon" alt="" src="~/img/ProyectoEcoBeauty.jpg" />
-
         <section class="project-header">
             <div class="ttuloproyecto-parent">
                 <div class="ttuloproyecto">
@@ -31,7 +33,7 @@
                         <div class="countdown-details">
                             <div class="days-remaining-container-parent">
                                 <div class="days-remaining-container">
-                                    <img class="flecha-izquierda-icon" loading="lazy" alt="" src="~/images/flecha-izquierda.svg" />
+                                    <img class="flecha-izquierda-icon" loading="lazy" alt="" src="~/img/FlechaIzquierdaBlanco.png" />
                                 </div>
                                 <div class="das-restantes">
                                     <p class="ecobeauty-">
@@ -59,11 +61,11 @@
                             </div>
                             <div class="projects-slider">
                                 <div class="flecha-izquierda-wrapper">
-                                    <img class="flecha-izquierda-icon1" loading="lazy" alt="" src="~/images/flecha-izquierda-1.svg" />
+                                    <img class="flecha-izquierda-icon1" loading="lazy" alt="" src="~/img/FlechaIzquierdaColor.png" />
                                 </div>
                                 <div class="project-cards">
                                     <div class="card-1">
-                                        <img class="image-icon" loading="lazy" alt="" src="~/images/image@2x.png" />
+                                        <img class="image-icon" loading="lazy" alt="" src="~/img/card1 (1).png" />
                                         <div class="image-overlay"></div>
                                         <div class="project-card-details">
                                             <div class="ttulo1">
@@ -73,7 +75,7 @@
                                                 </div>
                                             </div>
                                             <div class="project-card-footer">
-                                                <img class="crowdsisterslogomanoverde-1-icon" loading="lazy" alt="" src="~/images/crowdsisterslogomanoverde-1@2x.png" />
+                                                <img class="crowdsisterslogomanoverde-1-icon" loading="lazy" alt="" src="~/img/CrowdSistersLogoManoVerde.png" />
                                                 <div class="project-euro">
                                                     <div class="de-8500">
                                                         <p class="ecobeauty-">12.000 €</p>
@@ -85,7 +87,7 @@
                                     </div>
                                 </div>
                                 <div class="card-2">
-                                    <img class="image-icon" loading="lazy" alt="" src="~/images/image-1@2x.png" />
+                                    <img class="image-icon" loading="lazy" alt="" src="~/img/card2.png" />
                                     <div class="image-overlay"></div>
                                     <div class="project-card-details">
                                         <div class="ttulo-wrapper">
@@ -97,7 +99,7 @@
                                             </div>
                                         </div>
                                         <div class="second-card-footer">
-                                            <img class="crowdsisterslogomanoverde-1-icon" loading="lazy" alt="" src="~/images/crowdsisterslogomanoverde-1@2x.png" />
+                                            <img class="crowdsisterslogomanoverde-1-icon" loading="lazy" alt="" src="~/img/CrowdSistersLogoManoVerde.png" />
                                             <div class="project-euro">
                                                 <div class="de-8500">
                                                     <p class="ecobeauty-">5.600 €</p>
@@ -111,10 +113,10 @@
                         </div>
                     </div>
                     <div class="flecha-derecha-parent">
-                        <img class="flecha-izquierda-icon" loading="lazy" alt="" src="~/images/flecha-derecha.svg" />
+                        <img class="flecha-izquierda-icon" loading="lazy" alt="" src="~/img/FlechaDerechaBlanco.png" />
                         <div class="card-1-parent">
                             <div class="card-11">
-                                <img class="image-icon" loading="lazy" alt="" src="~/images/image-2@2x.png" />
+                                <img class="image-icon" loading="lazy" alt="" src="~/img/card3.png" />
                                 <div class="image-overlay"></div>
                                 <div class="project-card-details">
                                     <div class="ttulo5">
@@ -124,7 +126,7 @@
                                         </div>
                                     </div>
                                     <div class="project-card-footer">
-                                        <img class="crowdsisterslogomanoverde-1-icon" loading="lazy" alt="" src="~/images/crowdsisterslogomanoverde-1@2x.png" />
+                                        <img class="crowdsisterslogomanoverde-1-icon" loading="lazy" alt="" src="~/img/CrowdSistersLogoManoVerde.png" />
                                         <div class="project-euro">
                                             <div class="de-8500">
                                                 <p class="ecobeauty-">2.500 €</p>
@@ -135,7 +137,7 @@
                                 </div>
                             </div>
                             <div class="flecha-izquierda-wrapper">
-                                <img class="flecha-izquierda-icon1" loading="lazy" alt="" src="~/images/flecha-derecha-1.svg" />
+                                <img class="flecha-izquierda-icon1" loading="lazy" alt="" src="~/img/FlechaDerechaColor.png" />
                             </div>
                         </div>
                     </div>
@@ -145,8 +147,7 @@
         <section class="descripcin-crowdsisters">
             <div class="logo">
                 <div class="logo-container">
-                    <img class="crowdsisterslogomano-1-icon" loading="lazy" alt="" src="~/images/crowdsisterslogomano-1@2x.png" />
-                    <img class="crowdsisterslogocolor-1-icon" alt="" src="~/images/crowdsisterslogocolor-1@2x.png" />
+                    <img class="crowdsisterslogomano-1-icon" loading="lazy" alt="" src="~/img/CrowdSistersManoYLogo.png" />
                 </div>
             </div>
             <div class="description-container">
