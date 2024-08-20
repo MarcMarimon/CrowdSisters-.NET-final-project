@@ -25,6 +25,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@Nombre", subcategoria.Nombre);
                     command.Parameters.AddWithValue("@FKCategoria", subcategoria.FKCategoria);
 
@@ -50,13 +51,14 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     using (var reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
                             subcategorias.Add(new Subcategoria
                             {
-                                IDSubcategoria = reader.GetInt32(reader.GetOrdinal("IDCategoria")),
+                                IDSubcategoria = reader.GetInt32(reader.GetOrdinal("IDSubcategoria")),
                                 Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
                                 FKCategoria = reader.GetInt32(reader.GetOrdinal("FKCategoria"))
                             });
@@ -83,6 +85,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDSubcategoria", id);
 
                     using (var reader = await command.ExecuteReaderAsync())
@@ -120,6 +123,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDSubcateogira", subcategoria.IDSubcategoria);
                     command.Parameters.AddWithValue("@Nombre", subcategoria.Nombre);
 
@@ -144,6 +148,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDSubcategoria", id);
 
                     return await command.ExecuteNonQueryAsync() > 0;

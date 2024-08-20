@@ -59,6 +59,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@FKUsuario", proyecto.FKUsuario);
                     command.Parameters.AddWithValue("@FKSubcategoria", proyecto.FKSubcategoria);
                     command.Parameters.AddWithValue("@Titulo", proyecto.Titulo);
@@ -97,6 +98,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     using (var reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
@@ -142,6 +144,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDProyecto", id);
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -206,6 +209,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDProyecto", proyecto.IDProyecto);
                     command.Parameters.AddWithValue("@FKUsuario", proyecto.FKUsuario);
                     command.Parameters.AddWithValue("@FKSubcategoria", proyecto.FKSubcategoria);
@@ -243,6 +247,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDProyecto", id);
                     return await command.ExecuteNonQueryAsync() > 0;
                 }
