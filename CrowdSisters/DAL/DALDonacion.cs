@@ -35,6 +35,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@FKProyecto", donacion.FKProyecto);
                     command.Parameters.AddWithValue("@FKUsuario", donacion.FKUsuario);
                     command.Parameters.AddWithValue("@FKRecompensa", donacion.FKRecompensa);
@@ -61,6 +62,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     using (var reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
@@ -94,6 +96,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDDonacion", id);
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -135,6 +138,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDDonacion", id);
                     return await command.ExecuteNonQueryAsync() > 0;
                 }
