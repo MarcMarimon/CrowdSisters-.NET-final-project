@@ -1,5 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model CrowdSisters.Models.Usuario
+<h2>Login</h2>
+
+@using (Html.BeginForm("Create", "Login", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Contrasena)
+        @Html.PasswordFor(m => m.Contrasena)
+    </div>
+    <div>
+        <input type="submit" value="Login" />
+    </div>
 }
