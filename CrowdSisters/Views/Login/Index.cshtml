@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿@model CrowdSisters.Models.Usuario
 <h2>Login</h2>
 
@@ -15,4 +16,139 @@
     <div>
         <input type="submit" value="Login" />
     </div>
+=======
+﻿@{
+    Layout = null; // O define el Layout si tienes uno
+>>>>>>> origin/Ferran
 }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="~/css/global.css" />
+    <link rel="stylesheet" href="~/css/index.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
+</head>
+<body>
+    <div class="login">
+        <img class="iniciosesin-2-icon" loading="lazy" alt="" src="~/public/iniciosesin-2@2x.png" />
+
+        <div class="content">
+            <div class="header-parent">
+                <div class="header">
+                    <img class="x-icon5" loading="lazy" alt="" src="~/public/x4.svg" />
+                </div>
+                <h1 class="inicia-sesin">Inicia sesión</h1>
+            </div>
+            <form class="form" method="post" action="@Url.Action("Login", "Account")">
+                <div class="input-email-parent">
+                    <div class="input-email">
+                        <div class="label">Email</div>
+                        <div class="description">Description</div>
+                        <div class="input">
+                            <input class="value1" placeholder="Introduce tu email" type="email" name="Email" />
+                        </div>
+                        <div class="error">@ViewBag.EmailError</div>
+                    </div>
+                    <div class="input-email">
+                        <div class="label">Contraseña</div>
+                        <div class="description">Description</div>
+                        <div class="input">
+                            <input class="value1" placeholder="Introduce tu contraseña" type="password" name="Password" />
+                        </div>
+                        <div class="error">@ViewBag.PasswordError</div>
+                    </div>
+                </div>
+                <div class="button-inicio-sesin-parent">
+                    <button type="submit" class="button-inicio-sesin">
+                        <div class="button5">
+                            <img class="star-icon5" alt="" src="~/public/star4.svg" />
+                            <div class="button6">Button</div>
+                            <img class="star-icon5" alt="" src="~/public/x41.svg" />
+                        </div>
+                        <div class="button7">
+                            <img class="star-icon5" alt="" src="~/public/star5.svg" />
+                            <b class="button8">Iniciar sesión</b>
+                            <img class="star-icon5" alt="" src="~/public/x5.svg" />
+                        </div>
+                    </button>
+                    <div class="olvidaste-contrasea-link">
+                        <div class="text-link">¿Olvidaste la contraseña?</div>
+                    </div>
+                </div>
+                <div class="input-container-parent">
+                    <div class="input-container">
+                        <div class="frame-group">
+                            <div class="line-wrapper">
+                                <div class="frame-item"></div>
+                            </div>
+                            <b class="o-elige-una">O ELIGE UNA DE ESTAS OPCIONES</b>
+                            <div class="line-wrapper">
+                                <div class="frame-item"></div>
+                            </div>
+                        </div>
+                        <div class="google-button">
+                            <div class="button-google">
+                                <div class="button9">
+                                    <img class="star-icon5" alt="" src="~/public/star4.svg" />
+                                    <div class="button6">Button</div>
+                                    <img class="star-icon5" alt="" src="~/public/x41.svg" />
+                                </div>
+                                <div class="button11">
+                                    <img class="star-icon5" alt="" src="~/public/star3.svg" />
+                                    <b class="button12">Inicia sesión o regístrate con Google</b>
+                                    <img class="x-icon9" alt="" src="~/public/x3.svg" />
+                                </div>
+                            </div>
+                            <img class="google-1-icon" loading="lazy" alt="" src="~/public/google-1@2x.png" />
+                        </div>
+                        <div class="google-button">
+                            <div class="button-google">
+                                <div class="button9">
+                                    <img class="star-icon5" alt="" src="~/public/star4.svg" />
+                                    <div class="button6">Button</div>
+                                    <img class="star-icon5" alt="" src="~/public/x41.svg" />
+                                </div>
+                                <div class="button11">
+                                    <img class="star-icon5" alt="" src="~/public/star3.svg" />
+                                    <b class="button12">Inicia sesión o regístrate con LinkedIn</b>
+                                    <img class="x-icon9" alt="" src="~/public/x3.svg" />
+                                </div>
+                            </div>
+                            <img class="google-1-icon" loading="lazy" alt="" src="~/public/google-1-1@2x.png" />
+                        </div>
+                    </div>
+                    <div class="frame-item"></div>
+                    <div class="eres-nueva-wrapper">
+                        <div class="eres-nueva">
+                            <div class="text-link1">
+                                <span class="eres-nueva-en">¿Eres nueva en CrowdSisters? ¡Regístrate aquí!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="auth-container">
+                    <div class="frame-item"></div>
+                    <b class="ptc">
+                        <span class="este-sitio-est">Este sitio está protegido por reCAPTCHA y se aplica la </span>
+                        <a class="poltica-de-privacidad" href="https://policies.google.com/privacy" target="_blank">
+                            <span class="poltica-de-privacidad1"><span class="poltica-de-privacidad2">Política de Privacidad</span></span>
+                        </a>
+                        <span class="poltica-de-privacidad1">  </span>
+                        <span class="este-sitio-est">y los</span>
+                        <span class="poltica-de-privacidad1">  </span>
+                        <a class="poltica-de-privacidad" href="https://policies.google.com/terms" target="_blank">
+                            <span class="poltica-de-privacidad1"><span class="poltica-de-privacidad2">Términos de Servicio</span></span>
+                        </a>
+                        <span class="este-sitio-est"> de Google.</span>
+                    </b>
+                </div>
+            </form>
+            <img class="crowdsisterslogocolor-icon" loading="lazy" alt="" src="~/public/crowdsisterslogocolor@2x.png" />
+        </div>
+    </div>
+</body>
+</html>
