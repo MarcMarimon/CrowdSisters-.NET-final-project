@@ -17,6 +17,7 @@ namespace CrowdSisters.Services
 
         // Crear Proyecto
         public async Task<Proyecto> CreateProyectoAsync(Proyecto proyecto)
+
         {
             try
             {
@@ -30,7 +31,7 @@ namespace CrowdSisters.Services
         }
 
         // Obtener Proyecto por ID
-        public async Task<Proyecto> GetProyectoByIdAsync(int id)
+        public async Task<Proyecto> GetByIdAsync(int id)
         {
             try
             {
@@ -44,7 +45,7 @@ namespace CrowdSisters.Services
         }
 
         // Actualizar Proyecto
-        public async Task<bool> UpdateProyectoAsync(Proyecto proyecto)
+        public async Task<bool> UpdateAsync(Proyecto proyecto)
         {
             try
             {
@@ -58,7 +59,7 @@ namespace CrowdSisters.Services
         }
 
         // Eliminar Proyecto
-        public async Task<bool> DeleteProyectoAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             try
             {

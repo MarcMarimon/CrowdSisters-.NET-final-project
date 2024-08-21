@@ -5,6 +5,7 @@
     Usuario usuario = new Usuario();
     usuario = ViewBag.Usuario;
     string nombreApellidos = usuario.Nombre + " " + usuario.PrimerApellido + " " + usuario.SegundoApellido;
+
 }
 
 @using (Html.BeginForm("Index", "CrearProyecto", FormMethod.Post, new { id = "crearProyectoForm", enctype = "multipart/form-data" }))

@@ -14,17 +14,19 @@ namespace CrowdSisters.Controllers
 
         private readonly ServiceSubcategoria _serviceSubcategoria;
 
+
         private readonly ServiceRecompensa _serviceRecompensa;
+        private readonly FirebaseService _serviceFirebase; 
 
 
-        public CrearProyectoController(ServiceCrearProyecto serviceCrearProyecto, ServiceCategoria serviceCategoria, 
-            ServiceSubcategoria serviceSubcategoria, ServiceRecompensa serviceRecompensa)
+        public CrearProyectoController(ServiceCrearProyecto serviceCrearProyecto, ServiceCategoria serviceCategoria, ServiceRecompensa serviceRecompensa, ServiceSubcategoria serviceSubcategoria, FirebaseService serviceFirebase)
+
         {
             _serviceCrearProyecto = serviceCrearProyecto;
             _serviceCategoria = serviceCategoria;
             _serviceSubcategoria = serviceSubcategoria;
             _serviceRecompensa = serviceRecompensa;
-
+            _serviceFirebase = serviceFirebase;
         }
 
         public async Task<IActionResult> Index()
@@ -55,7 +57,7 @@ namespace CrowdSisters.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Index(CrearProyectoViewModel model)
+        public async Task<ActionResult> Index(CrearProyectoViewModel model, IFormFile UrlFotoEncabezado, IFormFile UrlFoto1, IFormFile UrlFoto2, IFormFile UrlFoto3)
         {
 
             if (!ModelState.IsValid)
@@ -108,10 +110,17 @@ namespace CrowdSisters.Controllers
             proyecto.FechaCreacion = DateTime.Now;
             proyecto.FechaFinalizacion = model.FechaFinalizacion;
             proyecto.MontoObjetivo = model.MontoObjetivo;
-            proyecto.UrlFotoEncabezado = "sdfgh";
-            proyecto.UrlFoto1 = "dfghjk";
-            proyecto.UrlFoto2 = "dfghjk";
-            proyecto.UrlFoto3 = "dfghjk";
+            Stream imagen = UrlFotoEncabezado.OpenReadStream();
+            proyecto.UrlFotoEncabezado = await _serviceFirebase.subirStorage(imagen, UrlFotoEncabezado.FileName);
+            imagen = UrlFoto1.OpenReadStream();
+            proyecto.UrlFoto1 = await _serviceFirebase.subirStorage(imagen, UrlFoto1.FileName);
+            imagen = UrlFoto2.OpenReadStream();
+            proyecto.UrlFoto2 = await _serviceFirebase.subirStorage(imagen, UrlFoto2.FileName);
+            imagen = UrlFoto3.OpenReadStream();
+            proyecto.UrlFoto3 = await _serviceFirebase.subirStorage(imagen, UrlFoto3.FileName);
+
+
+
 
             proyecto = await _serviceCrearProyecto.CreateProyectoAsync(proyecto);
 
