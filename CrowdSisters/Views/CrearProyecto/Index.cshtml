@@ -4,6 +4,7 @@
     ViewData["Title"] = "Crear Proyecto";
     Usuario usuario = new Usuario();
     usuario = ViewBag.Usuario;
+    string nombreApellidos = usuario.Nombre + " " + usuario.PrimerApellido + " " + usuario.SegundoApellido;
 }
 
 @using (Html.BeginForm("Index", "CrearProyecto", FormMethod.Post, new { id = "crearProyectoForm", enctype = "multipart/form-data" }))
@@ -18,50 +19,61 @@
 
         <div class="form-group">
             @Html.LabelFor(m => m.NombreApellidos, "Nombre y Apellidos")
-            @Html.TextBoxFor(m => m.NombreApellidos, new { @class = "form-control" })
+            @Html.TextBox("NombreApellidos", nombreApellidos, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.NombreApellidos, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(m => m.DNI)
-            @Html.TextBoxFor(m => m.DNI, new { @class = "form-control" })
+            @Html.TextBox("DNI", usuario.DNI, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.DNI, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(m => m.Direccion, "Dirección(calle, numero)")
-            @Html.TextBoxFor(m => m.Direccion, new { @class = "form-control" })
+            @Html.TextBox("Direccion", usuario.Direccion, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(m => m.CodigoPostal, "Código Postal")
-            @Html.TextBoxFor(m => m.CodigoPostal, new { @class = "form-control" })
+            @Html.TextBox("CodigoPostal", usuario.CodigoPostal, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.CodigoPostal, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(m => m.Poblacion, "Población")
-            @Html.TextBoxFor(m => m.Poblacion, new { @class = "form-control" })
+            @Html.TextBox("Poblacion", usuario.Poblacion, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Poblacion, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(m => m.Telefono, "Teléfono")
-            @Html.TextBoxFor(m => m.Telefono, new { @class = "form-control" })
+            @Html.TextBox("Telefono", usuario.Telefono, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Pais, "País")
-            @Html.DropDownListFor(m => m.Pais, (SelectList)ViewBag.ListCategoria, "Seleccione un país", new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Pais, "", new { @class = "text-danger" })
+            @Html.Label("Pais", "País") 
+            <select name="Pais">
+                @foreach (var pais in ViewBag.Paises as List<string>)
+                {
+                    <option value="@pais">@pais</option>
+                }
+            </select>
+            @Html.ValidationMessage("Pais", "", new { @class = "text-danger" }) <!-- Cambié ValidationMessageFor por ValidationMessage -->
         </div>
+
     </div>
 
     <!-- Paso 2: Tu Perfil -->
     <div id="TuPerfil" style="display:none;">
         <h3>Tu Perfil</h3>
+
+        <div class="form-group">
+            <input type="file" id="URLImagenUsuario" name="URLImagenUsuario" accept="image/*" required>
+            @Html.ValidationMessageFor(m => m.URLImagenUsuario, "", new { @class = "text-danger" })
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(m => m.PerfilPublico, "Perfil Público")
@@ -119,19 +131,23 @@
         <label>Añade imágenes para destacar tu proyecto</label>
 
         <div class="form-group">
-            <input type="file" id="UrlFotoEncabezado" name="UrlFotoEncabezado" accept="image/*">
+            <input type="file" id="UrlFotoEncabezado" name="UrlFotoEncabezado" accept="image/*" required>
+            @Html.ValidationMessageFor(m => m.UrlFotoEncabezado, "", new { @class = "text-danger" })
         </div>
 
          <div class="form-group">
-            <input type="file" id="UrlFoto1" name="UrlFoto1" accept="image/*">
+            <input type="file" id="UrlFoto1" name="UrlFoto1" accept="image/*" required>
+            @Html.ValidationMessageFor(m => m.UrlFoto1, "", new { @class = "text-danger" })
         </div>
 
          <div class="form-group">
-            <input type="file" id="UrlFoto2" name="UrlFoto2" accept="image/*">
+            <input type="file" id="UrlFoto2" name="UrlFoto2" accept="image/*" required>
+            @Html.ValidationMessageFor(m => m.UrlFoto2, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            <input type="file" id="UrlFoto3" name="UrlFoto3" accept="image/*">
+            <input type="file" id="UrlFoto3" name="UrlFoto3" accept="image/*" required>
+            @Html.ValidationMessageFor(m => m.UrlFoto2, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
@@ -150,7 +166,8 @@
 
 
         <div class="form-group">
-            <input type="file" id="URLImagenRecompensa" name="URLImagenRecompensa" accept="image/*">
+            <input type="file" id="URLImagenRecompensa" name="URLImagenRecompensa" accept="image/*" required>
+            @Html.ValidationMessageFor(m => m.URLImagenRecompensa, "", new { @class = "text-danger" })
         </div>
 
 
@@ -174,7 +191,8 @@
 
 
         <div class="form-group">
-            <input type="file" id="URLImagenRecompensa1" name="URLImagenRecompensa1" accept="image/*">
+            <input type="file" id="URLImagenRecompensa1" name="URLImagenRecompensa1" accept="image/*" required>
+            @Html.ValidationMessageFor(m => m.URLImagenRecompensa1, "", new { @class = "text-danger" })
         </div>
 
 
@@ -198,7 +216,8 @@
 
 
         <div class="form-group">
-            <input type="file" id="URLImagenRecompensa2" name="URLImagenRecompensa2" accept="image/*">
+            <input type="file" id="URLImagenRecompensa2" name="URLImagenRecompensa2" accept="image/*" required>
+            @Html.ValidationMessageFor(m => m.URLImagenRecompensa2, "", new { @class = "text-danger" })
         </div>
 
 
@@ -252,10 +271,44 @@
             // Mostrar el primer paso
             showStep(currentStep);
 
+            // Función para validar el campo de nombres y apellidos
+            function validarNombresApellidos(input) {
+                const nombresArray = input.value.trim().split(' ');
+
+                if (nombresArray.length !== 3) {
+                    // Mostrar el mensaje de error usando el helper `Html.ValidationMessageFor`
+                    const errorMessageElement = document.querySelector('[data-valmsg-for="NombreApellidos"]');
+                    if (errorMessageElement) {
+                        errorMessageElement.textContent = "Por favor, ingrese un nombre y dos apellidos.";
+                        errorMessageElement.classList.remove("field-validation-valid");
+                        errorMessageElement.classList.add("field-validation-error");
+                    }
+                    return false;
+                }
+
+                // Limpiar el mensaje de error si todo está bien
+                const errorMessageElement = document.querySelector('[data-valmsg-for="NombreApellidos"]');
+                if (errorMessageElement) {
+                    errorMessageElement.textContent = "";
+                    errorMessageElement.classList.remove("field-validation-error");
+                    errorMessageElement.classList.add("field-validation-valid");
+                }
+                return true;
+            }
+
             // Validación y navegación
             function validateSection() {
                 const form = $("#crearProyectoForm");
                 form.validate(); // Inicia la validación del formulario
+
+                // Si estamos en el paso de "DatosPersonales", ejecuta la validación específica
+                if (currentStep === 0) {
+                    const inputNombres = document.getElementById('NombreApellidos');
+                    if (!validarNombresApellidos(inputNombres)) {
+                        return false;
+                    }
+                }
+
                 return form.valid();
             }
 

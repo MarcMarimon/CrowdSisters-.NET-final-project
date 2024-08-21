@@ -14,18 +14,26 @@ namespace CrowdSisters.Controllers
 
         private readonly ServiceSubcategoria _serviceSubcategoria;
 
+        private readonly ServiceRecompensa _serviceRecompensa;
 
-        public CrearProyectoController(ServiceCrearProyecto serviceCrearProyecto, ServiceCategoria serviceCategoria, ServiceSubcategoria serviceSubcategoria)
+
+        public CrearProyectoController(ServiceCrearProyecto serviceCrearProyecto, ServiceCategoria serviceCategoria, 
+            ServiceSubcategoria serviceSubcategoria, ServiceRecompensa serviceRecompensa)
         {
             _serviceCrearProyecto = serviceCrearProyecto;
             _serviceCategoria = serviceCategoria;
             _serviceSubcategoria = serviceSubcategoria;
+            _serviceRecompensa = serviceRecompensa;
 
         }
 
         public async Task<IActionResult> Index()
         {
             /*Comprobar si algun usuario tiene iniciada la session, si no la tiene redireccion directa al Login*/
+
+            /*Lista paises*/
+
+            ViewBag.Paises = new PaisesViewModel().Paises;
 
             /*Sacar toda la información del usuario que tiene iniciada la sessión*/
 
@@ -50,15 +58,6 @@ namespace CrowdSisters.Controllers
         public async Task<ActionResult> Index(CrearProyectoViewModel model)
         {
 
-            foreach (var modelState in ModelState)
-            {
-                Console.WriteLine($"Key: {modelState.Key}");
-                foreach (var error in modelState.Value.Errors)
-                {
-                    Console.WriteLine($"Error: {error.ErrorMessage}");
-                }
-            }
-
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -73,7 +72,27 @@ namespace CrowdSisters.Controllers
 
             /*Subir las fotos a Firebase i sacar las Urls*/
 
-            /*Hacer un update dek usuario*/
+
+
+            /*Hacer un update del usuario*/
+
+            Usuario usuario = new Usuario();
+            usuario.IDUsuario = model.IDUsuario;
+            usuario.Nombre = nombre;
+            usuario.PrimerApellido = primerApellido;    
+            usuario.SegundoApellido = segundoApellido;
+            usuario.PerfilPublico = model.PerfilPublico;
+            usuario.DNI = model.DNI;
+            usuario.Direccion = model.Direccion;    
+            usuario.CodigoPostal = model.CodigoPostal;
+            usuario.Poblacion = model.Poblacion;
+            usuario.Pais = model.Pais;
+            usuario.Telefono = model.Telefono;
+            usuario.URLImagenUsuario = "ddsdsdsa";
+
+            await _serviceCrearProyecto.UpdateUsuarioCrearProyecto(usuario);
+
+
 
             /* Creación del proyecto*/
 
@@ -94,17 +113,36 @@ namespace CrowdSisters.Controllers
             proyecto.UrlFoto2 = "dfghjk";
             proyecto.UrlFoto3 = "dfghjk";
 
-           await _serviceCrearProyecto.CreateProyectoAsync(proyecto);
+            proyecto = await _serviceCrearProyecto.CreateProyectoAsync(proyecto);
+
+            Recompensa recompensa = new Recompensa();
+            recompensa.Titulo = model.TituloRecompensa;
+            recompensa.Descripcion = model.DescripcionRecompensa;
+            recompensa.Monto = model.Monto;
+            recompensa.URLImagenRecompensa = "sdfgh";
+            recompensa.FKProyecto = proyecto.IDProyecto;
+            await _serviceRecompensa.CreateRecompensaAsync(recompensa);
+
+            Recompensa recompensa1 = new Recompensa();
+            recompensa1.Titulo = model.TituloRecompensa1;
+            recompensa1.Descripcion = model.DescripcionRecompensa1;
+            recompensa1.Monto = model.Monto1;
+            recompensa1.URLImagenRecompensa = "sdfgh";
+            recompensa1.FKProyecto = proyecto.IDProyecto;
+            await _serviceRecompensa.CreateRecompensaAsync(recompensa1);
+
+            Recompensa recompensa2 = new Recompensa();
+            recompensa2.Titulo = model.TituloRecompensa2;
+            recompensa2.Descripcion = model.DescripcionRecompensa2;
+            recompensa2.Monto = model.Monto2;
+            recompensa2.URLImagenRecompensa = "sdfgh";
+            recompensa2.FKProyecto = proyecto.IDProyecto;
+            await _serviceRecompensa.CreateRecompensaAsync(recompensa2);
+
+
 
             return RedirectToAction("Index", "Proyecto");
         }
-
-
-
-
-
-       
-
 
     }
 }

@@ -16,7 +16,7 @@ namespace CrowdSisters.Services
         }
 
         // Crear Proyecto
-        public async Task<bool> CreateProyectoAsync(Proyecto proyecto)
+        public async Task<Proyecto> CreateProyectoAsync(Proyecto proyecto)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace CrowdSisters.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"Error en Service al crear el proyecto: {ex.Message}");
-                return false;
+                return null;
             }
         }
 

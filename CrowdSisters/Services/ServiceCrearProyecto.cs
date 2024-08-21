@@ -28,8 +28,22 @@ namespace CrowdSisters.Services
             }
         }
 
+        public async Task<bool> UpdateUsuarioCrearProyecto(Usuario usuario)
+        {
+            try
+            {
+                return await _dalUsuario.UpdateUsuarioCrearProyectoAsync(usuario);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en Service al crear el proyecto: {ex.Message}");
+                return false;
+            }
+        }
+
         // Crear Proyecto
-        public async Task<bool> CreateProyectoAsync(Proyecto proyecto)
+        public async Task<Proyecto> CreateProyectoAsync(Proyecto proyecto)
         {
             try
             {
@@ -38,7 +52,7 @@ namespace CrowdSisters.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"Error en Service al crear el proyecto: {ex.Message}");
-                return false;
+                return null;
             }
         }
     }

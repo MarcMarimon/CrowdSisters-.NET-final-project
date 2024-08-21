@@ -54,7 +54,7 @@ namespace CrowdSisters.DAL
                     sqlConn.Open(); // Asegúrate de abrir la conexión
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        if (await reader.ReadAsync())
+                        while (await reader.ReadAsync())
                         {
                             subcategorias.Add(new Subcategoria
                             {
