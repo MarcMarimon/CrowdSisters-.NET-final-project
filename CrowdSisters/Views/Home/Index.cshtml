@@ -1,8 +1,15 @@
-
 ﻿@{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml"; // Esto depende de cómo tengas configurado tu proyecto.
 }
+<h1>Home index</h1>
+
+@if (!string.IsNullOrEmpty(ViewContext.HttpContext.Session.GetString("Username")))
+{
+    <h1>@ViewContext.HttpContext.Session.GetString("Username")</h1>
+}
+
+
 
 <!DOCTYPE html>
 <html lang="es">

@@ -1,12 +1,24 @@
-﻿using CrowdSisters.Models;
+﻿using CrowdSisters.DAL;
+using CrowdSisters.Models;
 using CrowdSisters.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
+using System.Diagnostics.Eventing.Reader;
 
 namespace CrowdSisters.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly ServiceLogin _serviceLogin;
+        private readonly DALUsuario _dalUsuario;
+
+        public LoginController(ServiceLogin serviceLogin, DALUsuario dalUsuario)
+        {
+            _dalUsuario = dalUsuario;
+            _serviceLogin = serviceLogin;
+        }
+
         // GET: LoginController
         public ActionResult Index()
         {
@@ -18,28 +30,49 @@ namespace CrowdSisters.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public async Task<ActionResult> Login(Usuario model)
+        {
+            
+            bool isValidUser = await _serviceLogin.VerifyPasswordAsync(model.Contrasena, await _serviceLogin.VerifyMailAsync(model.Email));
 
-        // GET: LoginController/Create
+            if (isValidUser)
+            {
+                Usuario user = await _dalUsuario.GetByIdAsync(await _serviceLogin.VerifyMailAsync(model.Email));
+                HttpContext.Session.SetInt32("IdUsuario",user.IDUsuario);
+                HttpContext.Session.SetString("Username", user.Nick);
+                HttpContext.Session.SetString("Email", user.Email);
+                return RedirectToAction("Index","Home");
+            }
+            else
+            {
+                ViewBag.Login = "Invalid email or password.";
+            }
+            
+
+        return RedirectToAction("Index","Login");
+        }
+
+    // GET: LoginController/Create
         public ActionResult Create()
         {
-
             return View();
         }
 
         // POST: LoginController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Usuario  usuario)
+        public async Task<ActionResult> Create(IFormCollection collection)
         {
-            try
-            {
-                //ServiceLogin.CreateAsync(usuario);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            Usuario usuario = new Usuario();
+            usuario.Nombre = collection["Nombre"];
+            usuario.Email = collection["Email"];
+            usuario.Contrasena = collection["Contrasena"];
+            usuario.FechaRegistro = DateTime.Today;
+            usuario.IsAdmin = false ;
+            usuario.Monedero = 0;
+            usuario.Nick = collection["Nick"];
+            return RedirectToAction("Index");
         }
 
         // GET: LoginController/Edit/5

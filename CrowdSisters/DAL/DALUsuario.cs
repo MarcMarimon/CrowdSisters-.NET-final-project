@@ -65,13 +65,14 @@ namespace CrowdSisters.DAL
         {
             List<Usuario> usuarios = new List<Usuario>();
 
-            const string query = @"SELECT * FROM USUARIO;";
+            const string query = @"SELECT * FROM Usuario;";
 
             try
             {
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+
                     sqlConn.Open(); // Asegúrate de abrir la conexión
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -120,7 +121,9 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+
                     sqlConn.Open(); // Asegúrate de abrir la conexión
+ 
                     command.Parameters.AddWithValue("@IDUsuario", id);
                     using (var reader = await command.ExecuteReaderAsync())
                     {
