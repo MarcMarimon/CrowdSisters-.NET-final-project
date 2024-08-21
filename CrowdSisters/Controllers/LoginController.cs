@@ -11,8 +11,11 @@ namespace CrowdSisters.Controllers
     public class LoginController : Controller
     {
         private readonly ServiceLogin _serviceLogin;
+        private readonly DALUsuario _dalUsuario;
+
         public LoginController(ServiceLogin serviceLogin, DALUsuario dalUsuario)
         {
+            _dalUsuario = dalUsuario;
             _serviceLogin = serviceLogin;
         }
 
@@ -27,9 +30,31 @@ namespace CrowdSisters.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public async Task<ActionResult> Login(Usuario model)
+        {
+            
+            bool isValidUser = await _serviceLogin.VerifyPasswordAsync(model.Contrasena, await _serviceLogin.VerifyMailAsync(model.Email));
 
-        // GET: LoginController/Create
-        public ActionResult Create()
+            if (isValidUser)
+            {
+                Usuario user = await _dalUsuario.GetByIdAsync(await _serviceLogin.VerifyMailAsync(model.Email));
+                HttpContext.Session.SetInt32("IdUsuario",user.IDUsuario);
+                HttpContext.Session.SetString("Username", user.Nick);
+                HttpContext.Session.SetString("Email", user.Email);
+                return RedirectToAction("Index","Home");
+            }
+            else
+            {
+                ViewBag.Login = "Invalid email or password.";
+            }
+            
+
+        return RedirectToAction("Index","Login");
+        }
+
+    // GET: LoginController/Create
+    public ActionResult Create()
         {
             return View();
         }
@@ -39,31 +64,7 @@ namespace CrowdSisters.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(IFormCollection collection)
         {
-            try
-            {
-                if (await _serviceLogin.VerifyMail(collection["Email"]))
-                {
-                    if (await _serviceLogin.VerifyPassword(collection["Contrasena"]))
-                    {
-                        ViewBag.Login = "LoginCorrecto";
-                        return RedirectToAction(nameof(Index),ViewBag);
-                    }
-                    else
-                    {
-                        ViewBag.Login = "Contraseña incorrecta";
-                        return View();
-                    }
-                }
-                else
-                {
-                    ViewBag.Login = "Email incorrecto";
-                    return View();
-                }
-            }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: LoginController/Edit/5

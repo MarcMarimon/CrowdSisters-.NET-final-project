@@ -13,23 +13,22 @@ namespace CrowdSisters.Services
             _dalUsuario = dalUsuario;
         }
         //Verify User
-        public async Task<bool> VerifyMail(string email)
+
+        public async Task<int> VerifyMailAsync(string email)
         {
             IEnumerable<Usuario> listUsuario = await _dalUsuario.GetAllAsync();
 
             foreach (Usuario usuario in listUsuario)
             {
                 if(usuario.Email == email)
-                {
-                    return true;
-                }
+                    return usuario.IDUsuario;
             }
-            return false;
+            return 0;
         }
-        public async Task<bool> VerifyPassword(string password)
+        public async Task<bool> VerifyPasswordAsync(string password,int idUsuario)
         {
-            //Usuario usuario = await _dalUsuario.GetByIdAsync(user.IDUsuario);
-            if ("1234" == password)
+            Usuario usuario = await _dalUsuario.GetByIdAsync(idUsuario);
+            if (usuario.Contrasena == password)
             {
                 return true;
             }

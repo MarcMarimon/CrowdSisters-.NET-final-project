@@ -1,19 +1,53 @@
-﻿@model CrowdSisters.Models.Usuario
+﻿@using Microsoft.AspNetCore.Http
+@model CrowdSisters.Models.Usuario
+
 <h2>Login</h2>
 
+@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Contrasena)
+        @Html.PasswordFor(m => m.Contrasena, new { @class = "form-control" })
+    </div>
+
+    <div>
+        <input type="submit" value="Login" class="btn btn-primary" />
+        <input type="button" value="Register" class="btn btn-secondary"/>
+    </div>
+}
 @using (Html.BeginForm("Create", "Login", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
+
+    <div>
+        @Html.LabelFor(m => m.Nombre)
+        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+    </div>
+
     <div>
         @Html.LabelFor(m => m.Email)
-        @Html.TextBoxFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
     </div>
+
     <div>
         @Html.LabelFor(m => m.Contrasena)
-        @Html.PasswordFor(m => m.Contrasena)
+        @Html.PasswordFor(m => m.Contrasena, new { @class = "form-control" })
     </div>
+
     <div>
-        <input type="submit" value="Login" />
+        <input type="submit" value="Login" class="btn btn-primary" />
+        <input type="button" value="Register" class="btn btn-secondary" />
     </div>
 }
-<h1>@ViewBag.Login</h1>
+<script>
+    $(document).ready(function () {
+
+    });
+</script>

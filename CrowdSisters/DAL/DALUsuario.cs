@@ -71,6 +71,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
@@ -111,13 +112,14 @@ namespace CrowdSisters.DAL
 
         public async Task<Usuario> GetByIdAsync(int id)
         {
-            const string query = @"SELECT * FROM Usuario WHERE IDUsuario = IDUsuario";
+            const string query = @"SELECT * FROM Usuario WHERE IDUsuario = @IDUsuario";
 
             try
             {
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open();
                     command.Parameters.AddWithValue("@IDUsuario", id);
                     using (var reader = await command.ExecuteReaderAsync())
                     {

@@ -1,3 +1,8 @@
 ﻿
 
 <h1>Home index</h1>
+
+@if (!string.IsNullOrEmpty(ViewContext.HttpContext.Session.GetString("Username")))
+{
+    <h1>@ViewContext.HttpContext.Session.GetString("Username")</h1>
+}
