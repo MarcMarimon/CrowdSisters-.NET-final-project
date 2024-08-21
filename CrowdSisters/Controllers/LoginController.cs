@@ -66,16 +66,9 @@ namespace CrowdSisters.Controllers
         // POST: LoginController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Usuario model)
         {
-            Usuario usuario = new Usuario();
-            usuario.Nombre = collection["Nombre"];
-            usuario.Email = collection["Email"];
-            usuario.Contrasena = collection["Contrasena"];
-            usuario.FechaRegistro = DateTime.Today;
-            usuario.IsAdmin = false ;
-            usuario.Monedero = 0;
-            usuario.Nick = collection["Nick"];
+            await _serviceLogin.CreateAsync(model);
             return RedirectToAction("Index");
         }
 
