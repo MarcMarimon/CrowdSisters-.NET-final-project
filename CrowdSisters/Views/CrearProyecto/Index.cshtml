@@ -4,6 +4,7 @@
     ViewData["Title"] = "Crear Proyecto";
     Usuario usuario = new Usuario();
     usuario = ViewBag.Usuario;
+    Layout = null;
 }
 
 @using (Html.BeginForm("Index", "CrearProyecto", FormMethod.Post, new { id = "crearProyectoForm", enctype = "multipart/form-data" }))

@@ -9,9 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Register the Connection class with dependency injection
-builder.Services.AddTransient<Connection>();
+builder.Services.AddScoped<Connection>();
 builder.Services.AddScoped<ServiceProyecto>();
 builder.Services.AddScoped<ServiceCrearProyecto>();
+builder.Services.AddScoped<FirebaseService>();
 builder.Services.AddScoped<ServiceCategoria>();
 builder.Services.AddScoped<ServiceSubcategoria>();
 builder.Services.AddScoped<DALProyecto>();
