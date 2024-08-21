@@ -15,6 +15,7 @@ builder.Services.AddScoped<ServiceCrearProyecto>();
 builder.Services.AddScoped<FirebaseService>();
 builder.Services.AddScoped<ServiceCategoria>();
 builder.Services.AddScoped<ServiceSubcategoria>();
+builder.Services.AddScoped<ServiceRecompensa>();
 builder.Services.AddScoped<DALProyecto>();
 builder.Services.AddScoped<DALDonacion>();
 builder.Services.AddScoped<DALUsuario>();
