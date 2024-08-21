@@ -40,7 +40,10 @@
         @Html.LabelFor(m => m.Contrasena)
         @Html.PasswordFor(m => m.Contrasena, new { @class = "form-control" })
     </div>
-
+    <div>
+        @Html.LabelFor(m => m.Nick)
+        @Html.TextBoxFor(m => m.Nick, new { @class = "form-control" })
+    </div>
     <div>
         <input type="submit" value="Login" class="btn btn-primary" />
         <input type="button" value="Register" class="btn btn-secondary" />

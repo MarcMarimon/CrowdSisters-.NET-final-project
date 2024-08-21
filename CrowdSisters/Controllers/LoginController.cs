@@ -54,7 +54,7 @@ namespace CrowdSisters.Controllers
         }
 
     // GET: LoginController/Create
-    public ActionResult Create()
+        public ActionResult Create()
         {
             return View();
         }
@@ -64,7 +64,15 @@ namespace CrowdSisters.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(IFormCollection collection)
         {
-            return View();
+            Usuario usuario = new Usuario();
+            usuario.Nombre = collection["Nombre"];
+            usuario.Email = collection["Email"];
+            usuario.Contrasena = collection["Contrasena"];
+            usuario.FechaRegistro = DateTime.Today;
+            usuario.IsAdmin = false ;
+            usuario.Monedero = 0;
+            usuario.Nick = collection["Nick"];
+            return RedirectToAction("Index");
         }
 
         // GET: LoginController/Edit/5
