@@ -18,6 +18,7 @@ namespace CrowdSisters.Conections
         {
             if(string.IsNullOrEmpty(connection.ConnectionString))
                 connection = new SqlConnection(_connectionString);
+
             return connection;
         }
     }

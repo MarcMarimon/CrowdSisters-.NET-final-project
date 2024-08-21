@@ -32,6 +32,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@Nombre", usuario.Nombre);
                     command.Parameters.AddWithValue("@Email", usuario.Email);
                     command.Parameters.AddWithValue("@Contrasena", usuario.Contrasena);
@@ -71,7 +72,8 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
-                    sqlConn.Open();
+
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     using (var reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
@@ -119,7 +121,9 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
-                    sqlConn.Open();
+
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
+ 
                     command.Parameters.AddWithValue("@IDUsuario", id);
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -187,6 +191,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDUsuario", usuario.IDUsuario);
                     command.Parameters.AddWithValue("@Nombre", usuario.Nombre);
                     command.Parameters.AddWithValue("@Email", usuario.Email);
@@ -215,6 +220,50 @@ namespace CrowdSisters.DAL
             }
         }
 
+        public async Task<bool> UpdateUsuarioCrearProyectoAsync(Usuario usuario)
+        {
+            const string query = @"UPDATE Usuario 
+                     SET Nombre = @Nombre,
+                         PerfilPublico = @PerfilPublico,
+                         URLImagenUsuario = @URLImagenUsuario,
+                         PrimerApellido = @PrimerApellido,
+                         SegundoApellido = @SegundoApellido,
+                         DNI = @DNI,
+                         Direccion = @Direccion,
+                         CodigoPostal = @CodigoPostal,
+                         Poblacion = @Poblacion,
+                         Telefono = @Telefono,
+                         Pais = @Pais
+                     WHERE IDUsuario = @IDUsuario";
+
+            try
+            {
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
+                    command.Parameters.AddWithValue("@IDUsuario", usuario.IDUsuario);
+                    command.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                    command.Parameters.AddWithValue("@PerfilPublico", usuario.PerfilPublico);
+                    command.Parameters.AddWithValue("@URLImagenUsuario", usuario.URLImagenUsuario);
+                    command.Parameters.AddWithValue("@PrimerApellido", usuario.PrimerApellido);
+                    command.Parameters.AddWithValue("@SegundoApellido", usuario.SegundoApellido);
+                    command.Parameters.AddWithValue("@DNI", usuario.DNI);
+                    command.Parameters.AddWithValue("@Direccion", usuario.Direccion);
+                    command.Parameters.AddWithValue("@CodigoPostal", usuario.CodigoPostal);
+                    command.Parameters.AddWithValue("@Poblacion", usuario.Poblacion);
+                    command.Parameters.AddWithValue("@Telefono", usuario.Telefono);
+                    command.Parameters.AddWithValue("@Pais", usuario.Pais);
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
         // Eliminar
         public async Task<bool> DeleteAsync(int id)
         {
@@ -224,6 +273,7 @@ namespace CrowdSisters.DAL
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@IDUsuario", id);
                     return await command.ExecuteNonQueryAsync() > 0;
                 }
