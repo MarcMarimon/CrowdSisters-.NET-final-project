@@ -20,12 +20,8 @@ namespace CrowdSisters.DAL
         public async Task<bool> CreateAsync(Usuario usuario)
         {
             const string query = @"
-                INSERT INTO USUARIO (Nombre, Email, Contrasena, FechaRegistro, IsAdmin, PerfilPublico, 
-                URLImagenUsuario, Monedero, PrimerApellido, SegundoApellido, DNI, Direccion, CodigoPostal, Poblacion,
-                Telofono, Pais, Nick)
-                VALUES (@Nombre, @Email, @Contrasena, @FechaRegistro, @IsAdmin, @PerfilPublico, @URLImagenUsuario,
-                @Monedero, @PrimerApellido, @SegundoApellido, @DNI, @Direccion, @CodigoPostal, @Poblacion,
-                @Telofono, @Pais, @Nick)";
+                INSERT INTO USUARIO (Nombre, Email, Contrasena, FechaRegistro, IsAdmin, Monedero, Nick)
+                VALUES (@Nombre, @Email, @Contrasena, @FechaRegistro, @IsAdmin, @Monedero, @Nick)";
 
             try
             {
@@ -38,17 +34,7 @@ namespace CrowdSisters.DAL
                     command.Parameters.AddWithValue("@Contrasena", usuario.Contrasena);
                     command.Parameters.AddWithValue("@FechaRegistro", usuario.FechaRegistro);
                     command.Parameters.AddWithValue("@IsAdmin", usuario.IsAdmin);
-                    command.Parameters.AddWithValue("@PerfilPublico", usuario.PerfilPublico);
-                    command.Parameters.AddWithValue("@URLImagenUsuario", usuario.URLImagenUsuario);
                     command.Parameters.AddWithValue("@Monedero", usuario.Monedero);
-                    command.Parameters.AddWithValue("@PrimerApellido", usuario.PrimerApellido);
-                    command.Parameters.AddWithValue("@SegundoApellido", usuario.SegundoApellido);
-                    command.Parameters.AddWithValue("@DNI", usuario.DNI);
-                    command.Parameters.AddWithValue("@Direccion", usuario.Direccion);
-                    command.Parameters.AddWithValue("@CodigoPostal", usuario.CodigoPostal);
-                    command.Parameters.AddWithValue("@Poblacion", usuario.Poblacion);
-                    command.Parameters.AddWithValue("@Telefono", usuario.Telefono);
-                    command.Parameters.AddWithValue("@Pais", usuario.Pais);
                     command.Parameters.AddWithValue("@Nick", usuario.Nick);
                     return await command.ExecuteNonQueryAsync() > 0;
                 }
