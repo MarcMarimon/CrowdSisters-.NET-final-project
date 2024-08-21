@@ -41,7 +41,7 @@
                         <div class="label">Email</div>
                         <div class="description">Description</div>
                         <div class="input">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Introduce tu email" })
+                            @Html.TextBoxFor(m => m.Email, new { @class = "value1", placeholder = "Introduce tu email" })
                         </div>
                         <div class="error">@ViewBag.EmailError</div>
                     </div>
@@ -49,7 +49,7 @@
                         <div class="label">Contraseña</div>
                         <div class="description">Description</div>
                         <div class="input">
-                            @Html.PasswordFor(m => m.Contrasena, new { @class = "form-control", placeholder = "Introduce tu contraseña" })
+                            @Html.PasswordFor(m => m.Contrasena, new { @class = "value1", placeholder = "Introduce tu contraseña" })
                         </div>
                         <div class="error">@ViewBag.PasswordError</div>
                     </div>
@@ -143,7 +143,6 @@
             }
             <img class="crowdsisterslogocolor-icon" loading="lazy" alt="" src="~/public/crowdsisterslogocolor@2x.png" />
 
-            </form>
             <img class="crowdsisterslogocolor-icon" loading="lazy" alt="" src="~/img/CrowdSistersLogoColor.png" />
         </div>
     </div>
