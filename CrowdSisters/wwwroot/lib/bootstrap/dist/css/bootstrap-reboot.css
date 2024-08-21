@@ -176,18 +176,22 @@ sup {
 }
 
 a {
-  color: #0d6efd;
-  text-decoration: underline;
 }
 a:hover {
-  color: #0a58ca;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
-  color: inherit;
-  text-decoration: none;
+  
+}
+.registro-link {
+    color: inherit; /* O especifica un color específico, como #000 para negro */
+    text-decoration: none;
 }
 
+    .registro-link:hover {
+        color: inherit; /* O define un color para el hover */
+        text-decoration: none;
+    }
 pre,
 code,
 kbd,

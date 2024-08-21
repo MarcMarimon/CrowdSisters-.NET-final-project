@@ -24,6 +24,10 @@ namespace CrowdSisters.Controllers
         {
             return View();
         }
+        public ActionResult Registro()
+        {
+            return View();
+        }
 
         // GET: LoginController/Details/5
         public ActionResult Details(int id)

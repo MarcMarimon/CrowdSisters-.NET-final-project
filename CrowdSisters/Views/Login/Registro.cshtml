@@ -1,21 +1,5 @@
-﻿@model CrowdSisters.Models.Usuario
-<h2>Login</h2>
-
-@using (Html.BeginForm("Create", "Login", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    <div>
-        @Html.LabelFor(m => m.Email)
-        @Html.TextBoxFor(m => m.Email)
-    </div>
-    <div>
-        @Html.LabelFor(m => m.Contrasena)
-        @Html.PasswordFor(m => m.Contrasena)
-    </div>
-    <div>
-        <input type="submit" value="Login" />
-    </div>
->>>>>>> Marc
+﻿@{
+    Layout = null; 
 }
 
 <!DOCTYPE html>
@@ -24,16 +8,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
     <link rel="stylesheet" href="~/css/global.css" />
-    <link rel="stylesheet" href="~/css/index.css" />
     <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/global.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/desktop.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
 </head>
 <body>
     <div class="login">
-        <img class="iniciosesin-2-icon" loading="lazy" alt="" src="~/img/InicioSesión.jpg" />
+        <img class="iniciosesin-2-icon" loading="lazy" alt="" src="~/img/Registro.jpg" />
 
         <div class="content">
             <div class="header-parent">
@@ -42,10 +24,18 @@
                         <img class="x-icon5" loading="lazy" alt="Cerrar" src="~/img/boton-x.png" />
                     </a>
                 </div>
-                <h1 class="inicia-sesin">Inicia sesión</h1>
+                <h1 class="inicia-sesin">Regístrate</h1>
             </div>
             <form class="form" method="post" action="@Url.Action("Login", "Account")">
                 <div class="input-email-parent">
+                    <div class="input-email">
+                        <div class="label">Nombre de usuaria</div>
+                        <div class="description">Description</div>
+                        <div class="input">
+                            <input class="value1" placeholder="Introduce tu nombre de usuaria" type="text" name="Username" />
+                        </div>
+                        <div class="error">@ViewBag.UsernameError</div>
+                    </div>
                     <div class="input-email">
                         <div class="label">Email</div>
                         <div class="description">Description</div>
@@ -64,20 +54,19 @@
                     </div>
                 </div>
                 <div class="button-inicio-sesin-parent">
-                    <button type="submit" class="button-inicio-sesin">
-                        <div class="button5">
-                            <img class="star-icon5" alt="" src="~/public/star4.svg" />
-                            <div class="button6">Button</div>
-                            <img class="star-icon5" alt="" src="~/public/x41.svg" />
-                        </div>
-                        <div class="button7">
-                            <img class="star-icon5" alt="" src="~/public/star5.svg" />
-                            <b class="button8">Iniciar sesión</b>
-                            <img class="star-icon5" alt="" src="~/public/x5.svg" />
-                        </div>
-                    </button>
-                    <div class="olvidaste-contrasea-link">
-                        <div class="text-link">¿Olvidaste la contraseña?</div>
+                    <div class="button-inicio-sesin">
+                        <button type="submit" class="button-inicio-sesin">
+                            <div class="button5">
+                                <img class="star-icon5" alt="" src="~/public/star4.svg" />
+                                <div class="button6">Button</div>
+                                <img class="star-icon5" alt="" src="~/public/x41.svg" />
+                            </div>
+                            <div class="button7">
+                                <img class="star-icon5" alt="" src="~/public/star5.svg" />
+                                <b class="button8">Crear cuenta</b>
+                                <img class="star-icon5" alt="" src="~/public/x5.svg" />
+                            </div>
+                        </button>
                     </div>
                 </div>
                 <div class="input-container-parent">
@@ -126,27 +115,26 @@
                     <div class="eres-nueva-wrapper">
                         <div class="eres-nueva">
                             <div class="text-link1">
-                                <span class="eres-nueva-en">¿Eres nueva en CrowdSisters? </span>
-                                <a href="@Url.Action("Registro", "Login")" class="registro-link">¡Regístrate aquí!</a>
+                                <span class="eres-nueva-en">¿Ya tienes una cuenta? </span>
+                                <a href="@Url.Action("Index", "Login")" class="registro-link">¡Inicia sesión!</a>
                             </div>
-
                         </div>
                     </div>
                 </div>
                 <div class="auth-container">
                     <div class="frame-item"></div>
                     <b class="ptc">
-                        <span class="este-sitio-est">Este sitio está protegido por reCAPTCHA y se aplica la </span>
+                        <span class="este-sitio-est">Este sitio está protegido por reCAPTCHA y se aplica la </span>
                         <a class="poltica-de-privacidad" href="https://policies.google.com/privacy" target="_blank">
                             <span class="poltica-de-privacidad1"><span class="poltica-de-privacidad2">Política de Privacidad</span></span>
                         </a>
-                        <span class="poltica-de-privacidad1">  </span>
+                        <span class="poltica-de-privacidad1"> </span>
                         <span class="este-sitio-est">y los</span>
-                        <span class="poltica-de-privacidad1">  </span>
+                        <span class="poltica-de-privacidad1"> </span>
                         <a class="poltica-de-privacidad" href="https://policies.google.com/terms" target="_blank">
                             <span class="poltica-de-privacidad1"><span class="poltica-de-privacidad2">Términos de Servicio</span></span>
                         </a>
-                        <span class="este-sitio-est"> de Google.</span>
+                        <span class="este-sitio-est"> de Google.</span>
                     </b>
                 </div>
             </form>
@@ -155,4 +143,3 @@
     </div>
 </body>
 </html>
-

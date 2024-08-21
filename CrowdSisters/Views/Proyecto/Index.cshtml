@@ -4,101 +4,125 @@
     ViewData["Title"] = "Lista de Proyectos";
 }
 
-<h1>¡Se están impulsando @Model.Count() proyectos!</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
 
-@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
-{
-    <div class="alert alert-warning">
-        <p>@ViewBag.ErrorMessage</p>
-        <img src="~/images/no-projects.png" alt="No hay proyectos disponibles" style="width:200px;" />
-    </div>
-}
-else
-{
-    <div class="project-grid">
-        @foreach (var proyecto in Model)
-        {
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="@proyecto.UrlFotoEncabezado" alt="@proyecto.Titulo" />
+    <link rel="stylesheet" href="~/css/global.css" />
+    <link rel="stylesheet" href="~/css/index.css" />
+    <link rel="stylesheet" href="/css/site.css?v=PBl3qNtJZz6Oz-WIhg7sjTVYk0GrCr762k2GdAtV_EM" />
+    <link rel="stylesheet" href="/css/index.css?v=cxwFxy9q0bP2A6fPuf46Iu1Og5FtqIQ4Z3wr2Kxoww0" />
+    <link rel="stylesheet" href="/css/global.css?v=LeXFsuf3Z500C2-CETWDCKnyj5FvslpdBQFbQKw-Kps" />
+    <link rel="stylesheet" href="/css/desktop.css?v=1BKq0X8peVCoPBonhE7yJwqnWK2h2D73w3UuEd1cWWc" />
+    <link rel="stylesheet" href="/css/proyectos.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
+
+    <style>
+        /* Aquí puedes añadir los estilos del segundo código si los necesitas */
+    </style>
+</head>
+<body>
+    <div class="descubreproyectos">
+        <section class="frame-group">
+            <!-- Aquí se conserva el diseño original -->
+            <div class="imagenproyecto-wrapper">
+                <img class="imagenproyecto-icon1" alt="" src="~/img/DescubreProyectos.png" />
+            </div>
+            <div class="navigation-divider-top-parent">
+                <div class="navigation-divider-top"></div>
+                <div class="frame-wrapper">
+                    <div class="navigation-pill-parent">
+                        <!-- Pestañas de categorías (manteniendo el estilo original) -->
+                        <div class="navigation-pill">
+                            <b class="title">Ciencia y Tecnología</b>
+                        </div>
+                        <div class="navigation-pill">
+                            <b class="title1">Arte y Cultura</b>
+                        </div>
+                        <!-- Puedes seguir añadiendo más pestañas según sea necesario -->
+                    </div>
                 </div>
-                <div class="project-details">
-                    <h3>@proyecto.Titulo</h3>
-                    <div class="project-status-bar">
-                        <span class="days-remaining">@((proyecto.FechaFinalizacion - DateTime.Now).Days) DÍAS</span>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: @(proyecto.MontoRecaudado / proyecto.MontoObjetivo * 100)%"></div>
+                <div class="navigation-divider-bottom"></div>
+            </div>
+        </section>
+
+        <section class="descubreproyectos-inner">
+            <div class="frame-container">
+                <h1>¡Se están impulsando @Model.Count() proyectos!</h1>
+
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                {
+                    <div class="alert alert-warning">
+                        <p>@ViewBag.ErrorMessage</p>
+                        <img src="~/images/no-projects.png" alt="No hay proyectos disponibles" style="width:200px;" />
+                    </div>
+                }
+                else
+                {
+                    <div class="card-1-group">
+                        @foreach (var proyecto in Model)
+                        {
+                            <div class="card-12">
+                                <img class="image-icon3" loading="lazy" alt="@proyecto.Titulo" src="@proyecto.UrlFotoEncabezado" />
+
+                                <div class="frame-div">
+                                    <div class="frame-parent1">
+                                        <div class="rectangle-parent">
+                                            <div class="frame-item"></div>
+                                            <div class="frame-inner"></div>
+                                        </div>
+                                        <div class="ttulo8">
+                                            <div class="ttulo9">
+                                                <p class="ecobeauty-1">@proyecto.Titulo</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="das-parent">
+                                        <div class="das1">
+                                            <span>@((proyecto.FechaFinalizacion - DateTime.Now).Days)</span>
+                                            <span class="das2">DÍAS</span>
+                                        </div>
+                                        <div class="de-40003">
+                                            <p class="ecobeauty-1">@proyecto.MontoRecaudado.ToString("C")</p>
+                                            <p class="de-40004">DE @proyecto.MontoObjetivo.ToString("C")</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </section>
+
+        <footer class="descripcin-crowdsisters1">
+            <div class="logo1">
+                <div class="crowdsisterslogomano-1-parent">
+                    <img class="crowdsisterslogomano-1-icon1" loading="lazy" alt="" src="~/images/crowdsisterslogomano-1@2x.png" />
+                    <img class="crowdsisterslogocolor-1-icon1" alt="" src="~/images/crowdsisterslogocolor-1@2x.png" />
+                </div>
+            </div>
+            <div class="descripcin-crowdsisters-inner">
+                <div class="frame-parent24">
+                    <div class="ttulo-parent">
+                        <h1 class="ttulo32">¡Haz realidad tu proyecto con CrowdSisters!</h1>
+                        <div class="descripcin1">
+                            Somos un equipo apasionado por empoderar a las mujeres emprendedoras y estamos aquí para acompañarte en toda tu aventura...
                         </div>
                     </div>
-                    <div class="project-funding">
-                        <span class="amount-raised">@proyecto.MontoRecaudado.ToString("C")</span>
-                        de @proyecto.MontoObjetivo.ToString("C")
+                    <div class="botn-empieza-tu-proyecto-container">
+                        <div class="botn-empieza-tu-proyecto1">
+                            <img class="star-icon5" alt="" src="~/images/star3.svg" />
+                            <div class="button5">¡Empieza tu proyecto!</div>
+                            <img class="star-icon5" alt="" src="~/images/x3.svg" />
+                        </div>
                     </div>
                 </div>
             </div>
-        }
+        </footer>
     </div>
-}
-
-<style>
-    .project-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-    }
-
-    .project-card {
-        background-color: #f3e5f5;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        width: calc(33.333% - 20px);
-        max-width: 300px;
-        margin-bottom: 20px;
-    }
-
-    .project-image img {
-        width: 100%;
-        height: auto;
-    }
-
-    .project-details {
-        padding: 15px;
-        text-align: center;
-    }
-
-        .project-details h3 {
-            margin: 0 0 10px;
-            color: #4a148c;
-        }
-
-    .project-status-bar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-
-    .days-remaining {
-        font-weight: bold;
-        color: #7b1fa2;
-    }
-
-    .progress-bar {
-        background-color: #d1c4e9;
-        border-radius: 10px;
-        height: 5px;
-        width: 100px;
-        overflow: hidden;
-    }
-
-    .progress {
-        background-color: #4a148c;
-        height: 100%;
-    }
-
-    .project-funding {
-        font-weight: bold;
-        color: #7b1fa2;
-    }
-</style>
+</body>
+</html>
