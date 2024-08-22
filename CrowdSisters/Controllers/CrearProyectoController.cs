@@ -88,7 +88,8 @@ namespace CrowdSisters.Controllers
             usuario.Poblacion = model.Poblacion;
             usuario.Pais = model.Pais;
             usuario.Telefono = model.Telefono;
-            usuario.URLImagenUsuario = "ddsdsdsa";
+            imagen = model.URLImagenUsuario.OpenReadStream();
+            usuario.URLImagenUsuario = await _serviceFirebase.subirStorage(imagen, model.URLImagenUsuario.FileName);
 
             await _serviceCrearProyecto.UpdateUsuarioCrearProyecto(usuario);
 

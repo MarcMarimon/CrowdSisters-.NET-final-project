@@ -76,7 +76,7 @@
         <h3>Tu Perfil</h3>
 
         <div class="form-group">
-            <input type="file" id="URLImagenUsuario" name="URLImagenUsuario" accept="image/*" required>
+            <input type="file" id="URLImagenUsuario" name="URLImagenUsuario"  asp-for="URLImagenUsuario" accept="image/*" required>
             @Html.ValidationMessageFor(m => m.URLImagenUsuario, "", new { @class = "text-danger" })
         </div>
 
