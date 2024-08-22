@@ -30,15 +30,30 @@
                         <img b-i5hh0g375h class="star-icon" alt="" src="./public/x.svg" />
                         </a>
                     </div>
-                    <div b-i5hh0g375h class="inicia-sesin-regstrate-wrapper">
-                        <div b-i5hh0g375h class="inicia-sesin-regstrate1">
-                            <a href="@Url.Action("Index", "CrearProyecto")">
-                            <img b-i5hh0g375h class="star-icon" alt="" src="./public/star1.svg" />
-                            <b b-i5hh0g375h class="button">Empieza tu proyecto</b>
-                            <img b-i5hh0g375h class="star-icon" alt="" src="./public/x1.svg" />
-                            </a>
+                    @if (string.IsNullOrEmpty(ViewContext.HttpContext.Session.GetString("Username")))
+                    {
+                        <div b-i5hh0g375h class="inicia-sesin-regstrate-wrapper">
+                            <div b-i5hh0g375h class="inicia-sesin-regstrate1">
+                                <a href="@Url.Action("Index", "Login")">
+                                    <img b-i5hh0g375h class="star-icon" alt="" src="./public/star1.svg" />
+                                    <b b-i5hh0g375h class="button">Empieza tu proyecto</b>
+                                    <img b-i5hh0g375h class="star-icon" alt="" src="./public/x1.svg" />
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div b-i5hh0g375h class="inicia-sesin-regstrate-wrapper">
+                            <div b-i5hh0g375h class="inicia-sesin-regstrate1">
+                                <a href="@Url.Action("Index", "CrearProyecto")">
+                                    <img b-i5hh0g375h class="star-icon" alt="" src="./public/star1.svg" />
+                                    <b b-i5hh0g375h class="button">Empieza tu proyecto</b>
+                                    <img b-i5hh0g375h class="star-icon" alt="" src="./public/x1.svg" />
+                                </a>
+                            </div>
+                        </div>
+                    }
                     <a href="@Url.Action("Index", "Home")">
                     <img class="logoblanco-icon" loading="lazy" alt="" src="/img/CrowdsistersLogoBlanco2.png" />
                     </a>
