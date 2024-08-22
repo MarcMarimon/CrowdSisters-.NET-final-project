@@ -46,6 +46,7 @@ namespace CrowdSisters.Controllers
                 HttpContext.Session.SetInt32("IdUsuario",user.IDUsuario);
                 HttpContext.Session.SetString("Username", user.Nick);
                 HttpContext.Session.SetString("Email", user.Email);
+                HttpContext.Session.SetInt32("Monedero",(int)user.Monedero);
                 return RedirectToAction("Index","Home");
             }
             else
@@ -55,6 +56,18 @@ namespace CrowdSisters.Controllers
             
 
         return RedirectToAction("Index","Login");
+        }
+        public async Task<ActionResult> Logout()
+        {
+            try
+            {
+                HttpContext.Session.Clear();
+                return RedirectToAction("Index","Home");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index","Home"); 
+            }
         }
 
     // GET: LoginController/Create

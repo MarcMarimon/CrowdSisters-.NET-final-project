@@ -16,8 +16,7 @@ namespace CrowdSisters.Controllers
 
 
         private readonly ServiceRecompensa _serviceRecompensa;
-        private readonly FirebaseService _serviceFirebase; 
-
+        private readonly FirebaseService _serviceFirebase;
 
         public CrearProyectoController(ServiceCrearProyecto serviceCrearProyecto, ServiceCategoria serviceCategoria, ServiceRecompensa serviceRecompensa, ServiceSubcategoria serviceSubcategoria, FirebaseService serviceFirebase)
 
@@ -49,9 +48,8 @@ namespace CrowdSisters.Controllers
 
             /*Sacar toda la información de subcategorias*/
 
-            List<Subcategoria> listSubcategoria = (List<Subcategoria>)await _serviceSubcategoria.GetAllSubcategoriasAsync();
+            ViewBag.ListSubcategoria = new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text");
 
-            ViewBag.ListSubcategoria = new SelectList(listSubcategoria, "IDSubcategoria", "Nombre");
 
             return View();
         }
@@ -155,6 +153,13 @@ namespace CrowdSisters.Controllers
 
             return RedirectToAction("Index", "Proyecto");
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetSubcategorias(int idCategoria)
+        {
+            return await _serviceSubcategoria.GetSubcategoriasAsync(idCategoria);
+        }
+
 
     }
 }

@@ -59,7 +59,11 @@
             <select name="Pais">
                 @foreach (var pais in ViewBag.Paises as List<string>)
                 {
+                    if(pais == usuario.Pais){
+                        <option value="@pais" selected>@pais</option>
+                    }else{
                     <option value="@pais">@pais</option>
+                    }
                 }
             </select>
             @Html.ValidationMessage("Pais", "", new { @class = "text-danger" }) <!-- Cambié ValidationMessageFor por ValidationMessage -->
@@ -101,15 +105,16 @@
 
         <div class="form-group">
             @Html.LabelFor(m => m.IDCategoria, "Categoría")
-            @Html.DropDownListFor(m => m.IDCategoria, (SelectList)ViewBag.ListCategoria, "Seleccione una categoria", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.IDCategoria, (SelectList)ViewBag.ListCategoria, "Seleccione una categoría", new { @class = "form-control", id = "categoriaSelect" })
             @Html.ValidationMessageFor(m => m.IDCategoria, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(m => m.FKSubcategoria, "Subcategoría")
-            @Html.DropDownListFor(m => m.FKSubcategoria, (SelectList)ViewBag.ListSubcategoria, "Seleccione una subcategoria", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.FKSubcategoria, new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"), "Seleccione una subcategoría", new { @class = "form-control", id = "subcategoriaSelect" })
             @Html.ValidationMessageFor(m => m.FKSubcategoria, "", new { @class = "text-danger" })
         </div>
+
 
         <div class="form-group">
             @Html.LabelFor(m => m.MontoObjetivo, "Objetivo de recaudación (EUR)")
@@ -252,6 +257,37 @@
 }
 
 @section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#categoriaSelect').on('change', function () {
+                var idCategoria = $(this).val();
+
+                // Limpiar el select de subcategorías
+                $('#subcategoriaSelect').empty();
+                $('#subcategoriaSelect').append('<option value="">Seleccione una subcategoría</option>');
+
+                if (idCategoria) {
+                    $.ajax({
+                        url: '@Url.Action("GetSubcategorias", "CrearProyecto")', // Asegúrate de reemplazar "TuControlador" con el nombre real del controlador
+                        type: 'GET',
+                        data: { idCategoria: idCategoria },
+                        success: function (data) {
+                            $.each(data, function (index, subcategoria) {
+                                $('#subcategoriaSelect').append(
+                                    $('<option></option>').val(subcategoria.idSubcategoria).text(subcategoria.nombre)
+                                );
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error al obtener subcategorías:', error);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 
     @await Html.PartialAsync("_ValidationScriptsPartial");
 
