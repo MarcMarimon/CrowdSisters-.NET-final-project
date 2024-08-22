@@ -38,7 +38,8 @@ namespace CrowdSisters.Controllers
 
             /*Sacar toda la información del usuario que tiene iniciada la sessión*/
 
-            ViewBag.Usuario = await _serviceCrearProyecto.CrearProjecteView();
+
+            ViewBag.Usuario = await _serviceCrearProyecto.CrearProjecteView((int) HttpContext.Session.GetInt32("IdUsuario"));
 
             /*Sacar toda la información de categorias*/
 
