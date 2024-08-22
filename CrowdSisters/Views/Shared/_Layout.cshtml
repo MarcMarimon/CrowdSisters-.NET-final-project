@@ -50,14 +50,27 @@
                             <img class="search-icon" loading="lazy" alt="" src="/img/lupa.png" />
                         </div>
                     </div>
-                    <div b-i5hh0g375h class="inicia-sesin-regstrate2">
-                        <a href="@Url.Action("Index", "Login")">
+                    @if (string.IsNullOrEmpty(ViewContext.HttpContext.Session.GetString("Username")))
+                    {
+                        <div b-i5hh0g375h class="inicia-sesin-regstrate2">
+                            <a href="@Url.Action("Index", "Login")">
+                                <!-- Ajusta la ruta según tu controlador y acción -->
+                                <img class="star-icon" alt="" src="./public/star2.svg" />
+                                <b class="button2">Iniciar sesión / Regístrate</b>
+                                <img class="star-icon" alt="" src="./public/x2.svg" />
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <p>Benvenida! @ViewContext.HttpContext.Session.GetString("Username")</p>
+                        <a href="@Url.Action("Logout", "Login")">
                             <!-- Ajusta la ruta según tu controlador y acción -->
                             <img class="star-icon" alt="" src="./public/star2.svg" />
-                            <b class="button2">Iniciar sesión / Regístrate</b>
+                            <b class="button2">Logout</b>
                             <img class="star-icon" alt="" src="./public/x2.svg" />
                         </a>
-                    </div>
+                    }
                 </div>
             </div>
         </header>
