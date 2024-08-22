@@ -5,10 +5,12 @@
 .card-121:nth-child(even) {
     background-color: #D0BCFF; /* Color para las tarjetas pares */
 }
+
 .h121 {
     font-size: calc(1.375rem + 1.5vw);
     margin-top: 15px;
 }
+
 .card-1-group1 {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Tres columnas */
@@ -21,7 +23,7 @@
     text-align: left;
     font-size: var(--font-size-mini);
     color: var(--color-ghostwhite);
-    margin-left:48px;
+    margin-left: 48px;
 }
 
 .card-121 {
@@ -43,18 +45,18 @@
     max-width: 100%;
     overflow: hidden;
     flex-shrink: 0;
-    object-fit: fill;
+    object-fit: cover;
 }
 
 .imagenproyecto-wrapper {
     margin-left: -14px;
-    height: 150px;
+    height: 111px;
     width: 1554px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-end;
-    padding: 0px 0 111px;
+    padding: 0 0 111px;
     box-sizing: border-box;
     max-width: 101%;
     flex-shrink: 0;
@@ -67,7 +69,6 @@
     border-top: 2px solid var(--color-plum-200);
     box-sizing: border-box;
 }
-
 
 .title {
     position: relative;
@@ -122,7 +123,6 @@
     flex: 1;
     flex-wrap: wrap;
     gap: var(--gap-15xl);
-    align-content:center;
 }
 
 .frame-wrapper {
@@ -139,8 +139,6 @@
     box-sizing: border-box;
 }
 
-
-
 .frame-group,
 .navigation-divider-top-parent {
     display: flex;
@@ -149,10 +147,10 @@
 }
 
 .navigation-divider-top-parent {
-    width: 1590px;
+    width: 1640px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 33px;
+    gap: 34px;
     flex-shrink: 0;
     margin-left: -1496px;
 }
@@ -165,7 +163,7 @@
     text-align: left;
     font-size: var(--font-size-lg);
     color: var(--color-indigo);
-    font-family: var(--single-line-body-base);
+    font-family: var(--body-strong);
 }
 
 .span1 {
@@ -282,7 +280,7 @@
 
 .de-40004 {
     margin: 0;
-    font-size: var(--single-line-body-base-size);
+    font-size: var(--body-strong-size);
     color: var(--color-thistle);
 }
 
@@ -334,7 +332,7 @@
 
 .de-40006 {
     margin: 0;
-    font-size: var(--single-line-body-base-size);
+    font-size: var(--body-strong-size);
     color: var(--color-dimgray);
 }
 
@@ -524,7 +522,7 @@
     text-align: left;
     font-size: var(--font-size-mini);
     color: var(--color-indigo);
-    font-family: var(--single-line-body-base);
+    font-family: var(--body-strong);
 }
 
 .crowdsisterslogocolor-1-icon1,
@@ -587,7 +585,7 @@
     font-size: var(--font-size-xl);
     line-height: 150%;
     font-weight: 600;
-    font-family: var(--single-line-body-base);
+    font-family: var(--body-strong);
     color: var(--color-slateblue);
     text-align: justify;
 }
@@ -640,7 +638,7 @@
     max-width: 100%;
     font-size: var(--font-size-lg);
     color: var(--color-ghostwhite);
-    font-family: var(--single-line-body-base);
+    font-family: var(--body-strong);
 }
 
 .descripcin-crowdsisters-inner,
@@ -726,7 +724,7 @@
     }
 
     .descubreproyectos-inner {
-        padding-bottom: 54px;
+        padding-bottom: var(--padding-35xl);
         box-sizing: border-box;
     }
 
@@ -819,7 +817,7 @@
     }
 
     .descripcin1 {
-        font-size: var(--single-line-body-base-size);
+        font-size: var(--body-strong-size);
         line-height: 24px;
     }
 
