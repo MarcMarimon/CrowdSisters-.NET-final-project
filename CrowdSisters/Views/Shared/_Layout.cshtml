@@ -63,14 +63,17 @@
                     }
                     else
                     {
-                        <p>Monedero: @ViewContext.HttpContext.Session.GetInt32("Monedero")€ </p>
-                        <p>Benvenida! @ViewContext.HttpContext.Session.GetString("Username")</p>
+                        <div class="hover-target">
+                        <b class="button2" style="top:-15px;">¡Bienvenida @ViewContext.HttpContext.Session.GetString("Username")! </b>
+                        <p class="monedero">Monedero: @ViewContext.HttpContext.Session.GetInt32("Monedero")€ </p>
+                        </div>
                         <a href="@Url.Action("Logout", "Login")">
                             <!-- Ajusta la ruta según tu controlador y acción -->
                             <img class="star-icon" alt="" src="./public/star2.svg" />
-                            <b class="button2">Logout</b>
+                            <img class="buttonLogout" alt="" src="~/img/Logout.png" style="width: 30px; height: 30px; margin-top:-33px;" />
                             <img class="star-icon" alt="" src="./public/x2.svg" />
                         </a>
+                        
                     }
                 </div>
             </div>
