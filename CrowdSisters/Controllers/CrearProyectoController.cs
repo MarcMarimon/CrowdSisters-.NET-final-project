@@ -16,8 +16,7 @@ namespace CrowdSisters.Controllers
 
 
         private readonly ServiceRecompensa _serviceRecompensa;
-        private readonly FirebaseService _serviceFirebase; 
-
+        private readonly FirebaseService _serviceFirebase;
 
         public CrearProyectoController(ServiceCrearProyecto serviceCrearProyecto, ServiceCategoria serviceCategoria, ServiceRecompensa serviceRecompensa, ServiceSubcategoria serviceSubcategoria, FirebaseService serviceFirebase)
 
@@ -49,15 +48,14 @@ namespace CrowdSisters.Controllers
 
             /*Sacar toda la información de subcategorias*/
 
-            List<Subcategoria> listSubcategoria = (List<Subcategoria>)await _serviceSubcategoria.GetAllSubcategoriasAsync();
+            ViewBag.ListSubcategoria = new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text");
 
-            ViewBag.ListSubcategoria = new SelectList(listSubcategoria, "IDSubcategoria", "Nombre");
 
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Index(CrearProyectoViewModel model, IFormFile UrlFotoEncabezado, IFormFile UrlFoto1, IFormFile UrlFoto2, IFormFile UrlFoto3)
+        public async Task<ActionResult> Index(CrearProyectoViewModel model)
         {
 
             if (!ModelState.IsValid)
@@ -71,7 +69,7 @@ namespace CrowdSisters.Controllers
             string nombre = nombresArray[0];
             string primerApellido = nombresArray.Length > 1 ? nombresArray[1] : string.Empty;
             string segundoApellido = nombresArray.Length > 2 ? nombresArray[2] : string.Empty;
-
+            Stream imagen = null;
             /*Subir las fotos a Firebase i sacar las Urls*/
 
 
@@ -110,14 +108,14 @@ namespace CrowdSisters.Controllers
             proyecto.FechaCreacion = DateTime.Now;
             proyecto.FechaFinalizacion = model.FechaFinalizacion;
             proyecto.MontoObjetivo = model.MontoObjetivo;
-            Stream imagen = UrlFotoEncabezado.OpenReadStream();
-            proyecto.UrlFotoEncabezado = await _serviceFirebase.subirStorage(imagen, UrlFotoEncabezado.FileName);
-            imagen = UrlFoto1.OpenReadStream();
-            proyecto.UrlFoto1 = await _serviceFirebase.subirStorage(imagen, UrlFoto1.FileName);
-            imagen = UrlFoto2.OpenReadStream();
-            proyecto.UrlFoto2 = await _serviceFirebase.subirStorage(imagen, UrlFoto2.FileName);
-            imagen = UrlFoto3.OpenReadStream();
-            proyecto.UrlFoto3 = await _serviceFirebase.subirStorage(imagen, UrlFoto3.FileName);
+            imagen = model.UrlFotoEncabezado.OpenReadStream();
+            proyecto.UrlFotoEncabezado = await _serviceFirebase.subirStorage(imagen, model.UrlFotoEncabezado.FileName);
+            imagen = model.UrlFoto1.OpenReadStream();
+            proyecto.UrlFoto1 = await _serviceFirebase.subirStorage(imagen, model.UrlFoto1.FileName);
+            imagen = model.UrlFoto2.OpenReadStream();
+            proyecto.UrlFoto2 = await _serviceFirebase.subirStorage(imagen, model.UrlFoto2.FileName);
+            imagen = model.UrlFoto3.OpenReadStream();
+            proyecto.UrlFoto3 = await _serviceFirebase.subirStorage(imagen, model.UrlFoto3.FileName);
 
 
 
@@ -128,7 +126,8 @@ namespace CrowdSisters.Controllers
             recompensa.Titulo = model.TituloRecompensa;
             recompensa.Descripcion = model.DescripcionRecompensa;
             recompensa.Monto = model.Monto;
-            recompensa.URLImagenRecompensa = "sdfgh";
+            imagen = model.URLImagenRecompensa.OpenReadStream();
+            recompensa.URLImagenRecompensa = await _serviceFirebase.subirStorage(imagen, model.URLImagenRecompensa.FileName);
             recompensa.FKProyecto = proyecto.IDProyecto;
             await _serviceRecompensa.CreateRecompensaAsync(recompensa);
 
@@ -136,7 +135,8 @@ namespace CrowdSisters.Controllers
             recompensa1.Titulo = model.TituloRecompensa1;
             recompensa1.Descripcion = model.DescripcionRecompensa1;
             recompensa1.Monto = model.Monto1;
-            recompensa1.URLImagenRecompensa = "sdfgh";
+            imagen = model.URLImagenRecompensa1.OpenReadStream();
+            recompensa1.URLImagenRecompensa = await _serviceFirebase.subirStorage(imagen, model.URLImagenRecompensa1.FileName);
             recompensa1.FKProyecto = proyecto.IDProyecto;
             await _serviceRecompensa.CreateRecompensaAsync(recompensa1);
 
@@ -144,7 +144,8 @@ namespace CrowdSisters.Controllers
             recompensa2.Titulo = model.TituloRecompensa2;
             recompensa2.Descripcion = model.DescripcionRecompensa2;
             recompensa2.Monto = model.Monto2;
-            recompensa2.URLImagenRecompensa = "sdfgh";
+            imagen = model.URLImagenRecompensa2.OpenReadStream();
+            recompensa2.URLImagenRecompensa = await _serviceFirebase.subirStorage(imagen, model.URLImagenRecompensa2.FileName);
             recompensa2.FKProyecto = proyecto.IDProyecto;
             await _serviceRecompensa.CreateRecompensaAsync(recompensa2);
 
@@ -152,6 +153,13 @@ namespace CrowdSisters.Controllers
 
             return RedirectToAction("Index", "Proyecto");
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetSubcategorias(int idCategoria)
+        {
+            return await _serviceSubcategoria.GetSubcategoriasAsync(idCategoria);
+        }
+
 
     }
 }
