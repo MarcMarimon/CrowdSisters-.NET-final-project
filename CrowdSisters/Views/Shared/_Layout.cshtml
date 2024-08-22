@@ -63,6 +63,7 @@
                     }
                     else
                     {
+                        <p>Monedero: @ViewContext.HttpContext.Session.GetInt32("Monedero")€ </p>
                         <p>Benvenida! @ViewContext.HttpContext.Session.GetString("Username")</p>
                         <a href="@Url.Action("Logout", "Login")">
                             <!-- Ajusta la ruta según tu controlador y acción -->
