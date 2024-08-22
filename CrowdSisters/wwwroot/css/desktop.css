@@ -744,7 +744,7 @@
 
 .button8 {
     position: relative;
-    font-size: var(--single-line-body-base-size);
+    font-size: 14px;
     line-height: 100%;
     display: inline-block;
     font-family: var(--single-line-body-base);
@@ -829,7 +829,7 @@
 
 .o-elige-una {
     position: relative;
-    font-size: 12px;
+    font-size: 10px;
     line-height: 100%;
     font-family: var(--single-line-body-base);
     color: var(--color-silver);
@@ -861,10 +861,10 @@
 .button12 {
     flex: 1;
     position: relative;
-    font-size: var(--single-line-body-base-size);
+    font-size: 15px;
     line-height: 100%;
     display: inline-block;
-    font-family: var(--single-line-body-base);
+    font-family: Inter;
     color: var(--color-ghostwhite);
     white-space: pre-wrap;
     text-align: center;
@@ -899,7 +899,16 @@
     padding: var(--padding-3xs) var(--padding-2xs);
     gap: var(--space-200);
 }
-
+.button7 {
+    flex: 1;
+    border-radius: var(--radius-200);
+    background-color: var(--color-mediumpurple);
+    border: 1px solid var(--color-indigo);
+    box-sizing: border-box;
+    justify-content: center;
+    padding: 9px var(--padding-xl);
+    gap: var(--space-200);
+}
 .button-google {
     position: absolute;
     top: 0;
@@ -941,8 +950,13 @@
 .eres-nueva-en {
     color: var(--color-indigo);
     white-space: pre-wrap;
+    margin-left:25px;
 }
-
+.ya-tienes-cuenta {
+    color: var(--color-indigo);
+    white-space: pre-wrap;
+    margin-left:50px;
+}
 .span1 {
     color: var(--text-default-default);
 }
