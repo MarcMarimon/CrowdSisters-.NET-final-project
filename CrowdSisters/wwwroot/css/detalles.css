@@ -1,0 +1,128 @@
+.proyecto-detalles {
+    font-family: 'Arial', sans-serif;
+    color: #3C3C3B;
+    line-height: 1.6;
+}
+
+.encabezado .img-encabezado {
+    width: 100%;
+    height: auto;
+}
+
+.descripcion {
+    text-align: center;
+    padding: 20px;
+    background-color: #EDE8F4;
+}
+
+    .descripcion h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        color: #7A4DA4;
+    }
+
+    .descripcion p {
+        font-size: 1.2em;
+        color: #7A4DA4;
+    }
+
+.contador {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+    .contador > div {
+        background-color: #7A4DA4;
+        color: white;
+        padding: 20px;
+        margin: 0 10px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 1.5em;
+    }
+
+.contenido {
+    padding: 30px;
+    background-color: #FFF;
+}
+
+    .contenido h3 {
+        font-size: 1.8em;
+        margin-top: 20px;
+        color: #7A4DA4;
+    }
+
+.creador {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+    .creador .img-creador {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-right: 20px;
+    }
+
+.imagenes-adicionales {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+    .imagenes-adicionales img {
+        width: 30%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+.recompensas {
+    background-color: #EDE8F4;
+    padding: 30px;
+    text-align: center;
+}
+
+    .recompensas h2 {
+        font-size: 2em;
+        color: #7A4DA4;
+        margin-bottom: 30px;
+    }
+
+.recompensas-lista {
+    display: flex;
+    justify-content: center;
+}
+
+.recompensa {
+    background-color: #FFF;
+    margin: 0 10px;
+    padding: 15px;
+    border-radius: 10px;
+    width: 30%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+    .recompensa img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .recompensa h4 {
+        font-size: 1.5em;
+        color: #7A4DA4;
+        margin-top: 10px;
+    }
+
+    .recompensa p {
+        font-size: 1em;
+        color: #3C3C3B;
+        margin-top: 5px;
+    }
+
+        .recompensa p:last-child {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
