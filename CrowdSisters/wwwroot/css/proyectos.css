@@ -29,6 +29,7 @@
     box-sizing: border-box;
 }
 
+
 .title {
     position: relative;
     line-height: 100%;
@@ -97,6 +98,8 @@
     border-top: 3px solid var(--color-plum-200);
     box-sizing: border-box;
 }
+
+
 
 .frame-group,
 .navigation-divider-top-parent {
