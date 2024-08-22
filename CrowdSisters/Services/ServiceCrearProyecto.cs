@@ -1,6 +1,6 @@
 ﻿using CrowdSisters.DAL;
 using CrowdSisters.Models;
-
+using Firebase.Auth;
 namespace CrowdSisters.Services
 {
     public class ServiceCrearProyecto
@@ -14,11 +14,11 @@ namespace CrowdSisters.Services
             _dalUsuario = dalUsuario;
         }
 
-        public async Task<Usuario> CrearProjecteView()
+        public async Task<Usuario> CrearProjecteView(int idUsuario)
         {
             try
             {
-                return await _dalUsuario.GetByIdAsync(1);
+                return await _dalUsuario.GetByIdAsync(idUsuario);
 
             }
             catch (Exception ex)
