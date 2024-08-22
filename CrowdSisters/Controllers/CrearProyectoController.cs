@@ -38,7 +38,8 @@ namespace CrowdSisters.Controllers
 
             /*Sacar toda la información del usuario que tiene iniciada la sessión*/
 
-            ViewBag.Usuario = await _serviceCrearProyecto.CrearProjecteView();
+
+            ViewBag.Usuario = await _serviceCrearProyecto.CrearProjecteView((int) HttpContext.Session.GetInt32("IdUsuario"));
 
             /*Sacar toda la información de categorias*/
 
@@ -88,7 +89,8 @@ namespace CrowdSisters.Controllers
             usuario.Poblacion = model.Poblacion;
             usuario.Pais = model.Pais;
             usuario.Telefono = model.Telefono;
-            usuario.URLImagenUsuario = "ddsdsdsa";
+            imagen = model.URLImagenUsuario.OpenReadStream();
+            usuario.URLImagenUsuario = await _serviceFirebase.subirStorage(imagen, model.URLImagenUsuario.FileName);
 
             await _serviceCrearProyecto.UpdateUsuarioCrearProyecto(usuario);
 
