@@ -20,9 +20,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
 
-    <style>
-        /* Aquí puedes añadir los estilos del segundo código si los necesitas */
-    </style>
 </head>
 <body>
     <div class="descubreproyectos">
@@ -57,7 +54,6 @@
                         <div class="navigation-pill">
                             <b class="title6">Comunidad</b>
                         </div>
-                        <!-- Puedes seguir añadiendo más pestañas según sea necesario -->
                     </div>
                 </div>
                 <div class="navigation-divider-bottom"></div>
@@ -66,7 +62,7 @@
 
         <section class="descubreproyectos-inner">
             <div class="frame-container">
-                <h1>¡Se están impulsando @Model.Count() proyectos!</h1>
+                <h1>¡Se están impulsando <span style="color:#5E991E;">@Model.Count()</span> proyectos!</h1>
 
                 @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
                 {
@@ -77,10 +73,10 @@
                 }
                 else
                 {
-                    <div class="card-1-group">
+                    <div class="card-1-group1">
                         @foreach (var proyecto in Model)
                         {
-                            <div class="card-12">
+                            <div class="card-121">
                                 <img class="image-icon3" loading="lazy" alt="@proyecto.Titulo" src="@proyecto.UrlFotoEncabezado" />
 
                                 <div class="frame-div">

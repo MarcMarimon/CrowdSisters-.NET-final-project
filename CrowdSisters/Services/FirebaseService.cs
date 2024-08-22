@@ -15,6 +15,10 @@ namespace CrowdSisters.Services
             string ruta = "crowdsisters-21e4f.appspot.com";
             string api_key = "AIzaSyBlfgt8XuB4oawkTRiPheV6_BxpAHA6zDg";
 
+            Guid guid = Guid.NewGuid();
+
+            string nombreRandomized = Guid.NewGuid().ToString() + nombre;
+
             var auth = new FirebaseAuthProvider(new FirebaseConfig(api_key));
             var a = await auth.SignInWithEmailAndPasswordAsync(email, clave);
 
@@ -41,7 +45,7 @@ namespace CrowdSisters.Services
 
                         })
                         .Child("FotosProyecto")
-                        .Child(nombre)
+                        .Child(nombreRandomized)
                         .PutAsync(resizedStream, cancellation.Token);
 
                     var downloadURL = await task;
