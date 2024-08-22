@@ -132,22 +132,22 @@
         <label>Añade imágenes para destacar tu proyecto</label>
 
         <div class="form-group">
-            <input type="file" id="UrlFotoEncabezado" name="UrlFotoEncabezado" accept="image/*" required>
+            <input type="file" id="UrlFotoEncabezado" name="UrlFotoEncabezado" asp-for ="UrlFotoEncabezado" accept="image/*" required>
             @Html.ValidationMessageFor(m => m.UrlFotoEncabezado, "", new { @class = "text-danger" })
         </div>
 
          <div class="form-group">
-            <input type="file" id="UrlFoto1" name="UrlFoto1" accept="image/*" required>
+            <input type="file" id="UrlFoto1" name="UrlFoto1"  asp-for="UrlFoto1" accept="image/*" required>
             @Html.ValidationMessageFor(m => m.UrlFoto1, "", new { @class = "text-danger" })
         </div>
 
          <div class="form-group">
-            <input type="file" id="UrlFoto2" name="UrlFoto2" accept="image/*" required>
+            <input type="file" id="UrlFoto2" name="UrlFoto2" asp-for="UrlFoto2" accept="image/*" required>
             @Html.ValidationMessageFor(m => m.UrlFoto2, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            <input type="file" id="UrlFoto3" name="UrlFoto3" accept="image/*" required>
+            <input type="file" id="UrlFoto3" name="UrlFoto3" asp-for="UrlFoto3" accept="image/*" required>
             @Html.ValidationMessageFor(m => m.UrlFoto2, "", new { @class = "text-danger" })
         </div>
 
