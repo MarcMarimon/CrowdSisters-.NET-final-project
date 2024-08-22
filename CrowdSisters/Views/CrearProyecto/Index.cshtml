@@ -167,7 +167,7 @@
 
 
         <div class="form-group">
-            <input type="file" id="URLImagenRecompensa" name="URLImagenRecompensa" accept="image/*" required>
+            <input type="file" id="URLImagenRecompensa" name="URLImagenRecompensa" asp-for="URLImagenRecompensa" accept="image/*" required>
             @Html.ValidationMessageFor(m => m.URLImagenRecompensa, "", new { @class = "text-danger" })
         </div>
 
@@ -192,7 +192,7 @@
 
 
         <div class="form-group">
-            <input type="file" id="URLImagenRecompensa1" name="URLImagenRecompensa1" accept="image/*" required>
+            <input type="file" id="URLImagenRecompensa1" name="URLImagenRecompensa1" asp-for="URLImagenRecompensa1" accept="image/*" required>
             @Html.ValidationMessageFor(m => m.URLImagenRecompensa1, "", new { @class = "text-danger" })
         </div>
 
@@ -217,7 +217,7 @@
 
 
         <div class="form-group">
-            <input type="file" id="URLImagenRecompensa2" name="URLImagenRecompensa2" accept="image/*" required>
+            <input type="file" id="URLImagenRecompensa2" name="URLImagenRecompensa2" asp-for="URLImagenRecompensa2" accept="image/*" required>
             @Html.ValidationMessageFor(m => m.URLImagenRecompensa2, "", new { @class = "text-danger" })
         </div>
 
