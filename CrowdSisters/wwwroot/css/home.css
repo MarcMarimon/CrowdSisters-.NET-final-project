@@ -137,6 +137,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     gap: var(--space-200);
+    box-sizing: border-box;
 }
 
 .botn-descubre-ms-proyectos-wrapper {
@@ -147,6 +148,11 @@
     padding: 0 39px 61px;
     box-sizing: border-box;
     max-width: 100%;
+}
+
+/* Aplica el hover directamente al botón */
+.botn-descubre-ms-proyectos:hover {
+    background-color: #581E99;
 }
 
 .proyectos-impulsados {
@@ -569,10 +575,15 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: var(--padding-3xs) var(--padding-mid);
+    padding: 10px 17px;
     gap: var(--space-200);
+    box-sizing: border-box;
+    font-size: 18px;
+    color: var(--color-ghostwhite);
+    font-family: var(--body-base);
 }
 
+/* Este es el contenedor del botón */
 .botn-empieza-tu-proyecto-wrapper {
     width: 557px;
     display: flex;
@@ -582,9 +593,11 @@
     padding: 0 var(--padding-xl);
     box-sizing: border-box;
     max-width: 100%;
-    font-size: var(--font-size-lg);
-    color: var(--color-ghostwhite);
-    font-family: var(--body-strong);
+}
+
+/* Aplica el cambio de color al botón al hacer hover */
+.botn-empieza-tu-proyecto:hover {
+    background-color: #581E99;
 }
 
 .description-details {
