@@ -56,6 +56,18 @@ namespace CrowdSisters.Controllers
 
         return RedirectToAction("Index","Login");
         }
+        public async Task<ActionResult> Logout()
+        {
+            try
+            {
+                HttpContext.Session.Clear();
+                return RedirectToAction("Index","Home");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index","Home"); 
+            }
+        }
 
     // GET: LoginController/Create
         public ActionResult Create()
