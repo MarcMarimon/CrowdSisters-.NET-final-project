@@ -1,5 +1,6 @@
 ﻿using CrowdSisters.Conections;
 using CrowdSisters.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data.Common;
 
@@ -110,6 +111,47 @@ namespace CrowdSisters.DAL
                 return null;
             }
         }
+
+
+        public async Task<JsonResult> GetSubcategorias(int idCategoria)
+        {
+            List<Subcategoria> subcategorias = new List<Subcategoria>();
+
+            const string query = @"SELECT IDSubcategoria, Nombre 
+                           FROM Subcategoria
+                           WHERE FKCategoria = @IdCategoria;";
+
+            try
+            {
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    command.Parameters.AddWithValue("@IdCategoria", idCategoria);
+                    sqlConn.Open();
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            subcategorias.Add(new Subcategoria
+                            {
+                                IDSubcategoria = reader.GetInt32(reader.GetOrdinal("IDSubcategoria")),
+                                Nombre = reader.GetString(reader.GetOrdinal("Nombre"))
+                            });
+                        }
+                    }
+                }
+
+                return new JsonResult(subcategorias);
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores
+                Console.WriteLine($"Error al obtener subcategorías: {ex.Message}");
+                return new JsonResult(new { error = "Error al obtener subcategorías" });
+            }
+        }
+
 
         // Actualizar
         public async Task<bool> UpdateAsync(Subcategoria subcategoria)
