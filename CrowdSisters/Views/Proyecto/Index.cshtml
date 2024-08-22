@@ -77,6 +77,7 @@
                     <div class="card-1-group1">
                         @foreach (var proyecto in Model)
                         {
+                            <a href="@Url.Action("Detalles", "DetallesProyecto", new { id = proyecto.IDProyecto })" class="card-link">
                             <div class="card-121">
                                 <img class="image-icon3" loading="lazy" alt="@proyecto.Titulo" src="@proyecto.UrlFotoEncabezado" />
 
@@ -104,6 +105,7 @@
                                     </div>
                                 </div>
                             </div>
+                            </a>
                         }
                     </div>
                 }
