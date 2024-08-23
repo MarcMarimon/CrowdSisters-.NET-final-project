@@ -26,7 +26,7 @@
                         <img class="x-icon5" loading="lazy" alt="Cerrar" src="~/img/boton-x.png" />
                     </a>
                 </div>
-                <h1 class="inicia-sesin">Regístrate</h1>
+                <h1 class="inicia-sesin" style="font-family:Inter">Regístrate</h1>
             </div>
             @using (Html.BeginForm("Create", "Login", FormMethod.Post, new { @class = "form" }))
             {
@@ -86,7 +86,7 @@
                             <div class="line-wrapper">
                                 <div class="frame-item"></div>
                             </div>
-                            <b class="o-elige-una">O ELIGE UNA DE ESTAS OPCIONES</b>
+                            <b class="o-elige-una" style="font-family:Inter">O ELIGE UNA DE ESTAS OPCIONES</b>
                             <div class="line-wrapper">
                                 <div class="frame-item"></div>
                             </div>
@@ -126,8 +126,8 @@
                     <div class="eres-nueva-wrapper">
                         <div class="eres-nueva">
                             <div class="text-link1">
-                                <span class="ya-tienes-cuenta">¿Ya tienes una cuenta? </span>
-                                <a href="@Url.Action("Index", "Login")" class="registro-link">¡Inicia sesión!</a>
+                                <span class="ya-tienes-cuenta" style="font-family:Inter; font-size:12px;">¿Ya tienes una cuenta? </span>
+                                <a href="@Url.Action("Index", "Login")" class="registro-link" style="font-family:Inter; font-size:12px;">¡Inicia sesión!</a>
                             </div>
                         </div>
                     </div>
