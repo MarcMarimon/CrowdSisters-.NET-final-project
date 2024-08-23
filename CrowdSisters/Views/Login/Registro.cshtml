@@ -59,7 +59,7 @@
                         <div class="label">Contraseña</div>
                         <div class="description">Description</div>
                         <div class="input">
-                            @Html.PasswordFor(m => m.Contrasena, new { @class = "value1", placeholder = "Introduce tu contraseña" })
+                            @Html.PasswordFor(m => m.Contrasena, new { @class = "value1", placeholder = "Introduce tu contraseña", @required = "required" })
                         </div>
                         <div class="error">@ViewBag.PasswordError</div>
                     </div>
