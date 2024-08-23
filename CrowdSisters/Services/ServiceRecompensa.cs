@@ -26,5 +26,18 @@ namespace CrowdSisters.Services
             }
         }
 
+        public async Task<Recompensa> GetRecompensaByIdAsync(int recompensa)
+        {
+            try
+            {
+                return await _dalRecompensa.GetByIdAsync(recompensa);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en Service al crear el proyecto: {ex.Message}");
+                return null;
+            }
+        }
+
     }
 }

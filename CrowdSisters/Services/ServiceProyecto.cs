@@ -58,6 +58,20 @@ namespace CrowdSisters.Services
             }
         }
 
+        // Actualizar Proyecto
+        public async Task<bool> UpdateMontoRecaudadoAsync(decimal resta, int idProyecto)
+        {
+            try
+            {
+                return await _dalProyecto.UpdateMontoRecaudadoAsync(resta, idProyecto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en Service al actualizar el proyecto: {ex.Message}");
+                return false;
+            }
+        }
+
         // Eliminar Proyecto
         public async Task<bool> DeleteAsync(int id)
         {
