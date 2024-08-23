@@ -17,11 +17,9 @@ namespace CrowdSisters.Models
         [StringLength(50)]
         public string Email { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string Contrasena { get; set; }
 
-        [Required]
         public DateTime FechaRegistro { get; set; }
 
         [Required]
