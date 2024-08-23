@@ -2,78 +2,146 @@
 
 @{
     ViewData["Title"] = Model.Titulo;
-    Layout = "~/Views/Shared/_Layout.cshtml";  
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Detalles del Proyecto</title>
-        <link rel="stylesheet" href="/css/detalles.css" />
-    </head>
-    <body>
-<div class="proyecto-detalles">
-    <section class="encabezado">
-        <img src="@Model.UrlFotoEncabezado" alt="Encabezado del proyecto" class="img-encabezado" />
-    </section>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/InfoProyecto.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,300&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
+</head>
+<body>
+    <div class="infoproyecto">
+        <img class="foto1-icon" loading="lazy" alt="" src="@Model.UrlFotoEncabezado" />
 
-    <section class="descripcion">
-        <h1>@Model.Titulo</h1>
-        <p>@Model.Subtitulo</p>
-
-        <div class="contador">
-            <div>
-                <span>@(Model.FechaFinalizacion - DateTime.Now).Days</span>
-                <p>DÍAS RESTANTES</p>
-            </div>
-            <div>
-                <span>@Model.MontoRecaudado.ToString("C")</span>
-                <p>DE @Model.MontoObjetivo.ToString("C")</p>
-            </div>
+        <div class="progress-bar-container">
+            <div class="lineaenteraprogreso"></div>
         </div>
-
-        <h2>¿Qué es @Model.Titulo?</h2>
-        <p>@Model.DescripcionGeneral</p>
-    </section>
-
-    <section class="contenido">
-        <h3>Descripción de la campaña</h3>
-        <p>@Model.DescripcionFinalidad</p>
-
-        <h3>Presupuesto del proyecto</h3>
-        <p>@Model.DescripcionPresupuesto</p>
-
-        <h3>¡Conoce al creador del proyecto!</h3>
-        <div class="creador">
-            <img src="@Model.Usuario.URLImagenUsuario" alt="Creador del proyecto" class="img-creador" />
-            <p>@Model.Usuario.Nombre @Model.Usuario.PrimerApellido @Model.Usuario.SegundoApellido</p>
-            <p>@Model.Usuario.PerfilPublico</p>
-        </div>
-    </section>
-
-    <section class="imagenes-adicionales">
-        <img src="@Model.UrlFoto1" alt="Imagen del proyecto 1" />
-        <img src="@Model.UrlFoto2" alt="Imagen del proyecto 2" />
-        <img src="@Model.UrlFoto3" alt="Imagen del proyecto 3" />
-    </section>
-
-    <section class="recompensas">
-        <h2>Recompensas</h2>
-        <div class="recompensas-lista">
-            @foreach (var recompensa in Model.Recompensas)
-            {
-                <div class="recompensa">
-                    <img src="@recompensa.URLImagenRecompensa" alt="Recompensa" />
-                    <h4>@recompensa.Titulo</h4>
-                    <p>@recompensa.Descripcion</p>
-                    <p>@recompensa.Monto.ToString("C")</p>
+        <div class="lineaverdeprogreso"></div>
+        <main class="project-details-container">
+            <section class="project-title-container">
+                <div class="project-subtitles-container-wrapper">
+                    <div class="project-subtitles-container">
+                        <div class="project-title-wrapper">
+                            <div class="project-title-block-wrapper">
+                                <div class="project-title-block">
+                                    <div class="project-title-area">
+                                        <div class="ttuloproyecto1">
+                                            <b class="ttulo33">@Model.Titulo</b>
+                                        </div>
+                                    </div>
+                                    <div class="subtituloproyecto">
+                                        <b class="ttulo34">@Model.Subtitulo</b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-stats-container">
+                                <div class="project-stats-values-wrapper">
+                                    <div class="project-stats-values">
+                                        <div class="digitosdias">
+                                            <div class="digito3">
+                                                <div class="digito3-child"></div>
+                                                <div class="days-value">@((Model.FechaFinalizacion - DateTime.Now).Days)</div>
+                                            </div>
+                                        </div>
+                                        <div class="digitosrecaudacion">
+                                            <div class="backers-icon">
+                                                <div class="digito3">
+                                                    <div class="digito3-child"></div>
+                                                    <div class="days-value">@Model.MontoRecaudado.ToString("C")</div>
+                                                </div>
+                                            </div>
+                                            <div class="impulsoras">DE @Model.MontoObjetivo.ToString("C")</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="project-stats-container-inner">
+                                    <div class="project-description-content-parent">
+                                        <div class="project-description-content">
+                                            <div class="project-description-block">
+                                                <div class="project-description-area">
+                                                    <div class="das25">DÍAS</div>
+                                                </div>
+                                                <b class="titulodescripcion1">
+                                                    <p class="qu-es-ecobeauty">¿Qué es @Model.Titulo?</p>
+                                                </b>
+                                            </div>
+                                            <div class="descripcion1-wrapper">
+                                                <div class="descripcion1">
+                                                    <p class="qu-es-ecobeauty">@Model.DescripcionGeneral</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="descripcion1-wrapper">
+                                    <div class="descripcion1">
+                                        <p class="qu-es-ecobeauty">@Model.DescripcionFinalidad</p>
+                                    </div>
+                                </div>
+                                <div class="foto2-wrapper">
+                                    <img class="foto2-icon" loading="lazy" alt="" src="@Model.UrlFoto1" />
+                                </div>
+                                <div class="project-subtitles-container-inner">
+                                    <div class="titulodescripcion2-parent">
+                                        <b class="titulodescripcion2">Presupuesto del proyecto</b>
+                                        <div class="second-info-content">
+                                            <div class="descripcion3">
+                                                <p>@Model.DescripcionPresupuesto</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="foto2-wrapper">
+                                    <img class="foto2-icon" loading="lazy" alt="" src="@Model.UrlFoto2" />
+                                </div>
+                                <div class="project-subtitles-container-inner1">
+                                    <div class="titulodescripcion3-parent">
+                                        <b class="titulodescripcion4">¡Conoce al creador del proyecto!</b>
+                                        <div class="descripcion4">
+                                            <img class="foto2-icon" loading="lazy" alt="Creador del proyecto" src="@Model.Usuario.URLImagenUsuario" />
+                                            <p>@Model.Usuario.Nombre @Model.Usuario.PrimerApellido @Model.Usuario.SegundoApellido</p>
+                                            <p>@Model.Usuario.PerfilPublico</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rewards-title-container">
+                                <div class="titulorecompensas">Recompensas</div>
+                            </div>
+                            <div class="rewards-carousel">
+                                @foreach (var recompensa in Model.Recompensas)
+                                {
+                                    <div class="cardrecompensa1">
+                                        <img class="fotorecompensa1-icon" loading="lazy" alt="Recompensa" src="@recompensa.URLImagenRecompensa" />
+                                        <div class="frame-parent26">
+                                            <div class="titulorecompnesa1-parent">
+                                                <div class="titulorecompnesa1">
+                                                    <div class="ttulo35">@recompensa.Titulo</div>
+                                                </div>
+                                                <div class="descripcionrecompnesa1">
+                                                    <p>@recompensa.Descripcion</p>
+                                                </div>
+                                            </div>
+                                            <div class="impulsoras1-parent">
+                                                <div class="impulsoras1">
+                                                    <p>@recompensa.Monto.ToString("C")</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            }
-        </div>
-    </section>
-</div>
-
-    </body>
+            </section>
+        </main>
+    </div>
+</body>
 </html>
