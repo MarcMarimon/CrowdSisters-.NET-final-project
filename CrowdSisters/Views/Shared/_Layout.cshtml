@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="/css/global.css?v=LeXFsuf3Z500C2-CETWDCKnyj5FvslpdBQFbQKw-Kps" />
     <link rel="stylesheet" href="/css/desktop.css?v=1BKq0X8peVCoPBonhE7yJwqnWK2h2D73w3UuEd1cWWc" />
     <link rel="stylesheet" href="/CrowdSisters.styles.css?v=49GoNgxPLejrRYb-0NpPp84AZD3CfrEaDCsAbAi6-7I" />
-
     <link rel="stylesheet" href="./global.css" />
     <link rel="stylesheet" href="./index.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
@@ -30,15 +29,30 @@
                         <img b-i5hh0g375h class="star-icon" alt="" src="./public/x.svg" />
                         </a>
                     </div>
-                    <div b-i5hh0g375h class="inicia-sesin-regstrate-wrapper">
-                        <div b-i5hh0g375h class="inicia-sesin-regstrate1">
-                            <a href="@Url.Action("Index", "CrearProyecto")">
-                            <img b-i5hh0g375h class="star-icon" alt="" src="./public/star1.svg" />
-                            <b b-i5hh0g375h class="button">Empieza tu proyecto</b>
-                            <img b-i5hh0g375h class="star-icon" alt="" src="./public/x1.svg" />
-                            </a>
+                    @if (string.IsNullOrEmpty(ViewContext.HttpContext.Session.GetString("Username")))
+                    {
+                        <div b-i5hh0g375h class="inicia-sesin-regstrate-wrapper">
+                            <div b-i5hh0g375h class="inicia-sesin-regstrate1">
+                                <a href="@Url.Action("Index", "Login")">
+                                    <img b-i5hh0g375h class="star-icon" alt="" src="./public/star1.svg" />
+                                    <b b-i5hh0g375h class="button">Empieza tu proyecto</b>
+                                    <img b-i5hh0g375h class="star-icon" alt="" src="./public/x1.svg" />
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div b-i5hh0g375h class="inicia-sesin-regstrate-wrapper">
+                            <div b-i5hh0g375h class="inicia-sesin-regstrate1">
+                                <a href="@Url.Action("Index", "CrearProyecto")">
+                                    <img b-i5hh0g375h class="star-icon" alt="" src="./public/star1.svg" />
+                                    <b b-i5hh0g375h class="button">Empieza tu proyecto</b>
+                                    <img b-i5hh0g375h class="star-icon" alt="" src="./public/x1.svg" />
+                                </a>
+                            </div>
+                        </div>
+                    }
                     <a href="@Url.Action("Index", "Home")">
                     <img class="logoblanco-icon" loading="lazy" alt="" src="/img/CrowdsistersLogoBlanco2.png" />
                     </a>
@@ -50,14 +64,33 @@
                             <img class="search-icon" loading="lazy" alt="" src="/img/lupa.png" />
                         </div>
                     </div>
-                    <div b-i5hh0g375h class="inicia-sesin-regstrate2">
-                        <a href="@Url.Action("Index", "Login")">
-                            <!-- Ajusta la ruta según tu controlador y acción -->
+                    @if (string.IsNullOrEmpty(ViewContext.HttpContext.Session.GetString("Username")))
+                    {
+                        <div b-i5hh0g375h class="inicia-sesin-regstrate2">
+                            <a href="@Url.Action("Index", "Login")">
+                                <!-- Ajusta la ruta según tu controlador y acción -->
+                                <img class="star-icon" alt="" src="./public/star2.svg" />
+                                <b class="button2">Iniciar sesión / Regístrate</b>
+                                <img class="star-icon" alt="" src="./public/x2.svg" />
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <p>Monedero: @ViewContext.HttpContext.Session.GetInt32("Monedero")€ </p>
+                        <a href="@Url.Action("Edit","Login",new { id = ViewContext.HttpContext.Session.GetInt32("IdUsuario") })">
                             <img class="star-icon" alt="" src="./public/star2.svg" />
-                            <b class="button2">Iniciar sesión / Regístrate</b>
+                            <b class="button2">Benvenida! @ViewContext.HttpContext.Session.GetString("Username")</b>
                             <img class="star-icon" alt="" src="./public/x2.svg" />
                         </a>
-                    </div>
+                        <a href="@Url.Action("Logout", "Login")">
+                            <!-- Ajusta la ruta según tu controlador y acción -->
+                            <img class="star-icon" alt="" src="./public/star2.svg" />
+                            <img class="buttonLogout" alt="" src="~/img/Logout.png" style="width: 30px; height: 30px; margin-top:-33px;" />
+                            <img class="star-icon" alt="" src="./public/x2.svg" />
+                        </a>
+                        
+                    }
                 </div>
             </div>
         </header>

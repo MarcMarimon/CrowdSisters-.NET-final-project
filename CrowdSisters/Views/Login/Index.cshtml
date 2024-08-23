@@ -31,10 +31,10 @@
                         <img class="x-icon5" loading="lazy" alt="Cerrar" src="~/img/boton-x.png" />
                     </a>
                 </div>
-                <h1 class="inicia-sesin">Inicia sesión</h1>
+                <h1 class="inicia-sesin" style="font-family:Inter">Inicia sesión</h1>
             </div>
             <!-- Formulario de inicio de sesión -->
-            @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post, new{@class = "form"}))
             {
                 <div class="input-email-parent">
                     <div class="input-email">
@@ -49,7 +49,7 @@
                         <div class="label">Contraseña</div>
                         <div class="description">Description</div>
                         <div class="input">
-                            @Html.PasswordFor(m => m.Contrasena, new { @class = "value1", placeholder = "Introduce tu contraseña" })
+                            @Html.PasswordFor(m => m.Contrasena, new { @class = "value1", placeholder = "Introduce tu contraseña", @required = "required" })
                         </div>
                         <div class="error">@ViewBag.PasswordError</div>
                     </div>
@@ -68,7 +68,7 @@
                         </div>
                     </button>
                     <div class="olvidaste-contrasea-link">
-                        <div class="text-link">¿Olvidaste la contraseña?</div>
+                        <div class="text-link" style="font-family:Inter">¿Olvidaste la contraseña?</div>
                     </div>
                 </div>
                 <div class="input-container-parent">
@@ -77,7 +77,7 @@
                             <div class="line-wrapper">
                                 <div class="frame-item"></div>
                             </div>
-                            <b class="o-elige-una">O ELIGE UNA DE ESTAS OPCIONES</b>
+                            <b class="o-elige-una" style="font-family:Inter">O ELIGE UNA DE ESTAS OPCIONES</b>
                             <div class="line-wrapper">
                                 <div class="frame-item"></div>
                             </div>
@@ -117,8 +117,8 @@
                     <div class="eres-nueva-wrapper">
                         <div class="eres-nueva">
                             <div class="text-link1">
-                                <span class="eres-nueva-en">¿Eres nueva en CrowdSisters? </span>
-                                <a href="@Url.Action("Registro", "Login")" class="registro-link">¡Regístrate aquí!</a>
+                                <span class="eres-nueva-en" style="font-family:Inter; font-size:12px;" >¿Eres nueva en CrowdSisters? </span>
+                                <a href="@Url.Action("Registro", "Login")" class="registro-link" style="font-family:Inter; font-size:12px;">¡Regístrate aquí!</a>
                             </div>
 
                         </div>

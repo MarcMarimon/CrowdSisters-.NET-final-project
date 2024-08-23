@@ -46,15 +46,25 @@ namespace CrowdSisters.Controllers
                 HttpContext.Session.SetInt32("IdUsuario",user.IDUsuario);
                 HttpContext.Session.SetString("Username", user.Nick);
                 HttpContext.Session.SetString("Email", user.Email);
+                HttpContext.Session.SetInt32("Monedero",(int)user.Monedero);
                 return RedirectToAction("Index","Home");
             }
             else
             {
-                ViewBag.Login = "Invalid email or password.";
+                return RedirectToAction("Index","Login");
             }
-            
-
-        return RedirectToAction("Index","Login");
+        }
+        public async Task<ActionResult> Logout()
+        {
+            try
+            {
+                HttpContext.Session.Clear();
+                return RedirectToAction("Index","Home");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index","Home"); 
+            }
         }
 
     // GET: LoginController/Create
@@ -73,19 +83,24 @@ namespace CrowdSisters.Controllers
         }
 
         // GET: LoginController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            Usuario usuario = await _serviceLogin.GetByIdAsync(id);
+            return View(usuario);
         }
 
         // POST: LoginController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Usuario user, string ContrasenaHidden)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (user.Contrasena == null)
+                    user.Contrasena = ContrasenaHidden;
+
+                _serviceLogin.UpdateAsync(user);
+                return View(user);
             }
             catch
             {
