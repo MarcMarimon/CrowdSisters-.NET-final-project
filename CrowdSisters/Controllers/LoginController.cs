@@ -55,7 +55,7 @@ namespace CrowdSisters.Controllers
             }
             
 
-        return RedirectToAction("Index","Login");
+            return RedirectToAction("Index","Login");
         }
         public async Task<ActionResult> Logout()
         {

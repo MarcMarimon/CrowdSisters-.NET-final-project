@@ -1,0 +1,114 @@
+﻿@model CrowdSisters.Models.Usuario
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Editar Usuario";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@using (Html.BeginForm("Edit(" + ViewContext.HttpContext.Session.GetString("Username") + ")", "Login", FormMethod.Post, new { @class = "form" }))
+{
+    <div class="form-group">
+        <label asp-for="Nombre" class="control-label"></label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Contrasena" class="control-label"></label>
+        <input asp-for="Contrasena" type="password" class="form-control" />
+        <span asp-validation-for="Contrasena" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="IsAdmin" class="control-label"></label>
+        <input asp-for="IsAdmin" type="checkbox" class="form-check-input" />
+        <span asp-validation-for="IsAdmin" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PerfilPublico" class="control-label"></label>
+        <textarea asp-for="PerfilPublico" class="form-control"></textarea>
+        <span asp-validation-for="PerfilPublico" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="URLImagenUsuario" class="control-label"></label>
+        <input asp-for="URLImagenUsuario" class="form-control" />
+        <span asp-validation-for="URLImagenUsuario" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Monedero" class="control-label"></label>
+        <input asp-for="Monedero" class="form-control" />
+        <span asp-validation-for="Monedero" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PrimerApellido" class="control-label"></label>
+        <input asp-for="PrimerApellido" class="form-control" />
+        <span asp-validation-for="PrimerApellido" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SegundoApellido" class="control-label"></label>
+        <input asp-for="SegundoApellido" class="form-control" />
+        <span asp-validation-for="SegundoApellido" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DNI" class="control-label"></label>
+        <input asp-for="DNI" class="form-control" />
+        <span asp-validation-for="DNI" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Direccion" class="control-label"></label>
+        <input asp-for="Direccion" class="form-control" />
+        <span asp-validation-for="Direccion" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CodigoPostal" class="control-label"></label>
+        <input asp-for="CodigoPostal" class="form-control" />
+        <span asp-validation-for="CodigoPostal" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Poblacion" class="control-label"></label>
+        <input asp-for="Poblacion" class="form-control" />
+        <span asp-validation-for="Poblacion" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Telefono" class="control-label"></label>
+        <input asp-for="Telefono" class="form-control" />
+        <span asp-validation-for="Telefono" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Pais" class="control-label"></label>
+        <input asp-for="Pais" class="form-control" />
+        <span asp-validation-for="Pais" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Nick" class="control-label"></label>
+        <input asp-for="Nick" class="form-control" />
+        <span asp-validation-for="Nick" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="IDUsuario" />
+
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+}
+
+
