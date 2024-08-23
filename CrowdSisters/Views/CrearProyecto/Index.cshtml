@@ -8,15 +8,80 @@
 
 }
 
-@using (Html.BeginForm("Index", "CrearProyecto", FormMethod.Post, new { id = "crearProyectoForm", enctype = "multipart/form-data" }))
+<link rel="stylesheet" href="/css/crearProyecto.css" />
+
+<div class="crearproyecto">
+    <img class="imagenproyecto-icon2"
+         alt=""
+         src="./img/CrearProyecto.png" />
+
+    <section class="cuntanos-tu-proyecto">Cuéntanos tu proyecto</section>
+    <section class="project-details1">
+        <div class="personal-and-project-parent">
+            <div class="personal-and-project">
+                <img class="lineaprogreso-icon"
+                     loading="lazy"
+                     alt=""
+                     src="./public/lineaprogreso.svg" />
+            </div>
+            <div class="project-confirmation">
+                <div class="datos-personales">DATOS PERSONALES</div>
+                <div class="tu-perfil-wrapper">
+                    <div class="tu-perfil">TU PERFIL</div>
+                </div>
+                <div class="tu-proyecto">
+                    <span>TU</span>
+                    <span class="span3"> </span>
+                    <span>PROYECTO</span>
+                </div>
+                <div class="datos-personales">CONFIRMACIÓN</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="personal-details-content-wrapper">
+    <div class="personal-details-content">
+            <div class="personal-data-form">
+
+@using (Html.BeginForm("Index", "CrearProyecto", FormMethod.Post, new { id = "crearProyectoForm", enctype = "multipart/form-data", @class = "form-data" }))
 {
     @Html.AntiForgeryToken()
+                <!-- Paso 1: Datos Personales -->
+                <div id="DatosPersonales">
 
-    <!-- Paso 1: Datos Personales -->
-    <div id="DatosPersonales">
-        <h3>Datos Personales</h3>
+                <div class="personal-info">
+                    <div class="personal-intro">
+                        <div class="about-you">
+                            <div class="complete-details">
+                                <h1 class="completa-tus-datos">
+                                    Completa tus datos personales
+                                </h1>
+                            </div>
+                            <h3 class="danos-un-poco">
+                                Danos un poco de información sobre ti como persona responsable
+                                del proyecto
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="personal-info-inner">
+                        <div class="line-div"></div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="si-quieres-crear">
+                            Si quieres crear un proyecto necesitamos que nos des tus datos
+                            personales completos como persona responsable del proyecto.
+                            Estos datos que introduzcas no serán públicos. Más adelante, si
+                            el proyecto acaba con éxito, te pediremos los datos bancarios y
+                            de facturación para poder hacer la transferencia de los fondos
+                            recaudados.
+                        </h3>
+                    </div>
+                </div>
+
+    
 
         @Html.Hidden("IDUsuario", usuario.IDUsuario, new { @class = "form-control" })
+
 
         <div class="form-group">
             @Html.LabelFor(m => m.NombreApellidos, "Nombre y Apellidos")
@@ -254,7 +319,12 @@
         <button type="button" id="nextBtn" class="btn btn-primary">Siguiente Paso</button>
         <button type="submit" id="submitBtn" class="btn btn-success" style="display:none;">Confirmar</button>
     </div>
+
 }
+            </div>
+</div>
+</div>
+</div>
 
 @section Scripts {
 
