@@ -108,7 +108,7 @@
 }
 
 .completa-tus-datos {
-    margin: 0;
+    margin: 25px;
     width: 522px;
     position: relative;
     font-size: inherit;
@@ -291,8 +291,11 @@
     gap: 20px;
 }
 .parte-formulario2 {
-    margin-bottom: 10px;
-    font-size:16px;
+    margin: 30px;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 .label-input {
     display: flex;
