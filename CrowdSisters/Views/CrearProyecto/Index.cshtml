@@ -408,6 +408,10 @@
 </div>
 
 @section Scripts {
+    //Passar a marc
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    //
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -471,6 +475,7 @@
     @await Html.PartialAsync("_ValidationScriptsPartial");
 
     <script>
+        //passar a marc
         document.addEventListener("DOMContentLoaded", function () {
             const steps = ["DatosPersonales", "TuPerfil", "TuProyecto"];
             let currentStep = 0;
@@ -534,6 +539,28 @@
                         currentStep++;
                         showStep(currentStep);
                     }
+                }
+            });
+
+            // Evento para el botón "Enviar" con SweetAlert2
+            document.getElementById("submitBtn").addEventListener("click", function (event) {
+                event.preventDefault(); // Prevenir el envío inmediato del formulario
+
+                if (validateSection()) {  // Asegurarte de que la sección actual es válida antes de mostrar el pop-up
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: "¡No podrás revertir esto!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#9b59b6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Sí, enviar',
+                        cancelButtonText: 'No, cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById("crearProyectoForm").submit(); // Enviar el formulario si el usuario confirma
+                        }
+                    });
                 }
             });
         });
