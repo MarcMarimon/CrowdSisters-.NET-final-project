@@ -86,19 +86,24 @@ namespace CrowdSisters.Controllers
         }
 
         // GET: LoginController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            Usuario usuario = await _serviceLogin.GetByIdAsync(id);
+            return View(usuario);
         }
 
         // POST: LoginController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Usuario user, string ContrasenaHidden)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (user.Contrasena == null)
+                    user.Contrasena = ContrasenaHidden;
+
+                _serviceLogin.UpdateAsync(user);
+                return View(user);
             }
             catch
             {

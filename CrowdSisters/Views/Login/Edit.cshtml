@@ -1,13 +1,12 @@
 ﻿@model CrowdSisters.Models.Usuario
 
 @{
-    Layout = null;
     ViewData["Title"] = "Editar Usuario";
 }
 
 <h2>@ViewData["Title"]</h2>
 
-@using (Html.BeginForm("Edit(" + ViewContext.HttpContext.Session.GetString("Username") + ")", "Login", FormMethod.Post, new { @class = "form" }))
+@using (Html.BeginForm("Edit", "Login", FormMethod.Post, new { @class = "form" } ))
 {
     <div class="form-group">
         <label asp-for="Nombre" class="control-label"></label>
@@ -24,12 +23,13 @@
     <div class="form-group">
         <label asp-for="Contrasena" class="control-label"></label>
         <input asp-for="Contrasena" type="password" class="form-control" />
-        <span asp-validation-for="Contrasena" class="text-danger"></span>
+        <input type="hidden" asp-for="Contrasena" name="ContrasenaHidden" />
     </div>
+    <input type="hidden" asp-for="FechaRegistro" />
 
     <div class="form-group">
         <label asp-for="IsAdmin" class="control-label"></label>
-        <input asp-for="IsAdmin" type="checkbox" class="form-check-input" />
+        <input asp-for="IsAdmin" type="checkbox" class="form-check-input"  />
         <span asp-validation-for="IsAdmin" class="text-danger"></span>
     </div>
 
