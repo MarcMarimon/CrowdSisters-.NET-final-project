@@ -165,182 +165,236 @@
                         </div>
 
                         <div class="parte-formulario2">
-                            <div class="form-group">
+                            <div class="fotos-wrap">
+                            <div class="form-group" style="position: relative; width: 300px; height: 300px;">
                                 <input type="file" id="URLImagenUsuario" name="URLImagenUsuario" asp-for="URLImagenUsuario" accept="image/*" required style="display: none;" onchange="previewImage(event)">
-                                <img id="preview" src="https://via.placeholder.com/150" alt="Haz clic para cargar una imagen" onclick="document.getElementById('URLImagenUsuario').click();" style="cursor: pointer; width: 150px; height: 150px; object-fit: cover; border: 2px dashed #ccc;">
+
+                                <img id="preview"
+                                     src="@usuario.URLImagenUsuario ?? 'https://via.placeholder.com/150'"
+                                     alt="Haz clic para cargar una imagen"
+                                     onclick="document.getElementById('URLImagenUsuario').click();"
+                                     style="cursor: pointer; width: 100%; height: 100%; object-fit: cover; border: 2px dashed #ccc;">
+
+                                <div id="overlayText" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; color: white; background-color: rgba(0, 0, 0, 0.5); text-align: center; font-size: 14px; cursor: pointer;" onclick="document.getElementById('URLImagenUsuario').click();">
+                                    Agrega o modifica tu foto de perfil
+                                </div>
+                                </div>
                                 @Html.ValidationMessageFor(m => m.URLImagenUsuario, "", new { @class = "text-danger error-size" })
                             </div>
 
-                        <div class="form-group">
+                            <div class="form-group">
                                 @Html.LabelFor(m => m.PerfilPublico, "Perfil Público", new { @class = "form-labels" })
-                            @Html.TextBoxFor(m => m.PerfilPublico, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.PerfilPublico, "", new { @class = "text-danger error-size" })
-                        </div>
+                                @Html.TextAreaFor(m => m.PerfilPublico, new { @class = "form-control", @rows = "10", @cols = "50" })
+                                @Html.ValidationMessageFor(m => m.PerfilPublico, "", new { @class = "text-danger error-size" })
+                            </div>
                         </div>
                     </div>
 
                     <!-- Paso 3: Tu Proyecto -->
                     <div id="TuProyecto" style="display:none;">
-                        <h3>Tu Proyecto</h3>
-
+                        <div class="personal-info">
+                            <div class="personal-intro">
+                                <div class="about-you">
+                                    <div class="complete-details">
+                                        <h1 class="completa-tus-datos">
+                                            Tu Proyecto
+                                        </h1>
+                                    </div>
+                                    <h3 class="danos-un-poco">
+                                        ¿Qué? ¿Cómo? ¿Cuándo?... Cuéntanoslo todo sobre tu proyecto
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="personal-info-inner">
+                                <div class="line-div"></div>
+                            </div>
+                            <div class="project-info">
+                                <h3 class="si-quieres-crear">
+                                    La información que subas en el siguiente formulario será solo para nuestra evaluación y poder asesorarte de la mejor manera.
+                                    Una vez revisada tu propuesta y si encaja en CrowdSisters, te daremos acceso a tu página privada de gestión. Dispondrás de todo el tiempo que necesites para trabajar la versión definitiva de tu página de campaña con todo nuestro apoyo y consejos sobre objetivo, recompensas, planteamiento... y cuando lo tengas todo listo la podrás publicar el día y hora que quieras :)
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="partes-formulario3">
+                        <div class="tercera-parte-columnas-form">
                         <div class="form-group">
-                            @Html.LabelFor(m => m.Titulo, "Título de la campaña")
-                            @Html.TextBoxFor(m => m.Titulo, new { @class = "form-control" })
+                            @Html.LabelFor(m => m.Titulo, "Título de la campaña", new { @class = "form-labels" })
+                            @Html.TextBoxFor(m => m.Titulo, new { @class = "form-inputs" })
                             @Html.ValidationMessageFor(m => m.Titulo, "", new { @class = "text-danger error-size" })
                         </div>
-
+                        </div>
+                            <div class="tercera-parte-columnas-form">
                         <div class="form-group">
-                            @Html.LabelFor(m => m.Subtitulo, "Subtítulo (resume el proyecto en 140 caracteres)")
-                            @Html.TextBoxFor(m => m.Subtitulo, new { @class = "form-control" })
+                            @Html.LabelFor(m => m.Subtitulo, "Subtítulo (resume el proyecto en 140 caracteres)", new { @class = "form-labels" })
+                            @Html.TextAreaFor(m => m.Subtitulo, new { @class = "form-inputs", @rows = "10", @cols = "50" })
                             @Html.ValidationMessageFor(m => m.Subtitulo, "", new { @class = "text-danger error-size" })
                         </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.IDCategoria, "Categoría")
-                            @Html.DropDownListFor(m => m.IDCategoria, (SelectList)ViewBag.ListCategoria, "Seleccione una categoría", new { @class = "form-control", id = "categoriaSelect" })
-                            @Html.ValidationMessageFor(m => m.IDCategoria, "", new { @class = "text-danger error-size" })
                         </div>
-
+                            <div class="tercera-parte-columnas-form">
                         <div class="form-group">
-                            @Html.LabelFor(m => m.FKSubcategoria, "Subcategoría")
-                            @Html.DropDownListFor(m => m.FKSubcategoria, new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"), "Seleccione una subcategoría", new { @class = "form-control", id = "subcategoriaSelect" })
+                            @Html.LabelFor(m => m.IDCategoria, "Categoría", new { @class = "form-labels" })
+                            @Html.DropDownListFor(m => m.IDCategoria, (SelectList)ViewBag.ListCategoria, "Seleccione una categoría", new { @class = "form-inputs", id = "categoriaSelect" })
+                            @Html.ValidationMessageFor(m => m.IDCategoria, "", new { @class = "text-danger error-size" })
+                        </div>       
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.FKSubcategoria, "Subcategoría", new { @class = "form-labels" })
+                            @Html.DropDownListFor(m => m.FKSubcategoria, new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"), "Seleccione una subcategoría", new { @class = "form-inputs", id = "subcategoriaSelect" })
                             @Html.ValidationMessageFor(m => m.FKSubcategoria, "", new { @class = "text-danger error-size" })
                         </div>
-
-
+                        </div>
+                            <div class="tercera-parte-columnas-form">
                         <div class="form-group">
-                            @Html.LabelFor(m => m.MontoObjetivo, "Objetivo de recaudación (EUR)")
-                            @Html.TextBoxFor(m => m.MontoObjetivo, new { @class = "form-control" })
+                            @Html.LabelFor(m => m.MontoObjetivo, "Objetivo de recaudación (EUR)", new { @class = "form-labels" })
+                            @Html.TextBoxFor(m => m.MontoObjetivo, new { @class = "form-inputs" })
                             @Html.ValidationMessageFor(m => m.MontoObjetivo, "", new { @class = "text-danger error-size" })
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(m => m.FechaFinalizacion, "Días para conseguir el objetivo")
-                            @Html.EditorFor(m => m.FechaFinalizacion, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                            @Html.LabelFor(m => m.FechaFinalizacion, "Días para conseguir el objetivo", new { @class = "form-labels" })
+                            @Html.EditorFor(m => m.FechaFinalizacion, new { htmlAttributes = new { @class = "form-inputs", type = "date" } })
                             @Html.ValidationMessageFor(m => m.FechaFinalizacion, "", new { @class = "text-danger error-size" })
                         </div>
-
+                        </div>
                         <div class="form-group">
-                            @Html.LabelFor(m => m.DescripcionGeneral, " Descripción general del proyecto")
-                            @Html.TextBoxFor(m => m.DescripcionGeneral, new { @class = "form-control" })
+                            @Html.LabelFor(m => m.DescripcionGeneral, " Descripción general del proyecto", new { @class = "form-labels" })
+                            @Html.TextAreaFor(m => m.DescripcionGeneral, new { @class = "form-inputs", @rows = "10", @cols = "50" })
                             @Html.ValidationMessageFor(m => m.DescripcionGeneral, "", new { @class = "text-danger error-size" })
                         </div>
 
-                        <label>Añade imágenes para destacar tu proyecto</label>
+                        <label class="form-labels">Añade imágenes para destacar tu proyecto</label>
+                            <div class="fotos-wrap">
+                                <!-- Cuadro para la imagen de encabezado -->
+                                <div class="form-group" style="position: relative; width: 300px; height: 300px;">
+                                    <input type="file" id="UrlFotoEncabezado" name="UrlFotoEncabezado" asp-for="UrlFotoEncabezado" accept="image/*" required style="display: none;" onchange="previewProjectImage(event, 'previewEncabezado')">
+                                    <img id="previewEncabezado" src="https://via.placeholder.com/300" alt="Haz clic para cargar una imagen" onclick="document.getElementById('UrlFotoEncabezado').click();" style="cursor: pointer; width: 100%; height: 100%; object-fit: cover; border: 2px dashed #ccc;">
+                                    <div id="overlayTextEncabezado" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; color: white; background-color: rgba(0, 0, 0, 0.5); text-align: center; font-size: 18px; cursor: pointer;" onclick="document.getElementById('UrlFotoEncabezado').click();">
+                                        Agrega o modifica tu imagen
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.UrlFotoEncabezado, "", new { @class = "text-danger error-size" })
+                                </div>
 
-                        <div class="form-group">
-                            <input type="file" id="UrlFotoEncabezado" name="UrlFotoEncabezado" asp-for="UrlFotoEncabezado" accept="image/*" required>
-                            @Html.ValidationMessageFor(m => m.UrlFotoEncabezado, "", new { @class = "text-danger error-size" })
-                        </div>
+                                <!-- Cuadro para la primera imagen -->
+                                <div class="form-group" style="position: relative; width: 300px; height: 300px;">
+                                    <input type="file" id="UrlFoto1" name="UrlFoto1" asp-for="UrlFoto1" accept="image/*" required style="display: none;" onchange="previewProjectImage(event, 'previewFoto1')">
+                                    <img id="previewFoto1" src="https://via.placeholder.com/300" alt="Haz clic para cargar una imagen" onclick="document.getElementById('UrlFoto1').click();" style="cursor: pointer; width: 100%; height: 100%; object-fit: cover; border: 2px dashed #ccc;">
+                                    <div id="overlayTextFoto1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; color: white; background-color: rgba(0, 0, 0, 0.5); text-align: center; font-size: 18px; cursor: pointer;" onclick="document.getElementById('UrlFoto1').click();">
+                                        Agrega o modifica tu imagen
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.UrlFoto1, "", new { @class = "text-danger error-size" })
+                                </div>
 
-                        <div class="form-group">
-                            <input type="file" id="UrlFoto1" name="UrlFoto1" asp-for="UrlFoto1" accept="image/*" required>
-                            @Html.ValidationMessageFor(m => m.UrlFoto1, "", new { @class = "text-danger error-size" })
-                        </div>
+                                <!-- Cuadro para la segunda imagen -->
+                                <div class="form-group" style="position: relative; width: 300px; height: 300px;">
+                                    <input type="file" id="UrlFoto2" name="UrlFoto2" asp-for="UrlFoto2" accept="image/*" required style="display: none;" onchange="previewProjectImage(event, 'previewFoto2')">
+                                    <img id="previewFoto2" src="https://via.placeholder.com/300" alt="Haz clic para cargar una imagen" onclick="document.getElementById('UrlFoto2').click();" style="cursor: pointer; width: 100%; height: 100%; object-fit: cover; border: 2px dashed #ccc;">
+                                    <div id="overlayTextFoto2" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; color: white; background-color: rgba(0, 0, 0, 0.5); text-align: center; font-size: 18px; cursor: pointer;" onclick="document.getElementById('UrlFoto2').click();">
+                                        Agrega o modifica tu imagen
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.UrlFoto2, "", new { @class = "text-danger error-size" })
+                                </div>
 
+                                <!-- Cuadro para la tercera imagen -->
+                                <div class="form-group" style="position: relative; width: 300px; height: 300px;">
+                                    <input type="file" id="UrlFoto3" name="UrlFoto3" asp-for="UrlFoto3" accept="image/*" required style="display: none;" onchange="previewProjectImage(event, 'previewFoto3')">
+                                    <img id="previewFoto3" src="https://via.placeholder.com/300" alt="Haz clic para cargar una imagen" onclick="document.getElementById('UrlFoto3').click();" style="cursor: pointer; width: 100%; height: 100%; object-fit: cover; border: 2px dashed #ccc;">
+                                    <div id="overlayTextFoto3" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; color: white; background-color: rgba(0, 0, 0, 0.5); text-align: center; font-size: 18px; cursor: pointer;" onclick="document.getElementById('UrlFoto3').click();">
+                                        Agrega o modifica tu imagen
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.UrlFoto3, "", new { @class = "text-danger error-size" })
+                                </div>
+                            </div>
                         <div class="form-group">
-                            <input type="file" id="UrlFoto2" name="UrlFoto2" asp-for="UrlFoto2" accept="image/*" required>
-                            @Html.ValidationMessageFor(m => m.UrlFoto2, "", new { @class = "text-danger error-size" })
-                        </div>
-
-                        <div class="form-group">
-                            <input type="file" id="UrlFoto3" name="UrlFoto3" asp-for="UrlFoto3" accept="image/*" required>
-                            @Html.ValidationMessageFor(m => m.UrlFoto2, "", new { @class = "text-danger error-size" })
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.DescripcionFinalidad, "¿Cuál es el objetivo de tu proyecto?")
-                            @Html.TextBoxFor(m => m.DescripcionFinalidad, new { @class = "form-control" })
+                            @Html.LabelFor(m => m.DescripcionFinalidad, "¿Cuál es el objetivo de tu proyecto?", new { @class = "form-labels" })
+                                @Html.TextAreaFor(m => m.DescripcionFinalidad, new { @class = "form-inputs", @rows = "10", @cols = "50" })
                             @Html.ValidationMessageFor(m => m.DescripcionFinalidad, "", new { @class = "text-danger error-size" })
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(m => m.DescripcionPresupuesto, "¿A qué destinarás el dinero? Un pequeño presupuesto a grandes rasgos. ")
-                            @Html.TextBoxFor(m => m.DescripcionPresupuesto, new { @class = "form-control" })
+                            @Html.LabelFor(m => m.DescripcionPresupuesto, "¿A qué destinarás el dinero? Un pequeño presupuesto a grandes rasgos. ", new { @class = "form-labels" })
+                                @Html.TextAreaFor(m => m.DescripcionPresupuesto, new { @class = "form-inputs", @rows = "10", @cols = "50" })
                             @Html.ValidationMessageFor(m => m.DescripcionPresupuesto, "", new { @class = "text-danger error-size" })
                         </div>
 
-                        <label>¿Cuál es la recompensa principal que tienes previsto ofrecer y a qué precio?   Indica otras recompensas que podrás ofrecer. </label>
+                        <label class="form-labels">¿Cuál es la recompensa principal que tienes previsto ofrecer y a qué precio?   Indica otras recompensas que podrás ofrecer. </label>
+                            <div class="card-container-recompensas">
 
+                            <div class="tarjeta-recompensa">
+                                <div class="form-group image-preview" onclick="document.getElementById('URLImagenRecompensa').click();">
+                                    <input type="file" id="URLImagenRecompensa" name="URLImagenRecompensa" asp-for="URLImagenRecompensa" accept="image/*" required style="display: none;" onchange="previewProjectImage(event, 'previewRecompensa' )">
+                                    <img id="previewRecompensa" src="https://via.placeholder.com/150" alt="Haz clic para cargar una imagen">
+                                    <div class="overlay-text">Haz clic para cargar una imagen</div>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.URLImagenRecompensa, "", new { @class = "text-danger error-size" })
 
-                        <div class="form-group">
-                            <input type="file" id="URLImagenRecompensa" name="URLImagenRecompensa" asp-for="URLImagenRecompensa" accept="image/*" required>
-                            @Html.ValidationMessageFor(m => m.URLImagenRecompensa, "", new { @class = "text-danger error-size" })
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.TituloRecompensa, "Título de la recompensa 1", new { @class = "form-labels" })
+                                    @Html.TextBoxFor(m => m.TituloRecompensa, new { @class = "form-inputs" })
+                                    @Html.ValidationMessageFor(m => m.TituloRecompensa, "", new { @class = "text-danger error-size" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DescripcionRecompensa, "Descripción de la recompensa 1", new { @class = "form-labels" })
+                                    @Html.TextBoxFor(m => m.DescripcionRecompensa, new { @class = "form-inputs" })
+                                    @Html.ValidationMessageFor(m => m.DescripcionRecompensa, "", new { @class = "text-danger error-size" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Monto, "Precio de la recompensa", new { @class = "form-labels" })
+                                    @Html.TextBoxFor(m => m.Monto, new { @class = "form-inputs" })
+                                    @Html.ValidationMessageFor(m => m.Monto, "", new { @class = "text-danger error-size" })
+                                </div>
+                            </div>
+
+                            <div class="tarjeta-recompensa">
+                                <div class="form-group image-preview" onclick="document.getElementById('URLImagenRecompensa1').click();">
+                                    <input type="file" id="URLImagenRecompensa1" name="URLImagenRecompensa1" asp-for="URLImagenRecompensa1" accept="image/*" required style="display: none;" onchange="previewProjectImage(event, 'previewRecompensa1')">
+                                    <img id="previewRecompensa1" src="https://via.placeholder.com/150" alt="Haz clic para cargar una imagen">
+                                    <div class="overlay-text">Haz clic para cargar una imagen</div>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.URLImagenRecompensa1, "", new { @class = "text-danger error-size" })
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.TituloRecompensa1, "Título de la recompensa 1", new { @class = "form-labels" })
+                                    @Html.TextBoxFor(m => m.TituloRecompensa1, new { @class = "form-inputs" })
+                                    @Html.ValidationMessageFor(m => m.TituloRecompensa1, "", new { @class = "text-danger error-size" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DescripcionRecompensa1, "Descripción de la recompensa 1", new { @class = "form-labels" })
+                                    @Html.TextBoxFor(m => m.DescripcionRecompensa1, new { @class = "form-inputs" })
+                                    @Html.ValidationMessageFor(m => m.DescripcionRecompensa1, "", new { @class = "text-danger error-size" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Monto1, "Precio de la recompensa", new { @class = "form-labels" })
+                                    @Html.TextBoxFor(m => m.Monto1, new { @class = "form-inputs" })
+                                    @Html.ValidationMessageFor(m => m.Monto1, "", new { @class = "text-danger error-size" })
+                                </div>
+                            </div>
+                            <div class="tarjeta-recompensa">
+                                <div class="form-group image-preview" onclick="document.getElementById('URLImagenRecompensa2').click();">
+                                    <input type="file" id="URLImagenRecompensa2" name="URLImagenRecompensa2" asp-for="URLImagenRecompensa2" accept="image/*" required style="display: none;" onchange="previewProjectImage(event, 'previewRecompensa2')">
+                                    <img id="previewRecompensa2" src="https://via.placeholder.com/150" alt="Haz clic para cargar una imagen">
+                                    <div class="overlay-text">Haz clic para cargar una imagen</div>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.URLImagenRecompensa2, "", new { @class = "text-danger error-size" })
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.TituloRecompensa2, "Título de la recompensa 2", new { @class = "form-labels" })
+                                    @Html.TextBoxFor(m => m.TituloRecompensa2, new { @class = "form-inputs" })
+                                    @Html.ValidationMessageFor(m => m.TituloRecompensa2, "", new { @class = "text-danger error-size" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DescripcionRecompensa2, "Descripción de la recompensa 2", new { @class = "form-labels" })
+                                    @Html.TextBoxFor(m => m.DescripcionRecompensa2, new { @class = "form-inputs" })
+                                    @Html.ValidationMessageFor(m => m.DescripcionRecompensa2, "", new { @class = "text-danger error-size" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Monto2, "Precio de la recompensa 2", new { @class = "form-labels" })
+                                    @Html.TextBoxFor(m => m.Monto2, new { @class = "form-inputs" })
+                                    @Html.ValidationMessageFor(m => m.Monto2, "", new { @class = "text-danger error-size" })
+                                </div>
+                            </div>
+                            </div>
+
                         </div>
-
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.TituloRecompensa, "Título de la recompensa 1")
-                            @Html.TextBoxFor(m => m.TituloRecompensa, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.TituloRecompensa, "", new { @class = "text-danger error-size" })
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.DescripcionRecompensa, "Descripción de la recompensa 1")
-                            @Html.TextBoxFor(m => m.DescripcionRecompensa, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.DescripcionRecompensa, "", new { @class = "text-danger error-size" })
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.Monto, "Precio de la recompensa")
-                            @Html.TextBoxFor(m => m.Monto, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Monto, "", new { @class = "text-danger error-size" })
-                        </div>
-
-
-                        <div class="form-group">
-                            <input type="file" id="URLImagenRecompensa1" name="URLImagenRecompensa1" asp-for="URLImagenRecompensa1" accept="image/*" required>
-                            @Html.ValidationMessageFor(m => m.URLImagenRecompensa1, "", new { @class = "text-danger error-size" })
-                        </div>
-
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.TituloRecompensa1, "Título de la recompensa 1")
-                            @Html.TextBoxFor(m => m.TituloRecompensa1, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.TituloRecompensa1, "", new { @class = "text-danger error-size" })
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.DescripcionRecompensa1, "Descripción de la recompensa 1")
-                            @Html.TextBoxFor(m => m.DescripcionRecompensa1, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.DescripcionRecompensa1, "", new { @class = "text-danger error-size" })
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.Monto1, "Precio de la recompensa")
-                            @Html.TextBoxFor(m => m.Monto1, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Monto1, "", new { @class = "text-danger error-size" })
-                        </div>
-
-
-                        <div class="form-group">
-                            <input type="file" id="URLImagenRecompensa2" name="URLImagenRecompensa2" asp-for="URLImagenRecompensa2" accept="image/*" required>
-                            @Html.ValidationMessageFor(m => m.URLImagenRecompensa2, "", new { @class = "text-danger error-size" })
-                        </div>
-
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.TituloRecompensa2, "Título de la recompensa 2")
-                            @Html.TextBoxFor(m => m.TituloRecompensa2, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.TituloRecompensa2, "", new { @class = "text-danger error-size" })
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.DescripcionRecompensa2, "Descripción de la recompensa 2")
-                            @Html.TextBoxFor(m => m.DescripcionRecompensa2, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.DescripcionRecompensa2, "", new { @class = "text-danger error-size" })
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.Monto2, "Precio de la recompensa2")
-                            @Html.TextBoxFor(m => m.Monto2, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Monto2, "", new { @class = "text-danger error-size" })
-                        </div>
-
-
-
                     </div>
-
                     <!-- Botones de navegación -->
                     <div class="button-container">
                         <button type="button" id="nextBtn" class="botn-siguiente-paso">Siguiente Paso</button>
@@ -387,11 +441,27 @@
         function previewImage(event) {
             const input = event.target;
             const preview = document.getElementById('preview');
+            const overlayText = document.getElementById('overlayText');
 
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
                     preview.src = e.target.result;
+                    overlayText.style.display = 'none'; // Oculta el texto cuando se carga una imagen
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        function previewProjectImage(event, previewId) {
+            const input = event.target;
+            const preview = document.getElementById(previewId);
+            const overlayText = document.getElementById('overlayText' + previewId.slice(-1));
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    overlayText.style.display = 'none'; // Oculta el texto cuando se carga una imagen
                 }
                 reader.readAsDataURL(input.files[0]);
             }
@@ -457,7 +527,6 @@
 
                 return form.valid();
             }
-
             // Evento para el botón "Siguiente Paso"
             document.getElementById("nextBtn").addEventListener("click", function () {
                 if (validateSection()) {
