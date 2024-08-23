@@ -13,6 +13,7 @@ builder.Services.AddScoped<Connection>();
 builder.Services.AddScoped<ServiceProyecto>();
 builder.Services.AddScoped<ServiceCrearProyecto>();
 builder.Services.AddScoped<ServiceLogin>();
+builder.Services.AddScoped<ServiceUsuario>();
 builder.Services.AddScoped<FirebaseService>();
 builder.Services.AddScoped<ServiceCategoria>();
 builder.Services.AddScoped<ServiceSubcategoria>();
