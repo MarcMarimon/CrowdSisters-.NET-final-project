@@ -24,9 +24,9 @@
                 <div b-i5hh0g375h class="inicia-sesin-regstrate-parent">
                     <div b-i5hh0g375h class="inicia-sesin-regstrate">
                         <a href="@Url.Action("Index", "Proyecto")">
-                        <img b-i5hh0g375h class="star-icon" alt="" src="./public/star.svg" />
-                        <b b-i5hh0g375h class="button">Descubrir proyectos </b>
-                        <img b-i5hh0g375h class="star-icon" alt="" src="./public/x.svg" />
+                            <img b-i5hh0g375h class="star-icon" alt="" src="./public/star.svg" />
+                            <b b-i5hh0g375h class="button">Descubrir proyectos </b>
+                            <img b-i5hh0g375h class="star-icon" alt="" src="./public/x.svg" />
                         </a>
                     </div>
                     @if (string.IsNullOrEmpty(ViewContext.HttpContext.Session.GetString("Username")))
@@ -54,7 +54,7 @@
                         </div>
                     }
                     <a href="@Url.Action("Index", "Home")">
-                    <img class="logoblanco-icon" loading="lazy" alt="" src="/img/CrowdsistersLogoBlanco2.png" />
+                        <img class="logoblanco-icon" loading="lazy" alt="" src="/img/CrowdsistersLogoBlanco2.png" />
                     </a>
                 </div>
                 <div b-i5hh0g375h class="buscador-parent">
@@ -77,19 +77,17 @@
                     }
                     else
                     {
-                        <p>Monedero: @ViewContext.HttpContext.Session.GetInt32("Monedero")€ </p>
-                        <a href="@Url.Action("Edit","Login",new { id = ViewContext.HttpContext.Session.GetInt32("IdUsuario") })">
-                            <img class="star-icon" alt="" src="./public/star2.svg" />
-                            <b class="button2">Benvenida! @ViewContext.HttpContext.Session.GetString("Username")</b>
-                            <img class="star-icon" alt="" src="./public/x2.svg" />
-                        </a>
+                        <div class="hover-target">
+                            <b class="button2" style="top:-15px;">¡Bienvenida @ViewContext.HttpContext.Session.GetString("Username")! </b>
+                            <p class="monedero">Monedero: @ViewContext.HttpContext.Session.GetInt32("Monedero")€ </p>
+                        </div>
                         <a href="@Url.Action("Logout", "Login")">
                             <!-- Ajusta la ruta según tu controlador y acción -->
                             <img class="star-icon" alt="" src="./public/star2.svg" />
                             <img class="buttonLogout" alt="" src="~/img/Logout.png" style="width: 30px; height: 30px; margin-top:-33px;" />
                             <img class="star-icon" alt="" src="./public/x2.svg" />
                         </a>
-                        
+
                     }
                 </div>
             </div>
