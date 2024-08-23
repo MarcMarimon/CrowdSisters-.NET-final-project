@@ -13,7 +13,7 @@ namespace CrowdSisters.Models
         [Required]
         [ForeignKey("Proyecto")]
         public int FKProyecto { get; set; }
-        public Proyecto Proyecto { get; set; }
+        public Proyecto Proyecto { get; set; } = new Proyecto();
 
         [Required]
         [StringLength(50)]
