@@ -51,11 +51,8 @@ namespace CrowdSisters.Controllers
             }
             else
             {
-                ViewBag.Login = "Invalid email or password.";
+                return RedirectToAction("Index","Login");
             }
-            
-
-            return RedirectToAction("Index","Login");
         }
         public async Task<ActionResult> Logout()
         {

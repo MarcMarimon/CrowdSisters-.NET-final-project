@@ -20,20 +20,25 @@ namespace CrowdSisters.Services
 
             foreach (Usuario usuario in listUsuario)
             {
-                if(usuario.Email == email)
+                if (usuario.Email == email)
                     return usuario.IDUsuario;
             }
             return 0;
+
         }
         public async Task<bool> VerifyPasswordAsync(string password,int idUsuario)
         {
-            Usuario usuario = await _dalUsuario.GetByIdAsync(idUsuario);
-            if (usuario.Contrasena == password)
+            bool verify = false;
+            if (idUsuario != 0)
             {
-                return true;
+                Usuario usuario = await _dalUsuario.GetByIdAsync(idUsuario);
+                if (usuario.Contrasena == password)
+                {
+                    verify = true;
+                }
             }
             
-            return false;
+            return verify;
         }
 
         // Crear Proyecto
