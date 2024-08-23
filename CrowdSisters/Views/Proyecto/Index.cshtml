@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="~/css/global.css" />
     <link rel="stylesheet" href="~/css/index.css" />
+    <link rel="stylesheet" href="~/css/home.css" />
     <link rel="stylesheet" href="/css/site.css?v=PBl3qNtJZz6Oz-WIhg7sjTVYk0GrCr762k2GdAtV_EM" />
     <link rel="stylesheet" href="/css/index.css?v=cxwFxy9q0bP2A6fPuf46Iu1Og5FtqIQ4Z3wr2Kxoww0" />
     <link rel="stylesheet" href="/css/global.css?v=LeXFsuf3Z500C2-CETWDCKnyj5FvslpdBQFbQKw-Kps" />
@@ -26,7 +27,7 @@
         <section class="frame-group">
             <!-- Aquí se conserva el diseño original -->
             <div class="imagenproyecto-wrapper">
-                <img class="imagenproyecto-icon1" alt="" src="~/img/DescubreProyectos.png" />
+                <img class="imagenproyecto-icon1" style="object-fit:fill" alt="" src="~/img/DescubreProyectos.png" />
             </div>
             <div class="navigation-divider-top-parent">
                 <div class="navigation-divider-top"></div>
@@ -76,6 +77,7 @@
                     <div class="card-1-group1">
                         @foreach (var proyecto in Model)
                         {
+                            <a href="@Url.Action("Detalles", "DetallesProyecto", new { id = proyecto.IDProyecto })" class="card-link">
                             <div class="card-121">
                                 <img class="image-icon3" loading="lazy" alt="@proyecto.Titulo" src="@proyecto.UrlFotoEncabezado" />
 
@@ -103,6 +105,7 @@
                                     </div>
                                 </div>
                             </div>
+                            </a>
                         }
                     </div>
                 }
@@ -123,15 +126,30 @@
                             Somos un equipo apasionado por empoderar a las mujeres emprendedoras y estamos aquí para acompañarte en toda tu aventura. Con las herramientas más efectivas y una comunidad global de impulsoras entusiastas, estamos listas para ayudarte a alcanzar tus sueños empresariales. ¿Qué estás esperando para dar el siguiente paso en tu emprendimiento?
                         </div>
                     </div>
-                    <div class="botn-empieza-tu-proyecto-wrapper">
-                        <div class="botn-empieza-tu-proyecto">
-                            <a href="@Url.Action("Index", "CrearProyecto")" style="text-decoration:none; color:inherit;">
-                                <img class="star-icon3" alt="" src="/images/star3.svg" />
-                                <div class="button4">¡Empieza tu proyecto!</div>
-                                <img class="star-icon3" alt="" src="/images/x3.svg" />
-                            </a>
+                    @if (string.IsNullOrEmpty(ViewContext.HttpContext.Session.GetString("Username")))
+                    {
+                        <div class="botn-empieza-tu-proyecto-wrapper">
+                            <div class="botn-empieza-tu-proyecto">
+                                <a href="@Url.Action("Index", "Login")" style="text-decoration:none; color:inherit;">
+                                    <img class="star-icon3" alt="" src="/images/star3.svg" />
+                                    <div class="button4">¡Empieza tu proyecto!</div>
+                                    <img class="star-icon3" alt="" src="/images/x3.svg" />
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div class="botn-empieza-tu-proyecto-wrapper">
+                            <div class="botn-empieza-tu-proyecto">
+                                <a href="@Url.Action("Index", "CrearProyecto")" style="text-decoration:none; color:inherit;">
+                                    <img class="star-icon3" alt="" src="/images/star3.svg" />
+                                    <div class="button4">¡Empieza tu proyecto!</div>
+                                    <img class="star-icon3" alt="" src="/images/x3.svg" />
+                                </a>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </section>

@@ -1,0 +1,79 @@
+﻿@model CrowdSisters.Models.Proyecto
+
+@{
+    ViewData["Title"] = Model.Titulo;
+    Layout = "~/Views/Shared/_Layout.cshtml";  
+}
+
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Detalles del Proyecto</title>
+        <link rel="stylesheet" href="/css/detalles.css" />
+    </head>
+    <body>
+<div class="proyecto-detalles">
+    <section class="encabezado">
+        <img src="@Model.UrlFotoEncabezado" alt="Encabezado del proyecto" class="img-encabezado" />
+    </section>
+
+    <section class="descripcion">
+        <h1>@Model.Titulo</h1>
+        <p>@Model.Subtitulo</p>
+
+        <div class="contador">
+            <div>
+                <span>@(Model.FechaFinalizacion - DateTime.Now).Days</span>
+                <p>DÍAS RESTANTES</p>
+            </div>
+            <div>
+                <span>@Model.MontoRecaudado.ToString("C")</span>
+                <p>DE @Model.MontoObjetivo.ToString("C")</p>
+            </div>
+        </div>
+
+        <h2>¿Qué es @Model.Titulo?</h2>
+        <p>@Model.DescripcionGeneral</p>
+    </section>
+
+    <section class="contenido">
+        <h3>Descripción de la campaña</h3>
+        <p>@Model.DescripcionFinalidad</p>
+
+        <h3>Presupuesto del proyecto</h3>
+        <p>@Model.DescripcionPresupuesto</p>
+
+        <h3>¡Conoce al creador del proyecto!</h3>
+        <div class="creador">
+            <img src="@Model.Usuario.URLImagenUsuario" alt="Creador del proyecto" class="img-creador" />
+            <p>@Model.Usuario.Nombre @Model.Usuario.PrimerApellido @Model.Usuario.SegundoApellido</p>
+            <p>@Model.Usuario.PerfilPublico</p>
+        </div>
+    </section>
+
+    <section class="imagenes-adicionales">
+        <img src="@Model.UrlFoto1" alt="Imagen del proyecto 1" />
+        <img src="@Model.UrlFoto2" alt="Imagen del proyecto 2" />
+        <img src="@Model.UrlFoto3" alt="Imagen del proyecto 3" />
+    </section>
+
+    <section class="recompensas">
+        <h2>Recompensas</h2>
+        <div class="recompensas-lista">
+            @foreach (var recompensa in Model.Recompensas)
+            {
+                <div class="recompensa">
+                    <img src="@recompensa.URLImagenRecompensa" alt="Recompensa" />
+                    <h4>@recompensa.Titulo</h4>
+                    <p>@recompensa.Descripcion</p>
+                    <p>@recompensa.Monto.ToString("C")</p>
+                </div>
+            }
+        </div>
+    </section>
+</div>
+
+    </body>
+</html>
