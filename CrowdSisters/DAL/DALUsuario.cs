@@ -20,12 +20,8 @@ namespace CrowdSisters.DAL
         public async Task<bool> CreateAsync(Usuario usuario)
         {
             const string query = @"
-                INSERT INTO USUARIO (Nombre, Email, Contrasena, FechaRegistro, IsAdmin, PerfilPublico, 
-                URLImagenUsuario, Monedero, PrimerApellido, SegundoApellido, DNI, Direccion, CodigoPostal, Poblacion,
-                Telofono, Pais, Nick)
-                VALUES (@Nombre, @Email, @Contrasena, @FechaRegistro, @IsAdmin, @PerfilPublico, @URLImagenUsuario,
-                @Monedero, @PrimerApellido, @SegundoApellido, @DNI, @Direccion, @CodigoPostal, @Poblacion,
-                @Telofono, @Pais, @Nick)";
+                INSERT INTO USUARIO (Nombre, Email, Contrasena, FechaRegistro, IsAdmin, Monedero, Nick)
+                VALUES (@Nombre, @Email, @Contrasena, @FechaRegistro, @IsAdmin, @Monedero, @Nick)";
 
             try
             {
@@ -38,17 +34,7 @@ namespace CrowdSisters.DAL
                     command.Parameters.AddWithValue("@Contrasena", usuario.Contrasena);
                     command.Parameters.AddWithValue("@FechaRegistro", usuario.FechaRegistro);
                     command.Parameters.AddWithValue("@IsAdmin", usuario.IsAdmin);
-                    command.Parameters.AddWithValue("@PerfilPublico", usuario.PerfilPublico);
-                    command.Parameters.AddWithValue("@URLImagenUsuario", usuario.URLImagenUsuario);
                     command.Parameters.AddWithValue("@Monedero", usuario.Monedero);
-                    command.Parameters.AddWithValue("@PrimerApellido", usuario.PrimerApellido);
-                    command.Parameters.AddWithValue("@SegundoApellido", usuario.SegundoApellido);
-                    command.Parameters.AddWithValue("@DNI", usuario.DNI);
-                    command.Parameters.AddWithValue("@Direccion", usuario.Direccion);
-                    command.Parameters.AddWithValue("@CodigoPostal", usuario.CodigoPostal);
-                    command.Parameters.AddWithValue("@Poblacion", usuario.Poblacion);
-                    command.Parameters.AddWithValue("@Telefono", usuario.Telefono);
-                    command.Parameters.AddWithValue("@Pais", usuario.Pais);
                     command.Parameters.AddWithValue("@Nick", usuario.Nick);
                     return await command.ExecuteNonQueryAsync() > 0;
                 }
@@ -65,13 +51,14 @@ namespace CrowdSisters.DAL
         {
             List<Usuario> usuarios = new List<Usuario>();
 
-            const string query = @"SELECT * FROM USUARIO;";
+            const string query = @"SELECT * FROM Usuario;";
 
             try
             {
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+
                     sqlConn.Open(); // Asegúrate de abrir la conexión
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -113,14 +100,16 @@ namespace CrowdSisters.DAL
 
         public async Task<Usuario> GetByIdAsync(int id)
         {
-            const string query = @"SELECT * FROM Usuario WHERE IDUsuario = IDUsuario";
+            const string query = @"SELECT * FROM Usuario WHERE IDUsuario = @IDUsuario";
 
             try
             {
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
+
                     sqlConn.Open(); // Asegúrate de abrir la conexión
+ 
                     command.Parameters.AddWithValue("@IDUsuario", id);
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -207,6 +196,50 @@ namespace CrowdSisters.DAL
                     command.Parameters.AddWithValue("@Telefono", usuario.Telefono);
                     command.Parameters.AddWithValue("@Pais", usuario.Pais);
                     command.Parameters.AddWithValue("@Nick", usuario.Nick);
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateUsuarioCrearProyectoAsync(Usuario usuario)
+        {
+            const string query = @"UPDATE Usuario 
+                     SET Nombre = @Nombre,
+                         PerfilPublico = @PerfilPublico,
+                         URLImagenUsuario = @URLImagenUsuario,
+                         PrimerApellido = @PrimerApellido,
+                         SegundoApellido = @SegundoApellido,
+                         DNI = @DNI,
+                         Direccion = @Direccion,
+                         CodigoPostal = @CodigoPostal,
+                         Poblacion = @Poblacion,
+                         Telefono = @Telefono,
+                         Pais = @Pais
+                     WHERE IDUsuario = @IDUsuario";
+
+            try
+            {
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
+                    command.Parameters.AddWithValue("@IDUsuario", usuario.IDUsuario);
+                    command.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                    command.Parameters.AddWithValue("@PerfilPublico", usuario.PerfilPublico);
+                    command.Parameters.AddWithValue("@URLImagenUsuario", usuario.URLImagenUsuario);
+                    command.Parameters.AddWithValue("@PrimerApellido", usuario.PrimerApellido);
+                    command.Parameters.AddWithValue("@SegundoApellido", usuario.SegundoApellido);
+                    command.Parameters.AddWithValue("@DNI", usuario.DNI);
+                    command.Parameters.AddWithValue("@Direccion", usuario.Direccion);
+                    command.Parameters.AddWithValue("@CodigoPostal", usuario.CodigoPostal);
+                    command.Parameters.AddWithValue("@Poblacion", usuario.Poblacion);
+                    command.Parameters.AddWithValue("@Telefono", usuario.Telefono);
+                    command.Parameters.AddWithValue("@Pais", usuario.Pais);
                     return await command.ExecuteNonQueryAsync() > 0;
                 }
             }

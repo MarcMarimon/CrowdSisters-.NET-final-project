@@ -15,12 +15,12 @@ namespace CrowdSisters.Models
         [Required]
         [ForeignKey("Usuario")]
         public int FKUsuario { get; set; }
-        public Usuario Usuario { get; set; }
+        public Usuario Usuario { get; set; } = new Usuario();
 
         [Required]
         [ForeignKey("Subcategoria")]
         public int FKSubcategoria { get; set; }
-        public Subcategoria Subcategoria { get; set; }
+        public Subcategoria Subcategoria { get; set; } = new Subcategoria();
 
         [Required]
         [StringLength(50)]
@@ -74,7 +74,7 @@ namespace CrowdSisters.Models
         [StringLength(200)]
         public string UrlFoto3 { get; set; }
 
-        public ICollection<Donacion> Donaciones { get; set; }
-        public ICollection<Recompensa> Recompensas { get; set; }
+        public ICollection<Donacion> Donaciones { get; set; } = new List<Donacion>();
+        public ICollection<Recompensa> Recompensas { get; set; } = new List<Recompensa>();
     }
 }

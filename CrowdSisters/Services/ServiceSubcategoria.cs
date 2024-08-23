@@ -1,5 +1,6 @@
 ﻿using CrowdSisters.DAL;
 using CrowdSisters.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CrowdSisters.Services
 {
@@ -23,6 +24,20 @@ namespace CrowdSisters.Services
             {
                 Console.WriteLine($"Error en Service al obtener todos las subcategorias: {ex.Message}");
                 return null;
+            }
+        }
+
+
+        public async Task<JsonResult> GetSubcategoriasAsync(int idCategoria)
+        {
+            try
+            {
+                return await _dalSubcategoria.GetSubcategorias(idCategoria);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en Service al obtener subcategorías: {ex.Message}");
+                return new JsonResult(new { error = "Error al obtener subcategorías" });
             }
         }
 

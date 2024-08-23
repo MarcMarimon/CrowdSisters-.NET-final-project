@@ -16,6 +16,9 @@ namespace CrowdSisters.Conections
 
         public SqlConnection GetSqlConn()
         {
+            if(string.IsNullOrEmpty(connection.ConnectionString))
+                connection = new SqlConnection(_connectionString);
+
             return connection;
         }
     }

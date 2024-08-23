@@ -12,7 +12,6 @@ namespace CrowdSisters.Models
 
         [Required]
         [StringLength(150)]
-        [NombreApellidosValidation(ErrorMessage = "Debes introducir un nombre y dos apellidos.")]
         public string NombreApellidos { get; set; }
 
         [Required]
@@ -41,8 +40,10 @@ namespace CrowdSisters.Models
         public string Telefono { get; set; }
 
         [Required]
-        [StringLength(50)]
         public string Pais { get; set; }
+
+        [Required]
+        public IFormFile URLImagenUsuario { get; set; }
 
 
         /*Campos necessarios de Proyecto*/
@@ -146,22 +147,4 @@ namespace CrowdSisters.Models
 
 
     }
-
-    /* Validación Nombre i Apellidos */
-
-    public class NombreApellidosValidation : ValidationAttribute
-    {
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            var nombresArray = value.ToString().Trim().Split(' ');
-
-            if (nombresArray.Length != 3)
-            {
-                return new ValidationResult(ErrorMessage);
-            }
-
-            return ValidationResult.Success;
-        }
-    }
-
 }

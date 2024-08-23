@@ -1,6 +1,8 @@
 ﻿@{
     Layout = null; 
 }
+@model CrowdSisters.Models.Usuario
+
 
 <!DOCTYPE html>
 <html>
@@ -24,24 +26,32 @@
                         <img class="x-icon5" loading="lazy" alt="Cerrar" src="~/img/boton-x.png" />
                     </a>
                 </div>
-                <h1 class="inicia-sesin">Regístrate</h1>
+                <h1 class="inicia-sesin" style="font-family:Inter">Regístrate</h1>
             </div>
-            <form class="form" method="post" action="@Url.Action("Login", "Account")">
+            @using (Html.BeginForm("Create", "Login", FormMethod.Post, new { @class = "form" }))
+            {
                 <div class="input-email-parent">
                     <div class="input-email">
                         <div class="label">Nombre de usuaria</div>
                         <div class="description">Description</div>
                         <div class="input">
-
-                            <input class="value1" placeholder="Introduce tu nombre de usuaria" type="text" name="Username" />
+                            @Html.TextBoxFor(m => m.Nombre, new { @class = "value1", placeholder = "Introduce tu nombre" })
                         </div>
                         <div class="error">@ViewBag.UsernameError</div>
                     </div>
                     <div class="input-email">
-                        <div class="label">Email</div>
+                        <div class="label">Correo de usuaria</div>
                         <div class="description">Description</div>
                         <div class="input">
-                            <input class="value1" placeholder="Introduce tu email" type="email" name="Email" />
+                            @Html.TextBoxFor(m => m.Email, new { @class = "value1", placeholder = "Introduce tu email" })
+                        </div>
+                        <div class="error">@ViewBag.UsernameError</div>
+                    </div>
+                    <div class="input-email">
+                        <div class="label">Nickname</div>
+                        <div class="description">Description</div>
+                        <div class="input">
+                            @Html.TextBoxFor(m => m.Nick, new { @class = "value1", placeholder = "Introduce tu nombre de usuaria" })
                         </div>
                         <div class="error">@ViewBag.EmailError</div>
                     </div>
@@ -49,7 +59,7 @@
                         <div class="label">Contraseña</div>
                         <div class="description">Description</div>
                         <div class="input">
-                            <input class="value1" placeholder="Introduce tu contraseña" type="password" name="Password" />
+                            @Html.PasswordFor(m => m.Contrasena, new { @class = "value1", placeholder = "Introduce tu contraseña" })
                         </div>
                         <div class="error">@ViewBag.PasswordError</div>
                     </div>
@@ -76,7 +86,7 @@
                             <div class="line-wrapper">
                                 <div class="frame-item"></div>
                             </div>
-                            <b class="o-elige-una">O ELIGE UNA DE ESTAS OPCIONES</b>
+                            <b class="o-elige-una" style="font-family:Inter">O ELIGE UNA DE ESTAS OPCIONES</b>
                             <div class="line-wrapper">
                                 <div class="frame-item"></div>
                             </div>
@@ -116,8 +126,8 @@
                     <div class="eres-nueva-wrapper">
                         <div class="eres-nueva">
                             <div class="text-link1">
-                                <span class="ya-tienes-cuenta">¿Ya tienes una cuenta? </span>
-                                <a href="@Url.Action("Index", "Login")" class="registro-link">¡Inicia sesión!</a>
+                                <span class="ya-tienes-cuenta" style="font-family:Inter; font-size:12px;">¿Ya tienes una cuenta? </span>
+                                <a href="@Url.Action("Index", "Login")" class="registro-link" style="font-family:Inter; font-size:12px;">¡Inicia sesión!</a>
                             </div>
                         </div>
                     </div>
@@ -138,7 +148,7 @@
                         <span class="este-sitio-est"> de Google.</span>
                     </b>
                 </div>
-            </form>
+            }
             <img class="crowdsisterslogocolor-icon" loading="lazy" alt="" src="~/img/CrowdSistersLogoColor.png" />
         </div>
     </div>

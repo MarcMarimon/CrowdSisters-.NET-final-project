@@ -17,42 +17,44 @@ namespace CrowdSisters.DAL
         }
 
         // Crear
-        public async Task<bool> CreateAsync(Proyecto proyecto)
+        public async Task<Proyecto> CreateAsync(Proyecto proyecto)
         {
             const string query = @"
-                INSERT INTO Proyecto (
-                    FKUsuario, 
-                    FKSubcategoria, 
-                    Titulo, 
-                    DescripcionGeneral, 
-                    FechaCreacion, 
-                    FechaFinalizacion, 
-                    MontoObjetivo, 
-                    MontoRecaudado, 
-                    Subtitulo, 
-                    DescripcionFinalidad, 
-                    DescripcionPresupuesto, 
-                    UrlFotoEncabezado, 
-                    UrlFoto1, 
-                    UrlFoto2, 
-                    UrlFoto3
-                ) VALUES (
-                    @FKUsuario, 
-                    @FKSubcategoria, 
-                    @Titulo, 
-                    @DescripcionGeneral, 
-                    @FechaCreacion, 
-                    @FechaFinalizacion, 
-                    @MontoObjetivo, 
-                    @MontoRecaudado, 
-                    @Subtitulo, 
-                    @DescripcionFinalidad, 
-                    @DescripcionPresupuesto, 
-                    @UrlFotoEncabezado, 
-                    @UrlFoto1, 
-                    @UrlFoto2, 
-                    @UrlFoto3
-                )";
+        INSERT INTO Proyecto (
+            FKUsuario, 
+            FKSubcategoria, 
+            Titulo, 
+            DescripcionGeneral, 
+            FechaCreacion, 
+            FechaFinalizacion, 
+            MontoObjetivo, 
+            MontoRecaudado, 
+            Subtitulo, 
+            DescripcionFinalidad, 
+            DescripcionPresupuesto, 
+            UrlFotoEncabezado, 
+            UrlFoto1, 
+            UrlFoto2, 
+            UrlFoto3
+        ) 
+        VALUES (
+            @FKUsuario, 
+            @FKSubcategoria, 
+            @Titulo, 
+            @DescripcionGeneral, 
+            @FechaCreacion, 
+            @FechaFinalizacion, 
+            @MontoObjetivo, 
+            @MontoRecaudado, 
+            @Subtitulo, 
+            @DescripcionFinalidad, 
+            @DescripcionPresupuesto, 
+            @UrlFotoEncabezado, 
+            @UrlFoto1, 
+            @UrlFoto2, 
+            @UrlFoto3
+        );
+        SELECT SCOPE_IDENTITY();"; // Obtiene el último ID generado en este ámbito
 
             try
             {
@@ -60,6 +62,8 @@ namespace CrowdSisters.DAL
                 using (var command = new SqlCommand(query, sqlConn))
                 {
                     sqlConn.Open(); // Asegúrate de abrir la conexión
+
+                    // Añadir los parámetros al comando
                     command.Parameters.AddWithValue("@FKUsuario", proyecto.FKUsuario);
                     command.Parameters.AddWithValue("@FKSubcategoria", proyecto.FKSubcategoria);
                     command.Parameters.AddWithValue("@Titulo", proyecto.Titulo);
@@ -76,13 +80,16 @@ namespace CrowdSisters.DAL
                     command.Parameters.AddWithValue("@UrlFoto2", proyecto.UrlFoto2);
                     command.Parameters.AddWithValue("@UrlFoto3", proyecto.UrlFoto3);
 
-                    return await command.ExecuteNonQueryAsync() > 0;
+                    // Ejecutar la consulta y obtener el ID generado automáticamente
+                    proyecto.IDProyecto = Convert.ToInt32(await command.ExecuteScalarAsync());
+
+                    return proyecto; // Devuelve el proyecto con el ID asignado por la base de datos
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return false;
+                return null; // Devuelve null en caso de error
             }
         }
 
