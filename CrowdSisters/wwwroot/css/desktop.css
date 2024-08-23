@@ -1,4 +1,31 @@
+.hover-target .monedero {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: transparent;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
 
+.hover-target:hover .monedero {
+    visibility: visible;
+    opacity: 1;
+    position: absolute;
+    top: 55%;
+    left: 1190px;
+}
+
+
+img.buttonLogout {
+    height: 20px !important;
+    width: 20px !important;
+    position: relative;
+}
 .star-icon {
     height: 16px;
     width: 16px;
@@ -66,14 +93,16 @@
     flex: 1;
     position: relative;
     line-height: 100%;
+    padding-top:7px;
 }
 
 .search-icon {
-    width: 16px;
-    height: 16px;
+    width: 25px;
+    height: 25px;
     position: relative;
     overflow: hidden;
     flex-shrink: 0;
+    padding-top:5px;
 }
 
 .buscador,
@@ -100,6 +129,8 @@
     position: relative;
     line-height: 120%;
     white-space: nowrap;
+    margin-right:33px;
+    margin-left:33px;
 }
 
 .inicia-sesin-regstrate2 {
@@ -761,6 +792,7 @@
     max-width: 100%;
 }
 
+/* Botón con la clase .button7 */
 .button7 {
     flex: 1;
     border-radius: var(--radius-200);
@@ -772,8 +804,15 @@
     gap: var(--space-200);
 }
 
+    /* Cambia el color de fondo al hacer hover sobre el botón .button7 */
+    .button7:hover {
+        background-color: #581E99; /* Cambia el color aquí si lo deseas */
+    }
+
+/* Botón con la clase .button-inicio-sesin */
 .button-inicio-sesin {
     cursor: pointer;
+    border-radius: var(--radius-200);
     border: 0;
     padding: 0;
     background-color: transparent;
@@ -781,6 +820,12 @@
     justify-content: flex-start;
     gap: var(--space-400);
 }
+
+    /* Cambia el color de fondo al hacer hover sobre el botón .button-inicio-sesin */
+    .button-inicio-sesin:hover {
+        background-color: #581E99; /* Cambia el color aquí si lo deseas */
+    }
+
 
 .text-link {
     position: relative;
@@ -889,6 +934,7 @@
     max-width: 100%;
 }
 
+/* Botón con la clase .button11 */
 .button11 {
     flex: 1;
     border-radius: var(--radius-200);
@@ -899,6 +945,12 @@
     padding: var(--padding-3xs) var(--padding-2xs);
     gap: var(--space-200);
 }
+
+    /* Cambia el color de fondo al hacer hover sobre el botón .button11 */
+    .button11:hover {
+        background-color: #581E99; /* Cambia el color aquí si lo deseas */
+    }
+
 .button7 {
     flex: 1;
     border-radius: var(--radius-200);
