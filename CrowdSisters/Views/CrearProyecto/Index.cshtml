@@ -119,7 +119,7 @@
 
                                 <div class="label-input">
                                         @Html.LabelFor(m => m.Telefono, "Teléfono", new { @class = "form-labels" })
-                                        @Html.TextBox("Telefono", usuario.Telefono, new { @class = "form-inputs" })
+                                        @Html.TextBox("Telefono", usuario.Telefono, new { @class = "form-control form-inputs" })
                                         @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "text-danger error-size" })
                                 </div>
                                </div>
@@ -163,14 +163,16 @@
                                 <div class="line-div"></div>
                             </div>
                         </div>
+
                         <div class="parte-formulario2">
-                        <div class="form-group">
-                            <input type="file" id="URLImagenUsuario" name="URLImagenUsuario" asp-for="URLImagenUsuario" accept="image/*" required>
-                            @Html.ValidationMessageFor(m => m.URLImagenUsuario, "", new { @class = "text-danger error-size" })
-                        </div>
+                            <div class="form-group">
+                                <input type="file" id="URLImagenUsuario" name="URLImagenUsuario" asp-for="URLImagenUsuario" accept="image/*" required style="display: none;" onchange="previewImage(event)">
+                                <img id="preview" src="https://via.placeholder.com/150" alt="Haz clic para cargar una imagen" onclick="document.getElementById('URLImagenUsuario').click();" style="cursor: pointer; width: 150px; height: 150px; object-fit: cover; border: 2px dashed #ccc;">
+                                @Html.ValidationMessageFor(m => m.URLImagenUsuario, "", new { @class = "text-danger error-size" })
+                            </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(m => m.PerfilPublico, "Perfil Público")
+                                @Html.LabelFor(m => m.PerfilPublico, "Perfil Público", new { @class = "form-labels" })
                             @Html.TextBoxFor(m => m.PerfilPublico, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.PerfilPublico, "", new { @class = "text-danger error-size" })
                         </div>
@@ -382,6 +384,18 @@
                 }
             });
         });
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('preview');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
 
     @await Html.PartialAsync("_ValidationScriptsPartial");
