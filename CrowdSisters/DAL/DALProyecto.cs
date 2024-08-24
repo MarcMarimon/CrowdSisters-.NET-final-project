@@ -244,6 +244,33 @@ namespace CrowdSisters.DAL
             }
         }
 
+        public async Task<bool> UpdateMontoRecaudadoAsync(decimal resta, int idProyecto)
+        {
+            const string query = @"
+                UPDATE Proyecto
+                SET
+                    MontoRecaudado = MontoRecaudado + @Resta
+                WHERE IDProyecto = @IDProyecto";
+
+            try
+            {
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
+                    command.Parameters.AddWithValue("@IDProyecto", idProyecto);
+                    command.Parameters.AddWithValue("@Resta", resta);
+
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
         // Eliminar
         public async Task<bool> DeleteAsync(int id)
         {

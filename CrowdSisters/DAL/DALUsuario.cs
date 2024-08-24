@@ -270,5 +270,60 @@ namespace CrowdSisters.DAL
                 return false;
             }
         }
+
+        //Update Restar Monedero Usuario
+        public async Task<bool> UpdateRestarMonederoUsuarioAsync(decimal resta, int idUsuario)
+        {
+            const string query = @"
+        UPDATE Usuario 
+        SET Monedero = Monedero - @Resta
+        WHERE IDUsuario = @IDUsuario";
+
+            try
+            {
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
+                    command.Parameters.AddWithValue("@IDUsuario", idUsuario);
+                    command.Parameters.AddWithValue("@Resta", resta);
+
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        //Update Sumar Monedero Usuario
+        public async Task<bool> UpdateSumarMonederoUsuarioAsync(decimal suma, int idUsuario)
+        {
+            const string query = @"
+        UPDATE Usuario 
+        SET Monedero = Monedero + @Suma
+        WHERE IDUsuario = @IDUsuario";
+
+            try
+            {
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
+                    command.Parameters.AddWithValue("@IDUsuario", idUsuario);
+                    command.Parameters.AddWithValue("@Suma", suma);
+
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
     }
 }

@@ -4,111 +4,226 @@
     ViewData["Title"] = "Editar Usuario";
 }
 
-<h2>@ViewData["Title"]</h2>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/global.css" />
+    <link rel="stylesheet" href="~/css/index.css" />
+    <link rel="stylesheet" href="~/css/desktop.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
+    <style>
+        /* General Layout */
+        .edit-user {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
 
-@using (Html.BeginForm("Edit", "Login", FormMethod.Post, new { @class = "form" } ))
-{
-    <div class="form-group">
-        <label asp-for="Nombre" class="control-label"></label>
-        <input asp-for="Nombre" class="form-control" />
-        <span asp-validation-for="Nombre" class="text-danger"></span>
+        .container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .close-btn {
+            width: 24px;
+            height: 24px;
+        }
+
+            .close-btn img {
+                width: 100%;
+                height: auto;
+            }
+
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .label {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-field, .textarea-field {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .checkbox-input {
+            margin-right: 0.5rem;
+        }
+
+        .error-message {
+            color: #d9534;
+
+    </style>
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div class="edit-user">
+        <div class="container">
+            <div class="header">
+                <a href="@Url.Action("Index", "Home")" class="close-btn">
+                    <img src="~/img/boton-x.png" alt="Cerrar" />
+                </a>
+            </div>
+
+            @using (Html.BeginForm("Edit", "Login", FormMethod.Post, new { @class = "form" }))
+            {
+                <div class="form-container">
+                    @* Nombre *@
+                    <div class="form-group">
+                        <label asp-for="Nombre" class="label">Nombre</label>
+                        <input asp-for="Nombre" class="input-field" placeholder="Introduce tu nombre" />
+                        <span asp-validation-for="Nombre" class="error-message"></span>
+                    </div>
+
+                    @* Email *@
+                    <div class="form-group">
+                        <label asp-for="Email" class="label">Email</label>
+                        <input asp-for="Email" class="input-field" placeholder="Introduce tu email" />
+                        <span asp-validation-for="Email" class="error-message"></span>
+                    </div>
+
+                    @* Contraseña *@
+                    <div class="form-group">
+                        <label asp-for="Contrasena" class="label">Contraseña</label>
+                        <input asp-for="Contrasena" type="password" class="input-field" placeholder="Introduce tu contraseña" />
+                        <input type="hidden" asp-for="Contrasena" name="ContrasenaHidden" />
+                    </div>
+
+                    <input type="hidden" asp-for="FechaRegistro" />
+
+                    @* IsAdmin *@
+                    <div class="form-group">
+                        <label asp-for="IsAdmin" class="label">Admin</label>
+                        <input asp-for="IsAdmin" type="checkbox" class="checkbox-input" />
+                    </div>
+
+                    @* Perfil Público *@
+                    <div class="form-group">
+                        <label asp-for="PerfilPublico" class="label">Perfil Público</label>
+                        <textarea asp-for="PerfilPublico" class="textarea-field" placeholder="Introduce el perfil público"></textarea>
+                        <span asp-validation-for="PerfilPublico" class="error-message"></span>
+                    </div>
+
+                    @* URL Imagen Usuario *@
+                    <div class="form-group">
+                        <label asp-for="URLImagenUsuario" class="label">URL Imagen Usuario</label>
+                        <input asp-for="URLImagenUsuario" class="input-field" placeholder="Introduce la URL de la imagen" />
+                        <span asp-validation-for="URLImagenUsuario" class="error-message"></span>
+                    </div>
+
+                    @* Monedero *@
+                    <div class="form-group">
+                        <label asp-for="Monedero" class="label">Monedero</label>
+                        <input asp-for="Monedero" class="input-field" placeholder="Introduce el monto" />
+                        <span asp-validation-for="Monedero" class="error-message"></span>
+                    </div>
+
+                    @* Primer Apellido *@
+                    <div class="form-group">
+                        <label asp-for="PrimerApellido" class="label">Primer Apellido</label>
+                        <input asp-for="PrimerApellido" class="input-field" placeholder="Introduce el primer apellido" />
+                        <span asp-validation-for="PrimerApellido" class="error-message"></span>
+                    </div>
+
+                    @* Segundo Apellido *@
+                    <div class="form-group">
+                        <label asp-for="SegundoApellido" class="label">Segundo Apellido</label>
+                        <input asp-for="SegundoApellido" class="input-field" placeholder="Introduce el segundo apellido" />
+                        <span asp-validation-for="SegundoApellido" class="error-message"></span>
+                    </div>
+
+                    @* DNI *@
+                    <div class="form-group">
+                        <label asp-for="DNI" class="label">DNI</label>
+                        <input asp-for="DNI" class="input-field" placeholder="Introduce el DNI" />
+                        <span asp-validation-for="DNI" class="error-message"></span>
+                    </div>
+
+                    @* Dirección *@
+                    <div class="form-group">
+                        <label asp-for="Direccion" class="label">Dirección</label>
+                        <input asp-for="Direccion" class="input-field" placeholder="Introduce la dirección" />
+                        <span asp-validation-for="Direccion" class="error-message"></span>
+                    </div>
+
+                    @* Código Postal *@
+                    <div class="form-group">
+                        <label asp-for="CodigoPostal" class="label">Código Postal</label>
+                        <input asp-for="CodigoPostal" class="input-field" placeholder="Introduce el código postal" />
+                        <span asp-validation-for="CodigoPostal" class="error-message"></span>
+                    </div>
+
+                    @* Población *@
+                    <div class="form-group">
+                        <label asp-for="Poblacion" class="label">Población</label>
+                        <input asp-for="Poblacion" class="input-field" placeholder="Introduce la población" />
+                        <span asp-validation-for="Poblacion" class="error-message"></span>
+                    </div>
+
+                    @* Teléfono *@
+                    <div class="form-group">
+                        <label asp-for="Telefono" class="label">Teléfono</label>
+                        <input asp-for="Telefono" class="input-field" placeholder="Introduce el teléfono" />
+                        <span asp-validation-for="Telefono" class="error-message"></span>
+                    </div>
+
+                    @* País *@
+                    <div class="form-group">
+                        <label asp-for="Pais" class="label">País</label>
+                        <input asp-for="Pais" class="input-field" placeholder="Introduce el país" />
+                        <span asp-validation-for="Pais" class="error-message"></span>
+                    </div>
+
+                    @* Nick *@
+                    <div class="form-group">
+                        <label asp-for="Nick" class="label">Nick</label>
+                        <input asp-for="Nick" class="input-field" placeholder="Introduce el nick" />
+                        <span asp-validation-for="Nick" class="error-message"></span>
+                    </div>
+
+                    <input type="hidden" asp-for="IDUsuario" />
+
+                    <div class="button-container">
+                        <button type="submit" class="submit-button">Guardar cambios</button>
+                        <a asp-action="Index" class="cancel-button">Cancelar</a>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Email" class="control-label"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Contrasena" class="control-label"></label>
-        <input asp-for="Contrasena" type="password" class="form-control" />
-        <input type="hidden" asp-for="Contrasena" name="ContrasenaHidden" />
-    </div>
-    <input type="hidden" asp-for="FechaRegistro" />
-
-    <div class="form-group">
-        <label asp-for="IsAdmin" class="control-label"></label>
-        <input asp-for="IsAdmin" type="checkbox" class="form-check-input"  />
-        <span asp-validation-for="IsAdmin" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="PerfilPublico" class="control-label"></label>
-        <textarea asp-for="PerfilPublico" class="form-control"></textarea>
-        <span asp-validation-for="PerfilPublico" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="URLImagenUsuario" class="control-label"></label>
-        <input asp-for="URLImagenUsuario" class="form-control" />
-        <span asp-validation-for="URLImagenUsuario" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Monedero" class="control-label"></label>
-        <input asp-for="Monedero" class="form-control" />
-        <span asp-validation-for="Monedero" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="PrimerApellido" class="control-label"></label>
-        <input asp-for="PrimerApellido" class="form-control" />
-        <span asp-validation-for="PrimerApellido" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="SegundoApellido" class="control-label"></label>
-        <input asp-for="SegundoApellido" class="form-control" />
-        <span asp-validation-for="SegundoApellido" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="DNI" class="control-label"></label>
-        <input asp-for="DNI" class="form-control" />
-        <span asp-validation-for="DNI" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Direccion" class="control-label"></label>
-        <input asp-for="Direccion" class="form-control" />
-        <span asp-validation-for="Direccion" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="CodigoPostal" class="control-label"></label>
-        <input asp-for="CodigoPostal" class="form-control" />
-        <span asp-validation-for="CodigoPostal" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Poblacion" class="control-label"></label>
-        <input asp-for="Poblacion" class="form-control" />
-        <span asp-validation-for="Poblacion" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Telefono" class="control-label"></label>
-        <input asp-for="Telefono" class="form-control" />
-        <span asp-validation-for="Telefono" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Pais" class="control-label"></label>
-        <input asp-for="Pais" class="form-control" />
-        <span asp-validation-for="Pais" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Nick" class="control-label"></label>
-        <input asp-for="Nick" class="form-control" />
-        <span asp-validation-for="Nick" class="text-danger"></span>
-    </div>
-
-    <input type="hidden" asp-for="IDUsuario" />
-
-    <button type="submit" class="btn btn-primary">Guardar cambios</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-}
-
-
+</body>
+</html>

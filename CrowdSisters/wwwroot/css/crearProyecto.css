@@ -108,7 +108,7 @@
 }
 
 .completa-tus-datos {
-    margin: 0;
+    margin: 25px;
     width: 522px;
     position: relative;
     font-size: inherit;
@@ -117,6 +117,7 @@
     font-weight: 600;
     font-family: inherit;
     display: inline-block;
+    text-align: center;
 }
 
 .complete-details {
@@ -209,7 +210,6 @@
 .project-info {
     align-self: stretch;
     flex-direction: row;
-    justify-content: center;
     padding: 0 var(--padding-5xl) 0 var(--padding-xl);
     box-sizing: border-box;
     text-align: justify;
@@ -281,29 +281,133 @@
     text-align: left;
     display: none;
 }
+
+.form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
 .partes-formulario {
     margin-top: 45px;
     padding: 10px;
-
 }
+
 .primera-parte-columnas-form {
     display: flex;
     gap: 20px;
 }
+
 .parte-formulario2 {
-    margin-bottom: 10px;
-    font-size:16px;
+    margin: 30px;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+/* Estilo general para las tarjetas */
+.tarjeta-recompensa {
+    background-color: #d3a4e4;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 280px;
+    margin: 10px;
+    display: inline-block;
+    vertical-align: top;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tarjeta-recompensa {
+    background-color: #d3a4e4;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 300px;
+    margin: 10px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.image-preview {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+    .image-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+.overlay-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.partes-formulario3 {
+    margin-top: 80px;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center
+}
+
+.tercera-parte-columnas-form {
+    width: 100%;
+    display: flex;
+    gap: 20px
+}
+
+.fotos-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    width: 700px;
+    gap: 30px;
+    justify-content: center
+}
+.card-container-recompensas {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 40px;
 }
 .label-input {
     display: flex;
     flex-direction: column;
     width: 400px;
     gap: 10px;
-    margin-top: 10px
+    margin-top: 10px;
+    font-weight: bold;
 }
+
 .form-labels {
     font-size: var(--body-strong-size);
+    font-weight: bold;
 }
+
 .form-inputs {
     border-radius: var(--radius-200);
     background-color: var(--background-default-default);
@@ -316,11 +420,14 @@
     justify-content: flex-start;
     padding: var(--space-300) var(--padding-mini) var(--space-300) var(--space-400);
     min-width: 240px;
-    font-size: 12px;
+    font-size: 14px;
+    width: 100%
 }
-.error-size{
+
+.error-size {
     font-size: 14px;
 }
+
 .input-nombre-y-apellidos {
     height: 40px;
     flex: 1;
@@ -609,6 +716,7 @@
     color: var(--color-ghostwhite);
     text-align: left;
 }
+
 .button-container {
     display: flex;
     width: 100%;
@@ -617,6 +725,7 @@
     margin-top: -65px;
     margin-bottom: 25px;
 }
+
 .botn-siguiente-paso {
     cursor: pointer;
     border: 1px solid var(--color-indigo);
@@ -685,7 +794,6 @@
     overflow: hidden;
     flex-shrink: 0;
     flex-direction: column;
-    align-items: center;
     justify-content: flex-start;
     gap: 96px;
 }
