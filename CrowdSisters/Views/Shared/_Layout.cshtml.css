@@ -10,12 +10,17 @@ a.navbar-brand {
     text-align: center;
     word-break: break-all;
 }
-
+.monedero-container {
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-items: center;
+}
 a {
     color: #f7f0fc;
     text-decoration: none;
 }
-
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
