@@ -120,27 +120,36 @@
                                 <div class="titulorecompensas">Recompensas</div>
                             </div>
                             <div class="rewards-carousel">
-                                @foreach (var recompensa in Model.Recompensas)
+                                @if (Model.Recompensas != null && Model.Recompensas.Any())
                                 {
-                                    <div class="cardrecompensa1">
-                                        <img class="fotorecompensa1-icon" loading="lazy" alt="Recompensa" src="@recompensa.URLImagenRecompensa" />
-                                        <div class="frame-parent26">
-                                            <div class="titulorecompnesa1-parent">
-                                                <div class="titulorecompnesa1">
-                                                    <div class="ttulo35">@recompensa.Titulo</div>
+                                    foreach (var recompensa in Model.Recompensas)
+                                    {
+                                        <div class="cardrecompensa1">
+                                            <img class="fotorecompensa1-icon" loading="lazy" alt="Recompensa" src="@recompensa.URLImagenRecompensa" />
+                                            <div class="frame-parent26">
+                                                <div class="titulorecompnesa1-parent">
+                                                    <div class="titulorecompnesa1">
+                                                        <div class="ttulo35">@recompensa.Titulo</div>
+                                                    </div>
+                                                    <div class="descripcionrecompnesa1">
+                                                        <p>@recompensa.Descripcion</p>
+                                                    </div>
                                                 </div>
-                                                <div class="descripcionrecompnesa1">
-                                                    <p>@recompensa.Descripcion</p>
-                                                </div>
-                                            </div>
-                                            <div class="impulsoras1-parent">
-                                                <div class="impulsoras1">
-                                                    <p>@recompensa.Monto.ToString("C")</p>
+                                                <div class="impulsoras1-parent">
+                                                    <div class="impulsoras1">
+                                                        <p>@recompensa.Monto.ToString("C")</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    }
                                 }
+                                else
+                                {
+                                    <p style="color: #581E99">No hay recompensas disponibles para este proyecto.</p>
+                                }
+
+
                             </div>
                         </div>
                     </div>
