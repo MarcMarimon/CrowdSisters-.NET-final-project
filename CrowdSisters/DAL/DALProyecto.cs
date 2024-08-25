@@ -98,7 +98,7 @@ namespace CrowdSisters.DAL
         {
             List<Proyecto> proyectos = new List<Proyecto>();
 
-            const string query = @"SELECT * FROM Proyecto;";
+            const string query = @"SELECT * FROM Proyecto ORDER BY FechaCreacion DESC;";
 
             try
             {

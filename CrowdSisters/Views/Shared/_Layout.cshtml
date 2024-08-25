@@ -79,12 +79,11 @@
                     }
                     else
                     {
-                        <div class="hover-target">
-                        <a href="@Url.Action("Edit", "Login")">
-                        <b class="button2" style="top:-15px;">¡Bienvenida @ViewContext.HttpContext.Session.GetString("Username")! </b>
-                        <p class="monedero">Monedero: @ViewContext.HttpContext.Session.GetInt32("Monedero")€ </p>
-                            </a>
-                    </div>
+
+                        <div class="hover-target monedero-container">
+                            <a href="@Url.Action("Edit","Login")" class="button2" style="top:-15px;">¡Bienvenida @ViewContext.HttpContext.Session.GetString("Username")! </a>
+                            <p class="monedero">Monedero: @ViewContext.HttpContext.Session.GetInt32("Monedero")€ </p>
+                        </div>
                         <a href="@Url.Action("Logout", "Login")">
                             <!-- Ajusta la ruta según tu controlador y acción -->
                             <img class="star-icon" alt="" src="./public/star2.svg" />
