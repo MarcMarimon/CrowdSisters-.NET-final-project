@@ -73,7 +73,10 @@
                         {
                             var proyecto = proyectos[i];
                             var cardClass = i % 2 == 0 ? "card-121 even" : "card-121 odd";
-                            
+
+                            // Calcula el porcentaje de recaudación
+                            var porcentajeRecaudacion = (int)Math.Ceiling((proyecto.MontoRecaudado / (decimal)proyecto.MontoObjetivo) * 100);
+
                             <a href="@Url.Action("Detalles", "DetallesProyecto", new { id = proyecto.IDProyecto })" class="card-link" style="text-decoration:none">
                                 <div class="@cardClass">
                                     <img class="image-icon3" loading="lazy" alt="@proyecto.Titulo" src="@proyecto.UrlFotoEncabezado" />
@@ -81,7 +84,8 @@
                                         <div class="frame-parent1">
                                             <div class="rectangle-parent">
                                                 <div class="frame-item"></div>
-                                                <div class="frame-inner"></div>
+                                                <div class="frame-inner" style="width:@porcentajeRecaudacion% !important"></div>
+
                                             </div>
                                             <div class="ttulo8">
                                                 <div class="ttulo9">
@@ -104,6 +108,7 @@
                             </a>
                         }
                     </div>
+
 
 
                 }
