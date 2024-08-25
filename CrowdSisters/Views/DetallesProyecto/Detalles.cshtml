@@ -4,6 +4,10 @@
     ViewData["Title"] = Model.Titulo;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@{
+    // Calcular el porcentaje de la recaudación con respecto al objetivo
+    var porcentajeRecaudacion = (int)Math.Ceiling((Model.MontoRecaudado / (decimal)Model.MontoObjetivo) * 100);
+}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -22,7 +26,8 @@
         <div class="progress-bar-container">
             <div class="lineaenteraprogreso"></div>
         </div>
-        <div class="lineaverdeprogreso"></div>
+        <div class="lineaverdeprogreso" style="width: @porcentajeRecaudacion%;"></div>
+
         <main class="project-details-container">
             <section class="project-title-container">
                 <div class="project-subtitles-container-wrapper">
