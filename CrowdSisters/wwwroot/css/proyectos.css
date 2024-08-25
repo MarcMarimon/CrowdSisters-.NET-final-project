@@ -1,15 +1,15 @@
-.card-121.even .ecobeauty-1,
-.card-121.even .das1 span,
-.card-121.even .das2,
-.card-121.even .de-40004{
+.card-121.odd .ecobeauty-1,
+.card-121.odd .das1 span,
+.card-121.odd .das2,
+.card-121.odd .de-40004 {
     color: #494949; /* Color específico para las tarjetas impares */
 }
 
-.card-121.odd {
+.card-121.even {
     background-color: #A46EE2; /* Color para las tarjetas impares */
 }
 
-.card-121.even {
+.card-121.odd {
     background-color: #D0BCFF; /* Color para las tarjetas pares */
 }
 
@@ -207,7 +207,6 @@
     left: 0;
     border-radius: var(--br-6xl);
     background-color: var(--color-ghostwhite);
-    width: 100%;
     height: 100%;
     display: none;
 }
@@ -219,12 +218,7 @@
 }
 
 .frame-inner {
-    position: absolute;
-    top: 0;
-    left: 0;
     background-color: var(--color-lightgreen);
-    width: 147px;
-    z-index: 1;
 }
 
 .rectangle-parent {
