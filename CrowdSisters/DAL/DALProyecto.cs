@@ -141,6 +141,62 @@ namespace CrowdSisters.DAL
             }
         }
 
+
+        // Get all by Subcategoria
+
+        // Leer todos
+        public async Task<IEnumerable<Proyecto>> GetAllProyectosSubcategoriaAsync(int idSubcategoria)
+        {
+            List<Proyecto> proyectos = new List<Proyecto>();
+
+            const string query = @"
+        SELECT * 
+        FROM Proyecto
+        WHERE FKSubcategoria = @idSubcategoria
+        ORDER BY FechaCreacion DESC;";
+
+            try
+            {
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
+                    command.Parameters.AddWithValue("@idSubcategoria", idSubcategoria);
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            proyectos.Add(new Proyecto
+                            {
+                                IDProyecto = reader.GetInt32(reader.GetOrdinal("IDProyecto")),
+                                FKUsuario = reader.GetInt32(reader.GetOrdinal("FKUsuario")),
+                                FKSubcategoria = reader.GetInt32(reader.GetOrdinal("FKSubcategoria")),
+                                Titulo = reader.GetString(reader.GetOrdinal("Titulo")),
+                                DescripcionGeneral = reader.GetString(reader.GetOrdinal("DescripcionGeneral")),
+                                FechaCreacion = reader.GetDateTime(reader.GetOrdinal("FechaCreacion")),
+                                FechaFinalizacion = reader.GetDateTime(reader.GetOrdinal("FechaFinalizacion")),
+                                MontoObjetivo = reader.GetDecimal(reader.GetOrdinal("MontoObjetivo")),
+                                MontoRecaudado = reader.GetDecimal(reader.GetOrdinal("MontoRecaudado")),
+                                Subtitulo = reader.GetString(reader.GetOrdinal("Subtitulo")),
+                                DescripcionFinalidad = reader.GetString(reader.GetOrdinal("DescripcionFinalidad")),
+                                DescripcionPresupuesto = reader.GetString(reader.GetOrdinal("DescripcionPresupuesto")),
+                                UrlFotoEncabezado = reader.GetString(reader.GetOrdinal("UrlFotoEncabezado")),
+                                UrlFoto1 = reader.GetString(reader.GetOrdinal("UrlFoto1")),
+                                UrlFoto2 = reader.GetString(reader.GetOrdinal("UrlFoto2")),
+                                UrlFoto3 = reader.GetString(reader.GetOrdinal("UrlFoto3")),
+                            });
+                        }
+                    }
+                }
+                return proyectos;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
         // Leer por ID
         public async Task<Proyecto> GetByIdAsync(int id)
         {

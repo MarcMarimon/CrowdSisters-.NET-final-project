@@ -688,6 +688,61 @@
     letter-spacing: normal;
 }
 
+/* Estilos básicos */
+.navigation-pill {
+    position: relative;
+    padding: 10px;
+    background-color: #f0f0f0;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+/* Ocultar subcategorías por defecto */
+.subcategories {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: #ffffff;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    min-width: 200px;
+    z-index: 1000;
+}
+
+/* Mostrar subcategorías al pasar el cursor */
+.navigation-pill:hover .subcategories {
+    display: block;
+}
+
+/* Estilo para los elementos de las subcategorías */
+.subcategories p {
+    margin: 0;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+    .subcategories p:hover {
+        background-color: #f0f0f0;
+    }
+
+/* Estilo para los enlaces de subcategorías */
+.subcategory-link {
+    text-decoration: none; /* Elimina el subrayado */
+    color: #007BFF; /* Cambia el color del texto a un azul agradable */
+    font-weight: bold; /* Hace el texto más grueso */
+    display: block; /* Hace que cada enlace ocupe toda la línea */
+    padding: 10px; /* Agrega espacio alrededor del texto */
+    border-radius: 5px; /* Redondea las esquinas */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave para el color de fondo y el texto */
+}
+
+    .subcategory-link:hover {
+        background-color: #f0f0f0; /* Cambia el color de fondo al pasar el mouse */
+        color: #0056b3; /* Cambia el color del texto al pasar el mouse */
+    }
+
+
 @media screen and (max-width: 1200px) {
     .se-estn-impulsando-12-proyect-parent {
         gap: 39px;

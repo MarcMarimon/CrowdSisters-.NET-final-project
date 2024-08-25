@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CrowdSisters.Models.Proyecto>
 
 @{
-    ViewData["Title"] = "Lista de Proyectos";
+    ViewData["Title"] = "Lista de Proyectos Filtrados";
 }
 
 <!DOCTYPE html>
@@ -46,6 +46,7 @@
 
         <section class="descubreproyectos-inner">
             <div class="frame-container">
+                <h1>Has realizado un filtro por la subcategoría <span style="color:#5E991E;">@ViewBag.Subcategoria.Nombre</span>!</h1>
                 <h1>¡Se están impulsando <span style="color:#5E991E;">@Model.Count()</span> proyectos!</h1>
 
                 @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
@@ -66,10 +67,6 @@
                             var proyecto = proyectos[i];
                             var cardClass = i % 2 == 0 ? "card-121 even" : "card-121 odd";
 
-
-                            // Calcula el porcentaje de recaudación
-                            var porcentajeRecaudacion = (int)Math.Ceiling((proyecto.MontoRecaudado / (decimal)proyecto.MontoObjetivo) * 100);
-
                             <a href="@Url.Action("Detalles", "DetallesProyecto", new { id = proyecto.IDProyecto })" class="card-link" style="text-decoration:none">
                                 <div class="@cardClass">
                                     <img class="image-icon3" loading="lazy" alt="@proyecto.Titulo" src="@proyecto.UrlFotoEncabezado" />
@@ -77,8 +74,7 @@
                                         <div class="frame-parent1">
                                             <div class="rectangle-parent">
                                                 <div class="frame-item"></div>
-                                                <div class="frame-inner" style="width:@porcentajeRecaudacion% !important"></div>
-
+                                                <div class="frame-inner"></div>
                                             </div>
                                             <div class="ttulo8">
                                                 <div class="ttulo9">
