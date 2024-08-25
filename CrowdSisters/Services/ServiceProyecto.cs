@@ -99,5 +99,19 @@ namespace CrowdSisters.Services
                 return null;
             }
         }
+
+        // Obtener todos los Proyectos segun subcategoria
+        public async Task<IEnumerable<Proyecto>> GetAllProyectosSubcategoriaAsync(int idSucategoria)
+        {
+            try
+            {
+                return await _dalProyecto.GetAllProyectosSubcategoriaAsync(idSucategoria);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en Service al obtener todos los proyectos: {ex.Message}");
+                return null;
+            }
+        }
     }
 }

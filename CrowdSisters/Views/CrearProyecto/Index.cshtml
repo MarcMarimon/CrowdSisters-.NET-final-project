@@ -184,7 +184,7 @@
 
                             <div class="form-group">
                                 @Html.LabelFor(m => m.PerfilPublico, "Perfil Público", new { @class = "form-labels" })
-                                @Html.TextAreaFor(m => m.PerfilPublico, new { @class = "form-control", @rows = "10", @cols = "50" })
+                                @Html.TextArea("PerfilPublico", usuario.PerfilPublico, new { @class = "form-control", @rows = "10", @cols = "50" })
                                 @Html.ValidationMessageFor(m => m.PerfilPublico, "", new { @class = "text-danger error-size" })
                             </div>
                         </div>
@@ -327,12 +327,12 @@
                                 @Html.ValidationMessageFor(m => m.URLImagenRecompensa, "", new { @class = "text-danger error-size" })
 
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.TituloRecompensa, "Título de la recompensa 1", new { @class = "form-labels" })
+                                    @Html.LabelFor(m => m.TituloRecompensa, "Título de la recompensa", new { @class = "form-labels" })
                                     @Html.TextBoxFor(m => m.TituloRecompensa, new { @class = "form-inputs" })
                                     @Html.ValidationMessageFor(m => m.TituloRecompensa, "", new { @class = "text-danger error-size" })
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.DescripcionRecompensa, "Descripción de la recompensa 1", new { @class = "form-labels" })
+                                    @Html.LabelFor(m => m.DescripcionRecompensa, "Descripción de la recompensa", new { @class = "form-labels" })
                                     @Html.TextBoxFor(m => m.DescripcionRecompensa, new { @class = "form-inputs" })
                                     @Html.ValidationMessageFor(m => m.DescripcionRecompensa, "", new { @class = "text-danger error-size" })
                                 </div>
@@ -362,7 +362,7 @@
                                     @Html.ValidationMessageFor(m => m.DescripcionRecompensa1, "", new { @class = "text-danger error-size" })
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Monto1, "Precio de la recompensa", new { @class = "form-labels" })
+                                    @Html.LabelFor(m => m.Monto1, "Precio de la recompensa 1", new { @class = "form-labels" })
                                     @Html.TextBoxFor(m => m.Monto1, new { @class = "form-inputs" })
                                     @Html.ValidationMessageFor(m => m.Monto1, "", new { @class = "text-danger error-size" })
                                 </div>
@@ -548,13 +548,13 @@
 
                 if (validateSection()) {  // Asegurarte de que la sección actual es válida antes de mostrar el pop-up
                     Swal.fire({
-                        title: '¿Estás seguro?',
+                        title: '¿Estás seguro de que quieres crear este proyecto?',
                         text: "¡No podrás revertir esto!",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#9b59b6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Sí, enviar',
+                        confirmButtonText: 'Sí, crear',
                         cancelButtonText: 'No, cancelar'
                     }).then((result) => {
                         if (result.isConfirmed) {

@@ -138,6 +138,7 @@
     justify-content: flex-start;
     gap: var(--space-200);
     box-sizing: border-box;
+    margin-right: 30px;
 }
 
 .botn-descubre-ms-proyectos-wrapper {
