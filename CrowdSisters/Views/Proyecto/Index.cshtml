@@ -9,14 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
-
-    <link rel="stylesheet" href="~/css/global.css" />
-    <link rel="stylesheet" href="~/css/index.css" />
-    <link rel="stylesheet" href="~/css/home.css" />
-    <link rel="stylesheet" href="/css/site.css?v=PBl3qNtJZz6Oz-WIhg7sjTVYk0GrCr762k2GdAtV_EM" />
-    <link rel="stylesheet" href="/css/index.css?v=cxwFxy9q0bP2A6fPuf46Iu1Og5FtqIQ4Z3wr2Kxoww0" />
-    <link rel="stylesheet" href="/css/global.css?v=LeXFsuf3Z500C2-CETWDCKnyj5FvslpdBQFbQKw-Kps" />
-    <link rel="stylesheet" href="/css/desktop.css?v=1BKq0X8peVCoPBonhE7yJwqnWK2h2D73w3UuEd1cWWc" />
+    <link rel="stylesheet" href="/css/home.css" />
     <link rel="stylesheet" href="/css/proyectos.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
@@ -25,7 +18,6 @@
 <body>
     <div class="descubreproyectos">
         <section class="frame-group">
-            <!-- Aquí se conserva el diseño original -->
             <div class="imagenproyecto-wrapper">
                 <img class="imagenproyecto-icon1" style="object-fit:fill" alt="" src="~/img/DescubreProyectos.png" />
             </div>
@@ -33,7 +25,6 @@
                 <div class="navigation-divider-top"></div>
                 <div class="frame-wrapper">
                     <div class="navigation-pill-parent">
-                        <!-- Pestañas de categorías (manteniendo el estilo original) -->
                         <div class="navigation-pill">
                             <b class="title">Ciencia y Tecnología</b>
                         </div>
@@ -75,39 +66,46 @@
                 else
                 {
                     <div class="card-1-group1">
-                        @foreach (var proyecto in Model)
+                        @{
+                            var proyectos = Model.ToList();
+                        }
+                        @for (int i = 0; i < proyectos.Count; i++)
                         {
-                            <a href="@Url.Action("Detalles", "DetallesProyecto", new { id = proyecto.IDProyecto })" class="card-link">
-                            <div class="card-121">
-                                <img class="image-icon3" loading="lazy" alt="@proyecto.Titulo" src="@proyecto.UrlFotoEncabezado" />
-
-                                <div class="frame-div">
-                                    <div class="frame-parent1">
-                                        <div class="rectangle-parent">
-                                            <div class="frame-item"></div>
-                                            <div class="frame-inner"></div>
+                            var proyecto = proyectos[i];
+                            var cardClass = i % 2 == 0 ? "card-121 even" : "card-121 odd";
+                            
+                            <a href="@Url.Action("Detalles", "DetallesProyecto", new { id = proyecto.IDProyecto })" class="card-link" style="text-decoration:none">
+                                <div class="@cardClass">
+                                    <img class="image-icon3" loading="lazy" alt="@proyecto.Titulo" src="@proyecto.UrlFotoEncabezado" />
+                                    <div class="frame-div">
+                                        <div class="frame-parent1">
+                                            <div class="rectangle-parent">
+                                                <div class="frame-item"></div>
+                                                <div class="frame-inner"></div>
+                                            </div>
+                                            <div class="ttulo8">
+                                                <div class="ttulo9">
+                                                    <p class="ecobeauty-1">@proyecto.Titulo</p>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="ttulo8">
-                                            <div class="ttulo9">
-                                                <p class="ecobeauty-1">@proyecto.Titulo</p>
+                                        <div class="das-parent">
+                                            <div class="das1">
+                                                <span>@((proyecto.FechaFinalizacion - DateTime.Now).Days)</span>
+                                                <span class="das2">DÍAS</span>
+                                            </div>
+                                            <div class="de-40003">
+                                                <p class="ecobeauty-1">@proyecto.MontoRecaudado.ToString("C")</p>
+                                                <p class="de-40004">DE @proyecto.MontoObjetivo.ToString("C")</p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="das-parent">
-                                        <div class="das1">
-                                            <span>@((proyecto.FechaFinalizacion - DateTime.Now).Days)</span>
-                                            <span class="das2">DÍAS</span>
-                                        </div>
-                                        <div class="de-40003">
-                                            <p class="ecobeauty-1">@proyecto.MontoRecaudado.ToString("C")</p>
-                                            <p class="de-40004">DE @proyecto.MontoObjetivo.ToString("C")</p>
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
                             </a>
                         }
                     </div>
+
+
                 }
             </div>
         </section>

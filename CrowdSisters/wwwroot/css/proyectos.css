@@ -1,8 +1,15 @@
-.card-121:nth-child(odd) {
+.card-121.even .ecobeauty-1,
+.card-121.even .das1 span,
+.card-121.even .das2,
+.card-121.even .de-40004{
+    color: #494949; /* Color específico para las tarjetas impares */
+}
+
+.card-121.odd {
     background-color: #A46EE2; /* Color para las tarjetas impares */
 }
 
-.card-121:nth-child(even) {
+.card-121.even {
     background-color: #D0BCFF; /* Color para las tarjetas pares */
 }
 
@@ -13,30 +20,28 @@
 
 .card-1-group1 {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+    grid-template-columns: repeat(3, 1fr);
     padding: 20px;
     width: 1179.5px;
     height: auto;
-    flex-direction: row;
     gap: var(--gap-xl);
     max-width: 100%;
     text-align: left;
     font-size: var(--font-size-mini);
-    color: var(--color-ghostwhite);
     margin-left: 48px;
+
 }
 
 .card-121 {
-    border: 1px solid #ddd;
     overflow: hidden;
     width: 307.5px;
     border-radius: var(--br-5xs);
-    background-color: var(--color-mediumpurple);
     overflow: hidden;
     flex-shrink: 0;
     padding: var(--padding-smi) var(--padding-xs) var(--padding-smi-8);
     box-sizing: border-box;
     gap: var(--gap-7xs);
+    height:350px;
 }
 
 .imagenproyecto-icon1 {
@@ -226,10 +231,13 @@
     align-self: stretch;
     position: relative;
     background-color: var(--color-ghostwhite);
+    top:10px;
 }
 
 .ecobeauty-1 {
     margin: 0;
+    color: #f7f0fc;
+    margin-top:10px;
 }
 
 .cosmticos-sostenibles1 {
@@ -271,10 +279,12 @@
     width: 42px;
     position: relative;
     letter-spacing: -0.02em;
-    line-height: 140%;
+    line-height: 90%;
     font-weight: 600;
     display: inline-block;
     flex-shrink: 0;
+    margin-top: 27px;
+    margin-left: 4px;
 }
 
 .de-40004 {
@@ -287,11 +297,12 @@
     height: 56px;
     position: relative;
     letter-spacing: -0.02em;
-    line-height: 140%;
+    line-height: 115%;
     font-weight: 600;
     text-align: right;
     display: inline-block;
     color: var(--color-ghostwhite);
+    margin-top: 12px;
 }
 
 .card-12,
@@ -308,7 +319,7 @@
     gap: var(--gap-xl);
     text-align: center;
     font-size: var(--font-size-9xl);
-    color: var(--color-darkslategray-100);
+    color: #f7f0fc;
 }
 
 .card-12,
@@ -466,27 +477,13 @@
     min-width: 292px;
 }
 
-.card-121,
+
 .card-9,
 .card-9-parent {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     flex-shrink: 0;
-}
-
-.card-121 {
-    height: 342.8px;
-    width: 307px;
-    border-radius: var(--br-5xs);
-    background-color: var(--color-plum-200);
-    overflow: hidden;
-    flex-direction: column;
-    padding: var(--padding-smi) var(--padding-xs) var(--padding-smi-8);
-    box-sizing: border-box;
-    gap: var(--gap-7xs);
-    min-width: 292px;
-    color: var(--color-darkslategray-100);
 }
 
 .card-9-parent {
