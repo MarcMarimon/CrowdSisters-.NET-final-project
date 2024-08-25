@@ -27,6 +27,19 @@ namespace CrowdSisters.Services
             }
         }
 
+        public async Task<Subcategoria> GetSubcategoriasByIdAsync(int idSubcategoria)
+        {
+            try
+            {
+                return await _dalSubcategoria.GetByIdAsync(idSubcategoria);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en Service al obtener todos las subcategorias: {ex.Message}");
+                return null;
+            }
+        }
+
 
         public async Task<JsonResult> GetSubcategoriasAsync(int idCategoria)
         {
