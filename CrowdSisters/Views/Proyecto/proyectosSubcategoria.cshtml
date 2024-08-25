@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CrowdSisters.Models.Proyecto>
 
 @{
-    ViewData["Title"] = "Lista de Proyectos";
+    ViewData["Title"] = "Lista de Proyectos Filtrados";
 }
 
 <!DOCTYPE html>
@@ -46,6 +46,7 @@
 
         <section class="descubreproyectos-inner">
             <div class="frame-container">
+                <h1>Has realizado un filtro por la subcategoría <span style="color:#5E991E;">@ViewBag.Subcategoria.Nombre</span>!</h1>
                 <h1>¡Se están impulsando <span style="color:#5E991E;">@Model.Count()</span> proyectos!</h1>
 
                 @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
