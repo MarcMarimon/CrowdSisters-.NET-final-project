@@ -36,6 +36,9 @@ namespace CrowdSisters.Controllers
 
                 ViewBag.UsuarioActivo = HttpContext.Session.GetInt32("IdUsuario");
 
+                if(proyecto != null)
+                    ViewBag.UsuarioProyecto = await _serviceUsuario.GetUsuarioById(proyecto.FKUsuario);
+
 
                 if (proyecto == null)
                 {

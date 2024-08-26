@@ -403,9 +403,25 @@
                     <!-- Botones de navegación -->
                     <div class="button-container">
                         <button type="button" id="nextBtn" class="botn-siguiente-paso">Siguiente Paso</button>
-                        <button type="submit" id="submitBtn" class="botn-siguiente-paso" style="display:none;">Confirmar</button>
+                        <button type="submit" id="submitBtn" class="botn-siguiente-paso" style="display:none;width: 250px; margin-right: 215px; ">Enviar proyecto...</button>
                     </div>
+                    <style>
+                        .button-container .botn-siguiente-paso {
+                            /* Tus estilos iniciales para el botón */
+                            background-color: #9b59b6; /* Ejemplo de color original */
+                            color: white;
+                            padding: 10px 20px;
+                            border: none;
+                            border-radius: 5px;
+                            transition: background-color 0.2s ease; /* Transición suave al cambiar de color */
+                        }
 
+                            /* Estilo cuando pasas el ratón por encima */
+                            .button-container .botn-siguiente-paso:hover {
+                                background-color: #581E99;
+                                cursor: pointer;
+                            }
+                    </style>
                 }
             </div>
         </div>

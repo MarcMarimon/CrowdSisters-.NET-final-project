@@ -41,6 +41,21 @@ namespace CrowdSisters.Services
             }
         }
 
+        public async Task<Usuario> GetUsuarioById(int idUsuario)
+        {
+            try
+            {
+                return await _dalUsuario.GetByIdAsync(idUsuario);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en Service al crear el proyecto: {ex.Message}");
+                return null;
+            }
+        }
+
+
         public async Task<int> GetMonto(int id)
         {
             Usuario usuario = await _dalUsuario.GetByIdAsync(id);
