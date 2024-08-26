@@ -15,10 +15,96 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
     <link rel="stylesheet" href="/css/global.css" />
-    <link rel="stylesheet" href="/css/InfoProyecto.css" />
+    <link rel="stylesheet" href="/css/infoProyecto.css" />
+    <link rel="stylesheet" href="/css/detalles.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,300&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
 </head>
+<style>
+    .fotorecompensa1-icon {
+        align-self: center;
+        height: 185.3px;
+        margin-top:12px;
+        border-radius: var(--br-5xs);
+        max-width: 100%;
+        overflow: hidden;
+        flex-shrink: 0;
+        object-fit: cover;
+    }
+
+    .ttulo35 {
+        position: relative;
+        letter-spacing: -0.02em;
+        line-height: 120%;
+        font-weight: 600;
+        display: inline-block;
+        min-width: 102px;
+        margin-top: 12px;
+        margin-left: 14px;
+    }
+
+    .descripcionrecompnesa1 {
+        align-self: stretch;
+        position: relative;
+        font-size: var(--font-size-mini);
+        letter-spacing: -0.02em;
+        line-height: 120%;
+        font-weight: 600;
+        margin-left: 14px;
+    }
+
+    .titulorecompnesa1-parent {
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: var(--gap-lgi);
+    }
+
+    .impulsoras1 {
+        width: 102px;
+        position: relative;
+        letter-spacing: -0.02em;
+        line-height: 140%;
+        font-weight: 600;
+    }
+
+    .impulsoras1-parent {
+        align-self: stretch;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: var(--gap-xl);
+        text-align: center;
+        font-size: var(--font-size-5xl);
+        margin-left: 190px;
+    }
+
+    .frame-parent26 {
+        align-self: stretch;
+        gap: 56px;
+    }
+
+    .cardrecompensa1 {
+        width: 307.5px;
+        border-radius: var(--br-5xs);
+        background-color: #9D76C7;
+        overflow: hidden;
+        flex-shrink: 0;
+        padding: var(--padding-mini) var(--padding-2xs) var(--padding-4xs-3) var(--padding-xs);
+        box-sizing: border-box;
+        gap: var(--gap-sm-7);
+        cursor: pointer;
+    }
+
+    .submitBtn {
+        background-color: #9D76C7;
+        border: none;
+    }
+
+</style>
 <body>
     <div class="infoproyecto">
         <img class="foto1-icon" loading="lazy" alt="" src="@Model.UrlFotoEncabezado" />
@@ -122,7 +208,7 @@
                             <div class="rewards-carousel">
                                 @foreach (var recompensa in ViewBag.ListaRecompensas as List<Recompensa>)
                                 {
-                                    <div class="cardrecompensa1">
+                                    <div class="cardrecompensa1" data-id="@recompensa.IDRecompensa">
                                         <img class="fotorecompensa1-icon" loading="lazy" alt="Recompensa" src="@recompensa.URLImagenRecompensa" />
                                         <div class="frame-parent26">
                                             <div class="titulorecompnesa1-parent">
@@ -139,23 +225,23 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @if(@Model.FKUsuario != ViewBag.UsuarioActivo)
+
+                                        @if (@Model.FKUsuario != ViewBag.UsuarioActivo)
                                         {
-                                        <!-- Formulario para realizar una donación -->
-                                        <form asp-action="Donacion" method="post" class="crearDonacionForm" id="crearDonacionForm_@recompensa.IDRecompensa">
-                                            <!-- Campo oculto para enviar el ID de la recompensa -->
-                                            <input type="hidden" name="FKRecompensa" value="@recompensa.IDRecompensa" />
+                                            <!-- Formulario oculto para realizar la donación -->
+                                            <form asp-action="Donacion" method="post" class="crearDonacionForm" id="crearDonacionForm_@recompensa.IDRecompensa">
+                                                <!-- Campo oculto para enviar el ID de la recompensa -->
+                                                <input type="hidden" name="FKRecompensa" value="@recompensa.IDRecompensa" />
 
-                                            <!-- Campo oculto para enviar el ID del proyecto relacionado -->
-                                            <input type="hidden" name="FKProyecto" value="@Model.IDProyecto" />
+                                                <!-- Campo oculto para enviar el ID del proyecto relacionado -->
+                                                <input type="hidden" name="FKProyecto" value="@Model.IDProyecto" />
 
-                                            <input type="hidden" name="FKUsuario" value="@Model.FKUsuario" />
-
-                                            <button type="submit" class="submitBtn" data-id="@recompensa.IDRecompensa" class="btn btn-primary">Donar</button>
-
-                                        </form>
-                                }
+                                                <input type="hidden" name="FKUsuario" value="@Model.FKUsuario" />
+                                            </form>
+                                        }
                                     </div>
+
+
                                 }
 
 
@@ -173,16 +259,17 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                // Seleccionar todos los botones de donación
-                const donateButtons = document.querySelectorAll('.submitBtn');
+                // Seleccionar todas las tarjetas con clase 'cardrecompensa1'
+                const recompensaCards = document.querySelectorAll('.cardrecompensa1');
 
-                donateButtons.forEach(button => {
-                    button.addEventListener('click', function (event) {
+                recompensaCards.forEach(card => {
+                    card.addEventListener('click', function (event) {
                         event.preventDefault();
 
-                        // Obtener el id de la recompensa desde el data-id del botón
-                        const idRecompensa = button.getAttribute('data-id');
+                        // Obtener el id de la recompensa desde el data-id de la tarjeta
+                        const idRecompensa = card.getAttribute('data-id');
 
+                        // Mostrar la confirmación con SweetAlert2
                         Swal.fire({
                             title: '¿Estás seguro de que quieres donar a este proyecto?',
                             text: "¡No podrás revertir esto!",
@@ -194,7 +281,7 @@
                             cancelButtonText: 'No, cancelar'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                // Usar el id de la recompensa para seleccionar el formulario correcto
+                                // Usar el id de la recompensa para seleccionar el formulario correcto y enviarlo
                                 document.getElementById(`crearDonacionForm_${idRecompensa}`).submit();
                             }
                         });
