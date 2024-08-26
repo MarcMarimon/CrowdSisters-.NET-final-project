@@ -88,12 +88,9 @@
         }
 
         .imagen-encabezado-wrapper {
-            /* margin-left: -14px; */
-            /* height: 111px; */
             width: 1554px;
             display: flex;
             flex-direction: column;
-            /* align-items: flex-start; */
             justify-content: flex-end;
             padding: 0 0 111px;
             box-sizing: border-box;
@@ -219,7 +216,14 @@
                             @Html.LabelFor(m => m.Pais, "Pais", new { @class = "label" })
                             @Html.DropDownListFor(m => m.Pais, new SelectList(new[] { "Argentina", "España" }), new { @class = "input-field select-field" })
                             @Html.ValidationMessageFor(m => m.Pais, "", new { @class = "error-message" })
-                        </div>  @{
+                        </div>
+                        @* Monedero *@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Monedero, "Monedero", new { @class = "label" })
+                            @Html.TextBoxFor(m => m.Monedero, new { @class = "input-field", placeholder = "Introduce el monto de tu Monedero" })
+                            @Html.ValidationMessageFor(m => m.Monedero, "", new { @class = "error-message" })
+                        </div>
+                        @{
                             string sRutaImagen = string.IsNullOrEmpty(Model.URLImagenUsuario) ? "https://via.placeholder.com/150" : @Model.URLImagenUsuario;
                         }
 
