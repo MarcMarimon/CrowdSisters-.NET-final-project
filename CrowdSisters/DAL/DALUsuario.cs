@@ -275,28 +275,31 @@ namespace CrowdSisters.DAL
         public async Task<bool> UpdateRestarMonederoUsuarioAsync(decimal resta, int idUsuario)
         {
             const string query = @"
-        UPDATE Usuario 
-        SET Monedero = Monedero - @Resta
-        WHERE IDUsuario = @IDUsuario";
+    UPDATE Usuario 
+    SET Monedero = Monedero - @Resta
+    WHERE IDUsuario = @IDUsuario";
 
             try
             {
                 using (var sqlConn = _connection.GetSqlConn())
                 using (var command = new SqlCommand(query, sqlConn))
                 {
-                    sqlConn.Open(); // Asegúrate de abrir la conexión
+                    sqlConn.Open();
                     command.Parameters.AddWithValue("@IDUsuario", idUsuario);
-                    command.Parameters.AddWithValue("@Resta", resta);
+                    command.Parameters.AddWithValue("@Resta", resta); // `decimal` se maneja bien con `MONEY`
 
-                    return await command.ExecuteNonQueryAsync() > 0;
+                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    return rowsAffected > 0;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"Error al restar del monedero: {ex.Message}");
                 return false;
             }
         }
+
+
 
         //Update Sumar Monedero Usuario
         public async Task<bool> UpdateSumarMonederoUsuarioAsync(decimal suma, int idUsuario)

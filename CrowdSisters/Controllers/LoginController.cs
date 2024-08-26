@@ -85,34 +85,37 @@ namespace CrowdSisters.Controllers
         // GET: LoginController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            int? ID = HttpContext.Session.GetInt32("IdUsuario");
-            if(id == ID)
-            {
-                Usuario usuario = await _serviceLogin.GetByIdAsync(id);
-                return View(usuario);
-            }else
-            {
-                return RedirectToAction("Index","Home");
-            }
 
+            Usuario usuario = await _serviceLogin.GetByIdAsync(id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+            return View(usuario);
         }
 
-        // POST: LoginController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Usuario user, string ContrasenaHidden)
+        public async Task<ActionResult> Edit(Usuario user, string ContrasenaHidden)
         {
+            if (!ModelState.IsValid)
+            {
+                // Si hay errores de validación, se vuelve a mostrar el formulario
+                return View(user);
+            }
+
             try
             {
-                if (user.Contrasena == null)
+                if (string.IsNullOrEmpty(user.Contrasena))
                     user.Contrasena = ContrasenaHidden;
 
-                _serviceLogin.UpdateAsync(user);
-                return View(user);
+                await _serviceLogin.UpdateAsync(user);
+                return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                // Manejo de errores
+                return View(user);
             }
         }
 
