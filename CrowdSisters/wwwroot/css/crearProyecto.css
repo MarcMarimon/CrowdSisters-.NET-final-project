@@ -20,7 +20,6 @@
 }
 
 .lineaprogreso-icon {
-    height: 30px;
     flex: 1;
     position: relative;
     max-width: 100%;
@@ -739,6 +738,7 @@
     justify-content: flex-start;
     gap: var(--space-200);
     font-size: 16px;
+    color:white;
 }
 
 .contact,

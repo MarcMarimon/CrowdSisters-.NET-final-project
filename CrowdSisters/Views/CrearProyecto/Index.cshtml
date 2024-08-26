@@ -19,10 +19,11 @@
     <section class="project-details1">
         <div class="personal-and-project-parent">
             <div class="personal-and-project">
-                <img class="lineaprogreso-icon"
+                <img id="lineaprogreso"
+                    class ="lineaprogreso-icon"
                      loading="lazy"
                      alt=""
-                     src="./public/lineaprogreso.svg" />
+                     src= "./img/BarraDatosPersonales.png" />
             </div>
             <div class="project-confirmation">
                 <div class="datos-personales">DATOS PERSONALES</div>
@@ -402,7 +403,7 @@
                     <!-- Botones de navegación -->
                     <div class="button-container">
                         <button type="button" id="nextBtn" class="botn-siguiente-paso">Siguiente Paso</button>
-                        <button type="submit" id="submitBtn" class="btn btn-success" style="display:none;">Confirmar</button>
+                        <button type="submit" id="submitBtn" class="botn-siguiente-paso" style="display:none;">Confirmar</button>
                     </div>
 
                 }
@@ -541,12 +542,27 @@
                 if (validateSection()) {
                     if (currentStep < steps.length - 1) {
                         currentStep++;
-                        alert(currentStep);
                         showStep(currentStep);
-                        
+
+                        // Actualizar la imagen de progreso según el paso actual
+                        updateProgressImage(currentStep);
+                        //Enviar al top de la pagina
+                        focusOnProgressImage();
                     }
                 }
             });
+
+            function updateProgressImage(step) {
+                var imageElement = document.getElementById("lineaprogreso");
+                imageElement.src = `./img/paso${step}.png`;
+            }
+            function focusOnProgressImage() {
+                var element = document.getElementById("lineaprogreso");
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                    element.focus();
+                }
+            }
 
             // Evento para el botón "Enviar" con SweetAlert2
             document.getElementById("submitBtn").addEventListener("click", function (event) {
