@@ -43,6 +43,7 @@
     position: relative;
     letter-spacing: -0.03em;
     line-height: 58px;
+    font-size:50px;
 }
 
 .project-title-area,
@@ -108,15 +109,6 @@
     text-align: left;
 }
 
-.digito3-child {
-    height: 106.5px;
-    width: 81px;
-    position: relative;
-    border-radius: var(--br-31xl);
-    background-color: var(--color-slateblue);
-    display: none;
-}
-
 .days-value {
     position: relative;
     letter-spacing: -0.03em;
@@ -125,24 +117,28 @@
     display: inline-block;
     min-width: 40px;
     z-index: 1;
-}
-
-.digito3 {
     box-shadow: 0 4px 4px rgba(88, 30, 153, 0.5);
-    border-radius: var(--br-31xl);
+    border-radius:50%;
     background-color: var(--color-slateblue);
     flex-direction: row;
     justify-content: flex-start;
-    padding: var(--padding-base) var(--padding-xl) var(--padding-2xl-5) var(--padding-2xl);
+    padding: 10px;;
 }
 
-.backers-icon,
-.digito3,
-.digitosdias {
-    display: flex;
-    align-items: flex-start;
+.digito3 {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap:15px;
+    min-width:350px;
 }
 
+
+.nombre-creadora {
+    margin: 10px;
+    font-weight: bold;
+}
 .digitosdias {
     flex-direction: row;
     justify-content: flex-start;
@@ -155,21 +151,10 @@
     padding: 0 0 var(--padding-10xs);
 }
 
-.digitosimpulsoras,
-.digitosrecaudacion {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: center;
-    gap: var(--gap-3xs);
-    max-width: 100%;
-}
-
 .project-stats-values,
 .project-stats-values-wrapper {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
     max-width: 100%;
 }
 
@@ -189,6 +174,7 @@
     letter-spacing: -0.03em;
     line-height: 120%;
     font-weight: 500;
+    color: var(--color-slateblue);
     display: inline-block;
     text-shadow: 0 4px 4px rgba(88, 30, 153, 0.5);
     min-width: 72px;
@@ -212,6 +198,7 @@
     letter-spacing: -0.03em;
     line-height: 120%;
     text-align: center;
+    font-size:40px;
 }
 
 .project-description-block {
@@ -224,8 +211,17 @@
     min-width: 220px;
     max-width: 100%;
 }
-
-.impulsoras {
+.project-description-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+    min-width: 220px;
+    max-width: 100%;
+}
+    .impulsoras {
     position: relative;
     letter-spacing: -0.03em;
     line-height: 120%;
@@ -253,29 +249,30 @@
     gap: var(--gap-xl);
 }
 
-.project-stats-container,
-.project-stats-container-inner {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    max-width: 100%;
-}
 
 .project-stats-container-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
     width: 1175px;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 25px;
     padding: 0 var(--padding-xl);
     box-sizing: border-box;
     font-size: var(--font-size-13xl);
     color: var(--color-indigo);
+    margin-top: 50px;
 }
 
 .project-stats-container {
-    align-self: stretch;
-    flex-direction: column;
-    gap: 34.5px;
+    display: flex;
+    flex-direction: row;
+    gap: 450px;
     font-size: var(--font-size-45xl);
     color: var(--color-ghostwhite);
+    margin-left: 150px;
+    margin-right: 200px;
 }
 
 .descripcion1 {
@@ -305,14 +302,6 @@
     color: var(--color-slateblue);
 }
 
-.project-title-wrapper {
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-start;
-    gap: 43.5px;
-    text-align: justify;
-    font-size: var(--font-size-29xl);
-}
 
 .foto2-icon {
     width: 793.5px;
@@ -320,6 +309,15 @@
     max-height: 100%;
     object-fit: cover;
     max-width: 100%;
+}
+.foto3-icon {
+    width: 500px;
+    height: 500px;
+    position: relative;
+    max-height: 100%;
+    object-fit: cover;
+    max-width: 100%;
+    border-radius: 10%;
 }
 
 .foto2-wrapper {
@@ -331,16 +329,9 @@
     padding: 0 var(--padding-xl);
     box-sizing: border-box;
     max-width: 100%;
+    padding-top: 40px;
 }
 
-.titulodescripcion2 {
-    width: 433px;
-    position: relative;
-    letter-spacing: -0.03em;
-    line-height: 39px;
-    display: inline-block;
-    max-width: 100%;
-}
 
 .additional-info-content {
     align-self: stretch;
@@ -727,7 +718,6 @@
     text-align: left;
     font-size: var(--font-size-xl);
     color: var(--color-ghostwhite);
-    margin-left: 65px;
 }
 
 .frame-parent25,
