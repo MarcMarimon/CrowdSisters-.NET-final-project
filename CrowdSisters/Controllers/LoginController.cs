@@ -85,6 +85,7 @@ namespace CrowdSisters.Controllers
         // GET: LoginController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
+
             Usuario usuario = await _serviceLogin.GetByIdAsync(id);
             if (usuario == null)
             {
