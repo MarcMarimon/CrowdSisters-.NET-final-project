@@ -72,6 +72,7 @@ namespace CrowdSisters.Controllers
                 /*Restar dinero al monedero del usuario*/
 
                 await _serviceUsuario.RestarMonederoUsuarioAsync(recompensa.Monto, (int)HttpContext.Session.GetInt32("IdUsuario"));
+                HttpContext.Session.SetString("Monedero", await _serviceUsuario.GetMonto((int)HttpContext.Session.GetInt32("IdUsuario")));
 
                 /*Añadir dinero al proyecto*/
 
