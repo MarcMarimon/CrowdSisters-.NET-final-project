@@ -41,10 +41,10 @@ namespace CrowdSisters.Services
             }
         }
 
-        public async Task<string> GetMonto(int id)
+        public async Task<int> GetMonto(int id)
         {
             Usuario usuario = await _dalUsuario.GetByIdAsync(id);
-            return usuario.Monedero.ToString();
+            return (int)usuario.Monedero;
         }
 
 

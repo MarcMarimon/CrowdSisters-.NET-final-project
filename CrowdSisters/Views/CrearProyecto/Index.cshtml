@@ -163,6 +163,10 @@
                                 <div class="line-div"></div>
                             </div>
                         </div>
+                        @{
+                            string sRutaImagen = string.IsNullOrEmpty(@usuario.URLImagenUsuario) ? "https://via.placeholder.com/150" : @usuario.URLImagenUsuario;
+                        }
+
 
                         <div class="parte-formulario2">
                             <div class="fotos-wrap">
@@ -170,7 +174,7 @@
                                 <input type="file" id="URLImagenUsuario" name="URLImagenUsuario" asp-for="URLImagenUsuario" accept="image/*" required style="display: none;" onchange="previewImage(event)">
 
                                 <img id="preview"
-                                     src="@usuario.URLImagenUsuario ?? 'https://via.placeholder.com/150'"
+                                     src= "@sRutaImagen"
                                      alt="Haz clic para cargar una imagen"
                                      onclick="document.getElementById('URLImagenUsuario').click();"
                                      style="cursor: pointer; width: 100%; height: 100%; object-fit: cover; border: 2px dashed #ccc;">
@@ -537,7 +541,9 @@
                 if (validateSection()) {
                     if (currentStep < steps.length - 1) {
                         currentStep++;
+                        alert(currentStep);
                         showStep(currentStep);
+                        
                     }
                 }
             });

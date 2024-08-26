@@ -46,7 +46,7 @@ namespace CrowdSisters.Controllers
                 HttpContext.Session.SetInt32("IdUsuario",user.IDUsuario);
                 HttpContext.Session.SetString("Username", user.Nick);
                 HttpContext.Session.SetString("Email", user.Email);
-                HttpContext.Session.SetString("Monedero",user.Monedero.ToString());
+                HttpContext.Session.SetInt32("Monedero",(int)user.Monedero);
                 return RedirectToAction("Index","Home");
             }
             else
@@ -97,20 +97,14 @@ namespace CrowdSisters.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Usuario user, string ContrasenaHidden)
-        {
-            if (!ModelState.IsValid)
-            {
-                // Si hay errores de validación, se vuelve a mostrar el formulario
-                return View(user);
-            }
-
+        {            
             try
             {
                 if (string.IsNullOrEmpty(user.Contrasena))
                     user.Contrasena = ContrasenaHidden;
 
                 await _serviceLogin.UpdateAsync(user);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             catch
             {
