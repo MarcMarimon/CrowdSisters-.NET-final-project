@@ -46,7 +46,7 @@ namespace CrowdSisters.Controllers
                 HttpContext.Session.SetInt32("IdUsuario",user.IDUsuario);
                 HttpContext.Session.SetString("Username", user.Nick);
                 HttpContext.Session.SetString("Email", user.Email);
-                HttpContext.Session.SetString("Monedero",user.Monedero.ToString());
+                HttpContext.Session.SetInt32("Monedero",(int)user.Monedero);
                 return RedirectToAction("Index","Home");
             }
             else
