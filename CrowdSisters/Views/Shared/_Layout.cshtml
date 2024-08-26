@@ -83,7 +83,7 @@
 
                         <div class="hover-target monedero-container">
 
-                            <a href="@Url.Action("Edit","Login")" class="button2" style="top:-15px;">¡Bienvenida @ViewContext.HttpContext.Session.GetString("Username")! </a>
+                            <a href="@Url.Action("Edit","Login",new {Id = ViewContext.HttpContext.Session.GetInt32("IdUsuario")})" class="button2" style="top:-15px;">¡Bienvenida @ViewContext.HttpContext.Session.GetString("Username")! </a>
                             <p class="monedero">Monedero: @ViewContext.HttpContext.Session.GetInt32("Monedero")€ </p>
                         </div>
                         <a href="@Url.Action("Logout", "Login")">

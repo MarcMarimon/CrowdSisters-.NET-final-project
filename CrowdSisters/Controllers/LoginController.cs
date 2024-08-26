@@ -85,8 +85,16 @@ namespace CrowdSisters.Controllers
         // GET: LoginController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            Usuario usuario = await _serviceLogin.GetByIdAsync(id);
-            return View(usuario);
+            int? ID = HttpContext.Session.GetInt32("IdUsuario");
+            if(id == ID)
+            {
+                Usuario usuario = await _serviceLogin.GetByIdAsync(id);
+                return View(usuario);
+            }else
+            {
+                return RedirectToAction("Index","Home");
+            }
+
         }
 
         // POST: LoginController/Edit/5
