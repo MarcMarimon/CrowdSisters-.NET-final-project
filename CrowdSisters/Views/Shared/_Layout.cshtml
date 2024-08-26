@@ -83,10 +83,8 @@
 
                         <div class="hover-target monedero-container">
                             <input type="hidden" id="userId" value="@ViewContext.HttpContext.Session.GetInt32("IdUsuario")" />
-                            <a href="#" onclick="editUser()" class="button2" style="top:-15px;">¡Bienvenida @ViewContext.HttpContext.Session.GetString("Username")! </a>                            <p class="monedero">Monedero: @ViewContext.HttpContext.Session.GetInt32("Monedero")€ </p>
-                            <p class="monedero">Monedero: @ViewContext.HttpContext.Session.GetInt32("Monedero")€ </p>
-
-                           
+                            <a href="#" onclick="editUser()" class="button2" style="top:-15px;">¡Bienvenida @ViewContext.HttpContext.Session.GetString("Username")! </a>
+                            <p class="monedero">Monedero: @ViewContext.HttpContext.Session.GetInt32("Monedero")€ </p>                           
                         </div>
                         <a href="@Url.Action("Logout", "Login")">
                             <!-- Ajusta la ruta según tu controlador y acción -->
