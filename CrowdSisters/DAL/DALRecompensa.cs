@@ -131,6 +131,46 @@ namespace CrowdSisters.DAL
             }
         }
 
+        // Obtener las recompensas de un proyecto
+        public async Task<IEnumerable<Recompensa>> GetRecompensasByIdProyectoAsync(int idProyecto)
+        {
+            List<Recompensa> recompensas = new List<Recompensa>();
+
+            const string query = @"SELECT * FROM Recompensa WHERE FKProyecto = @idProyecto;";
+
+            try
+            {
+                using (var sqlConn = _connection.GetSqlConn())
+                using (var command = new SqlCommand(query, sqlConn))
+                {
+                    sqlConn.Open(); // Asegúrate de abrir la conexión
+                    command.Parameters.AddWithValue("@idProyecto", idProyecto);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            recompensas.Add(new Recompensa
+                            {
+                                IDRecompensa = reader.GetInt32(reader.GetOrdinal("IDRecompensa")),
+                                Titulo = reader.GetString(reader.GetOrdinal("Titulo")),
+                                Descripcion = reader.GetString(reader.GetOrdinal("Descripcion")),
+                                Monto = reader.GetDecimal(reader.GetOrdinal("Monto")),
+                                URLImagenRecompensa = reader.GetString(reader.GetOrdinal("URLImagenRecompensa")),
+                                FKProyecto = reader.GetInt32(reader.GetOrdinal("FKProyecto")),
+                            });
+                        }
+                    }
+                }
+                return recompensas;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
         // Actualizar
         public async Task<bool> UpdateAsync(Recompensa recompensa)
         {
