@@ -53,6 +53,7 @@
             display: block !important;
             margin-bottom: 0.5rem;
         }
+
         .input-field, .select-field {
             width: 100%;
             padding: 0.75rem;
@@ -60,7 +61,7 @@
             border: 1px solid #ccc;
             box-sizing: border-box;
             font-size: 14px;
-            margin-bottom: 1rem; 
+            margin-bottom: 1rem;
         }
 
         .select-field {
@@ -69,6 +70,7 @@
             -moz-appearance: none;
             background: #fff;
         }
+
         .button-container {
             grid-column: span 2;
             display: flex;
@@ -83,6 +85,16 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+        }
+
+        .imagen-encabezado-wrapper {
+            width: 1554px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 0 111px;
+            box-sizing: border-box;
+            max-width: 101%;
         }
 
         .cancel-button {
@@ -128,106 +140,114 @@
     <title>@ViewData["Title"]</title>
 </head>
 <body>
-    <div class="imagenproyecto-wrapper">
+    <div class="imagen-encabezado-wrapper">
         <img class="imagenproyecto-icon1" style="object-fit:fill" alt="" src="~/img/EditarProyecto.png" />
-    <div class="edit-user">
-        <div class="container">
-            @using (Html.BeginForm("Edit", "Login", FormMethod.Post, new { @class = "form" }))
-            {
-                <div class="form-container">
-                    @* Nombre *@
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Nombre, "Nombre", new { @class = "label" })
-                        @Html.TextBoxFor(m => m.Nombre, new { @class = "input-field", placeholder = "Introduce tu nombre" })
-                        @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "error-message" })
-                    </div>
 
-                    @* Primer Apellido *@
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.PrimerApellido, "Primer Apellido", new { @class = "label" })
-                        @Html.TextBoxFor(m => m.PrimerApellido, new { @class = "input-field", placeholder = "Introduce tu primer apellido" })
-                        @Html.ValidationMessageFor(m => m.PrimerApellido, "", new { @class = "error-message" })
-                    </div>
-
-                    @* Segundo Apellido *@
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.SegundoApellido, "Segundo Apellido", new { @class = "label" })
-                        @Html.TextBoxFor(m => m.SegundoApellido, new { @class = "input-field", placeholder = "Introduce tu segundo apellido" })
-                        @Html.ValidationMessageFor(m => m.SegundoApellido, "", new { @class = "error-message" })
-                    </div>
-                    @*Contrasena*@
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Contrasena, new { @class = "label" })
-                        @Html.PasswordFor(m => m.Contrasena, new { @class = "input-field", placeholder = "Introduce tu contraseña" })
-                        @Html.Hidden("ContrasenaHidden", Model.Contrasena, new { @id = "ContrasenaHidden" })
-                    </div>
-                    
-
-                    @* Código Postal *@
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.CodigoPostal, "Codigo Postal", new { @class = "label" })
-                        @Html.TextBoxFor(m => m.CodigoPostal, new { @class = "input-field", placeholder = "Introduce tu código postal" })
-                        @Html.ValidationMessageFor(m => m.CodigoPostal, "", new { @class = "error-message" })
-                    </div>
-
-                    @* DNI *@
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.DNI, "DNI", new { @class = "label" })
-                        @Html.TextBoxFor(m => m.DNI, new { @class = "input-field", placeholder = "Introduce tu DNI" })
-                        @Html.ValidationMessageFor(m => m.DNI, "", new { @class = "error-message" })
-                    </div>
-
-                    @* Población *@
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Poblacion, "Población", new { @class = "label" })
-                        @Html.TextBoxFor(m => m.Poblacion, new { @class = "input-field", placeholder = "Introduce tu población" })
-                        @Html.ValidationMessageFor(m => m.Poblacion, "", new { @class = "error-message" })
-                    </div>
-
-                    @* Dirección *@
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Direccion, "Dirección", new { @class = "label" })
-                        @Html.TextBoxFor(m => m.Direccion, new { @class = "input-field", placeholder = "Introduce tu dirección" })
-                        @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "error-message" })
-                    </div>
-
-                    @* Teléfono *@
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Telefono, "Telefono", new { @class = "label" })
-                        @Html.TextBoxFor(m => m.Telefono, new { @class = "input-field", placeholder = "Introduce tu teléfono" })
-                        @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "error-message" })
-                    </div>
-
-                    @* País *@
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Pais, "Pais", new { @class = "label" })
-                        @Html.DropDownListFor(m => m.Pais, new SelectList(new[] { "Argentina", "España" }), new { @class = "input-field select-field" })
-                        @Html.ValidationMessageFor(m => m.Pais, "", new { @class = "error-message" })
-                    </div>  @{
-                        string sRutaImagen = string.IsNullOrEmpty(Model.URLImagenUsuario) ? "https://via.placeholder.com/150" : @Model.URLImagenUsuario;
-                    }
-
-                    @* Imagen de Perfil *@
-                    <div class="image-preview-container">
-                        @Html.LabelFor(m => m.URLImagenUsuario, "Imagen de Perfil", new { @class = "label text-center" })
-                        <div class="image-preview">
-                            <img id="preview"
-                                 src="@sRutaImagen"
-                                 alt="Haz clic para cargar una imagen"
-                                 onclick="document.getElementById('imageUpload').click();"
-                                 style="cursor: pointer; width: 100%; height: 100%; object-fit: cover; border: 2px dashed #ccc;">
+        <div class="edit-user">
+            <div class="container">
+                @using (Html.BeginForm("Edit", "Login", FormMethod.Post, new { @class = "form" }))
+                {
+                    <div class="form-container">
+                        @* Nombre *@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Nombre, "Nombre", new { @class = "label" })
+                            @Html.TextBoxFor(m => m.Nombre, new { @class = "input-field", placeholder = "Introduce tu nombre" })
+                            @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "error-message" })
                         </div>
-                        <input type="file" id="imageUpload" style="display: none;" onchange="previewImage(event)" />
-                        @Html.HiddenFor(m => m.URLImagenUsuario)
-                    </div>
 
-                    <div class="button-container">
-                        <button type="submit" class="submit-button">Guardar cambios</button>
-                        <a asp-action="Index" class="cancel-button">Cancelar</a>
+                        @* Primer Apellido *@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.PrimerApellido, "Primer Apellido", new { @class = "label" })
+                            @Html.TextBoxFor(m => m.PrimerApellido, new { @class = "input-field", placeholder = "Introduce tu primer apellido" })
+                            @Html.ValidationMessageFor(m => m.PrimerApellido, "", new { @class = "error-message" })
+                        </div>
+
+                        @* Segundo Apellido *@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.SegundoApellido, "Segundo Apellido", new { @class = "label" })
+                            @Html.TextBoxFor(m => m.SegundoApellido, new { @class = "input-field", placeholder = "Introduce tu segundo apellido" })
+                            @Html.ValidationMessageFor(m => m.SegundoApellido, "", new { @class = "error-message" })
+                        </div>
+                        @*Contrasena*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Contrasena, new { @class = "label" })
+                            @Html.PasswordFor(m => m.Contrasena, new { @class = "input-field", placeholder = "Introduce tu contraseña" })
+                            @Html.Hidden("ContrasenaHidden", Model.Contrasena, new { @id = "ContrasenaHidden" })
+                        </div>
+
+
+                        @* Código Postal *@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.CodigoPostal, "Codigo Postal", new { @class = "label" })
+                            @Html.TextBoxFor(m => m.CodigoPostal, new { @class = "input-field", placeholder = "Introduce tu código postal" })
+                            @Html.ValidationMessageFor(m => m.CodigoPostal, "", new { @class = "error-message" })
+                        </div>
+
+                        @* DNI *@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DNI, "DNI", new { @class = "label" })
+                            @Html.TextBoxFor(m => m.DNI, new { @class = "input-field", placeholder = "Introduce tu DNI" })
+                            @Html.ValidationMessageFor(m => m.DNI, "", new { @class = "error-message" })
+                        </div>
+
+                        @* Población *@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Poblacion, "Población", new { @class = "label" })
+                            @Html.TextBoxFor(m => m.Poblacion, new { @class = "input-field", placeholder = "Introduce tu población" })
+                            @Html.ValidationMessageFor(m => m.Poblacion, "", new { @class = "error-message" })
+                        </div>
+
+                        @* Dirección *@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Direccion, "Dirección", new { @class = "label" })
+                            @Html.TextBoxFor(m => m.Direccion, new { @class = "input-field", placeholder = "Introduce tu dirección" })
+                            @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "error-message" })
+                        </div>
+
+                        @* Teléfono *@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Telefono, "Telefono", new { @class = "label" })
+                            @Html.TextBoxFor(m => m.Telefono, new { @class = "input-field", placeholder = "Introduce tu teléfono" })
+                            @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "error-message" })
+                        </div>
+
+                        @* País *@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Pais, "Pais", new { @class = "label" })
+                            @Html.DropDownListFor(m => m.Pais, new SelectList(new[] { "Argentina", "España" }), new { @class = "input-field select-field" })
+                            @Html.ValidationMessageFor(m => m.Pais, "", new { @class = "error-message" })
+                        </div>
+                        @* Monedero *@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Monedero, "Monedero", new { @class = "label" })
+                            @Html.TextBoxFor(m => m.Monedero, new { @class = "input-field", placeholder = "Introduce el monto de tu Monedero" })
+                            @Html.ValidationMessageFor(m => m.Monedero, "", new { @class = "error-message" })
+                        </div>
+                        @{
+                            string sRutaImagen = string.IsNullOrEmpty(Model.URLImagenUsuario) ? "https://via.placeholder.com/150" : @Model.URLImagenUsuario;
+                        }
+
+                        @* Imagen de Perfil *@
+                        <div class="image-preview-container">
+                            @Html.LabelFor(m => m.URLImagenUsuario, "Imagen de Perfil", new { @class = "label text-center" })
+                            <div class="image-preview">
+                                <img id="preview"
+                                     src="@sRutaImagen"
+                                     alt="Haz clic para cargar una imagen"
+                                     onclick="document.getElementById('imageUpload').click();"
+                                     style="cursor: pointer; width: 100%; height: 100%; object-fit: cover; border: 2px dashed #ccc;">
+                            </div>
+                            <input type="file" id="imageUpload" style="display: none;" onchange="previewImage(event)" />
+                            @Html.HiddenFor(m => m.URLImagenUsuario)
+                        </div>
+
+                        <div class="button-container">
+                            <button type="submit" class="submit-button">Guardar cambios</button>
+                            <a asp-action="Index" class="cancel-button">Cancelar</a>
+                        </div>
                     </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
         </div>
     </div>
 

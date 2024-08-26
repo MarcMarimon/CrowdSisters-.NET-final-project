@@ -59,6 +59,19 @@ namespace CrowdSisters.Controllers
         public async Task<ActionResult> Index(CrearProyectoViewModel model)
         {
 
+            foreach (var state in ModelState)
+            {
+                foreach (var error in state.Value.Errors)
+                {
+                    // Escribir el mensaje de error y la excepción (si la hay) en la consola
+                    Console.WriteLine($"Error: {error.ErrorMessage}");
+                    if (error.Exception != null)
+                    {
+                        Console.WriteLine($"Exception: {error.Exception.Message}");
+                    }
+                }
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
