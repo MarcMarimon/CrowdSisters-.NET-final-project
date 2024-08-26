@@ -206,6 +206,12 @@
                     </div>  @{
                         string sRutaImagen = string.IsNullOrEmpty(Model.URLImagenUsuario) ? "https://via.placeholder.com/150" : @Model.URLImagenUsuario;
                     }
+                        @*Monedero*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Monedero, new { @class = "label" })
+                            @Html.PasswordFor(m => m.Monedero, new { @class = "input-field", placeholder = "Introduce el monto de tu monedero" })
+                            @Html.ValidationMessageFor(m => m.Monedero, "", new { @class = "error-message" })
+                        </div>
 
                     @* Imagen de Perfil *@
                     <div class="image-preview-container">
