@@ -33,7 +33,10 @@ namespace CrowdSisters.Controllers
                 var proyecto = await _serviceProyecto.GetByIdAsync(id);
 
                 ViewBag.ListaRecompensas = await _serviceRecompensa.GetRecompensasByIdProyectoAsync(id);
-                
+
+                ViewBag.UsuarioActivo = HttpContext.Session.GetInt32("IdUsuario");
+
+
                 if (proyecto == null)
                 {
                     return NotFound("El proyecto no fue encontrado.");

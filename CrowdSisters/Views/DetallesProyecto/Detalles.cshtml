@@ -139,7 +139,8 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        @if(@Model.FKUsuario != ViewBag.UsuarioActivo)
+                                        {
                                         <!-- Formulario para realizar una donación -->
                                         <form asp-action="Donacion" method="post" class="crearDonacionForm" id="crearDonacionForm_@recompensa.IDRecompensa">
                                             <!-- Campo oculto para enviar el ID de la recompensa -->
@@ -150,9 +151,10 @@
 
                                             <input type="hidden" name="FKUsuario" value="@Model.FKUsuario" />
 
-                                            <!-- Botón para realizar la donación -->
                                             <button type="submit" class="submitBtn" data-id="@recompensa.IDRecompensa" class="btn btn-primary">Donar</button>
+
                                         </form>
+                                }
                                     </div>
                                 }
 
