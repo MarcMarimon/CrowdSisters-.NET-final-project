@@ -77,14 +77,6 @@ namespace CrowdSisters.Controllers
 
                 await _serviceProyecto.UpdateMontoRecaudadoAsync(recompensa.Monto, model.FKProyecto);
 
-                /* Buscar Proyecto */
-
-                var proyecto = await _serviceProyecto.GetByIdAsync(model.FKProyecto);
-
-                /*Añadir dinero al propietario del proyecto*/
-
-                await _serviceUsuario.SumarMonederoUsuarioAsync(recompensa.Monto, proyecto.FKUsuario);
-
                 return RedirectToAction("Index", "Proyecto");
             }
             catch (Exception ex)
