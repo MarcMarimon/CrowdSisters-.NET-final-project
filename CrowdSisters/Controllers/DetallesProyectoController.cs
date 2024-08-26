@@ -31,6 +31,12 @@ namespace CrowdSisters.Controllers
             try
             {
                 var proyecto = await _serviceProyecto.GetByIdAsync(id);
+
+                ViewBag.ListaRecompensas = await _serviceRecompensa.GetRecompensasByIdProyectoAsync(id);
+
+                ViewBag.UsuarioActivo = HttpContext.Session.GetInt32("IdUsuario");
+
+
                 if (proyecto == null)
                 {
                     return NotFound("El proyecto no fue encontrado.");
@@ -49,6 +55,12 @@ namespace CrowdSisters.Controllers
         {
             try
             {
+
+                int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+
+                if (idUsuario == null || idUsuario == 0)
+                    return RedirectToAction("Index", "Login");
+            
                 /*Crear donación*/
 
                 await _serviceDonacion.CrearDonacionAsync(model, (int)HttpContext.Session.GetInt32("IdUsuario"));
@@ -65,15 +77,7 @@ namespace CrowdSisters.Controllers
 
                 await _serviceProyecto.UpdateMontoRecaudadoAsync(recompensa.Monto, model.FKProyecto);
 
-                /* Buscar Proyecto */
-
-                var proyecto = await _serviceProyecto.GetByIdAsync(model.FKProyecto);
-
-                /*Añadir dinero al propietario del proyecto*/
-
-                await _serviceUsuario.SumarMonederoUsuarioAsync(recompensa.Monto, proyecto.FKUsuario);
-
-                return View();
+                return RedirectToAction("Index", "Proyecto");
             }
             catch (Exception ex)
             {

@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="~/css/index.css" />
     <link rel="stylesheet" href="~/css/desktop.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
     <style>
         /* General Layout */
         .edit-user {
@@ -23,199 +22,192 @@
             align-items: center;
             min-height: 100vh;
             background-color: #f9f9f9;
+            padding: 2rem;
         }
 
         .container {
-            background: #fff;
-            border-radius: 8px;
+            background: #f4eafa;
+            border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 2rem;
             max-width: 800px;
             width: 100%;
         }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .close-btn {
-            width: 24px;
-            height: 24px;
-        }
-
-            .close-btn img {
-                width: 100%;
-                height: auto;
-            }
-
-        .title {
-            font-size: 24px;
-            font-weight: 600;
-            margin: 0;
-        }
-
         .form-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group {
             display: flex;
             flex-direction: column;
         }
 
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
         .label {
-            font-size: 16px;
-            font-weight: 500;
+            font-size: 14px;
+            font-weight: 600;
+            color: #9057d9; /* Color lila */
             margin-bottom: 0.5rem;
         }
 
-        .input-field, .textarea-field {
+        .input-field, .select-field {
             width: 100%;
             padding: 0.75rem;
             border-radius: 4px;
             border: 1px solid #ccc;
             box-sizing: border-box;
+            font-size: 14px;
+            margin-bottom: 1rem; 
         }
 
-        .checkbox-input {
-            margin-right: 0.5rem;
+        .select-field {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: #fff;
+        }
+        .button-container {
+            grid-column: span 2;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
         }
 
-        .error-message {
-            color: #d9534;
+        .submit-button {
+            background-color: #9057d9;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
+        .cancel-button {
+            background-color: transparent;
+            color: #9057d9;
+            padding: 0.75rem 2rem;
+            border: 2px solid #9057d9;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .image-preview-container {
+            grid-column: span 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .image-preview {
+            width: 150px;
+            height: 150px;
+            border: 2px dashed #ccc;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+        }
+
+            .image-preview img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
     </style>
     <title>@ViewData["Title"]</title>
 </head>
 <body>
     <div class="edit-user">
         <div class="container">
-            <div class="header">
-                <a href="@Url.Action("Index", "Home")" class="close-btn">
-                    <img src="~/img/boton-x.png" alt="Cerrar" />
-                </a>
-            </div>
-
-            @using (Html.BeginForm("Edit", "Login", FormMethod.Post, new { @class = "form" }))
+            @using (Html.BeginForm("Edit", "Usuario", FormMethod.Post, new { @class = "form" }))
             {
                 <div class="form-container">
                     @* Nombre *@
                     <div class="form-group">
-                        <label asp-for="Nombre" class="label">Nombre</label>
-                        <input asp-for="Nombre" class="input-field" placeholder="Introduce tu nombre" />
-                        <span asp-validation-for="Nombre" class="error-message"></span>
-                    </div>
-
-                    @* Email *@
-                    <div class="form-group">
-                        <label asp-for="Email" class="label">Email</label>
-                        <input asp-for="Email" class="input-field" placeholder="Introduce tu email" />
-                        <span asp-validation-for="Email" class="error-message"></span>
-                    </div>
-
-                    @* Contraseña *@
-                    <div class="form-group">
-                        <label asp-for="Contrasena" class="label">Contraseña</label>
-                        <input asp-for="Contrasena" type="password" class="input-field" placeholder="Introduce tu contraseña" />
-                        <input type="hidden" asp-for="Contrasena" name="ContrasenaHidden" />
-                    </div>
-
-                    <input type="hidden" asp-for="FechaRegistro" />
-
-                    @* IsAdmin *@
-                    <div class="form-group">
-                        <label asp-for="IsAdmin" class="label">Admin</label>
-                        <input asp-for="IsAdmin" type="checkbox" class="checkbox-input" />
-                    </div>
-
-                    @* Perfil Público *@
-                    <div class="form-group">
-                        <label asp-for="PerfilPublico" class="label">Perfil Público</label>
-                        <textarea asp-for="PerfilPublico" class="textarea-field" placeholder="Introduce el perfil público"></textarea>
-                        <span asp-validation-for="PerfilPublico" class="error-message"></span>
-                    </div>
-
-                    @* URL Imagen Usuario *@
-                    <div class="form-group">
-                        <label asp-for="URLImagenUsuario" class="label">URL Imagen Usuario</label>
-                        <input asp-for="URLImagenUsuario" class="input-field" placeholder="Introduce la URL de la imagen" />
-                        <span asp-validation-for="URLImagenUsuario" class="error-message"></span>
-                    </div>
-
-                    @* Monedero *@
-                    <div class="form-group">
-                        <label asp-for="Monedero" class="label">Monedero</label>
-                        <input asp-for="Monedero" class="input-field" placeholder="Introduce el monto" />
-                        <span asp-validation-for="Monedero" class="error-message"></span>
+                        @Html.LabelFor(m => m.Nombre, "Nombre", new { @class = "label" })
+                        @Html.TextBoxFor(m => m.Nombre, new { @class = "input-field", placeholder = "Introduce tu nombre" })
+                        @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "error-message" })
                     </div>
 
                     @* Primer Apellido *@
                     <div class="form-group">
-                        <label asp-for="PrimerApellido" class="label">Primer Apellido</label>
-                        <input asp-for="PrimerApellido" class="input-field" placeholder="Introduce el primer apellido" />
-                        <span asp-validation-for="PrimerApellido" class="error-message"></span>
+                        @Html.LabelFor(m => m.PrimerApellido, "Primer Apellido", new { @class = "label" })
+                        @Html.TextBoxFor(m => m.PrimerApellido, new { @class = "input-field", placeholder = "Introduce tu primer apellido" })
+                        @Html.ValidationMessageFor(m => m.PrimerApellido, "", new { @class = "error-message" })
                     </div>
 
                     @* Segundo Apellido *@
                     <div class="form-group">
-                        <label asp-for="SegundoApellido" class="label">Segundo Apellido</label>
-                        <input asp-for="SegundoApellido" class="input-field" placeholder="Introduce el segundo apellido" />
-                        <span asp-validation-for="SegundoApellido" class="error-message"></span>
+                        @Html.LabelFor(m => m.SegundoApellido, "Segundo Apellido", new { @class = "label" })
+                        @Html.TextBoxFor(m => m.SegundoApellido, new { @class = "input-field", placeholder = "Introduce tu segundo apellido" })
+                        @Html.ValidationMessageFor(m => m.SegundoApellido, "", new { @class = "error-message" })
+                    </div>
+                    @*Contrasena*@
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Contrasena, new { @class = "label" })
+                        @Html.PasswordFor(m => m.Contrasena, new { @class = "input-field", placeholder = "Introduce tu contraseña" })
+                        @Html.ValidationMessageFor(m => m.Contrasena, "", new { @class = "error-message" })
+                    </div>
+
+
+                    @* Código Postal *@
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.CodigoPostal, "Codigo Postal", new { @class = "label" })
+                        @Html.TextBoxFor(m => m.CodigoPostal, new { @class = "input-field", placeholder = "Introduce tu código postal" })
+                        @Html.ValidationMessageFor(m => m.CodigoPostal, "", new { @class = "error-message" })
                     </div>
 
                     @* DNI *@
                     <div class="form-group">
-                        <label asp-for="DNI" class="label">DNI</label>
-                        <input asp-for="DNI" class="input-field" placeholder="Introduce el DNI" />
-                        <span asp-validation-for="DNI" class="error-message"></span>
-                    </div>
-
-                    @* Dirección *@
-                    <div class="form-group">
-                        <label asp-for="Direccion" class="label">Dirección</label>
-                        <input asp-for="Direccion" class="input-field" placeholder="Introduce la dirección" />
-                        <span asp-validation-for="Direccion" class="error-message"></span>
-                    </div>
-
-                    @* Código Postal *@
-                    <div class="form-group">
-                        <label asp-for="CodigoPostal" class="label">Código Postal</label>
-                        <input asp-for="CodigoPostal" class="input-field" placeholder="Introduce el código postal" />
-                        <span asp-validation-for="CodigoPostal" class="error-message"></span>
+                        @Html.LabelFor(m => m.DNI, "DNI", new { @class = "label" })
+                        @Html.TextBoxFor(m => m.DNI, new { @class = "input-field", placeholder = "Introduce tu DNI" })
+                        @Html.ValidationMessageFor(m => m.DNI, "", new { @class = "error-message" })
                     </div>
 
                     @* Población *@
                     <div class="form-group">
-                        <label asp-for="Poblacion" class="label">Población</label>
-                        <input asp-for="Poblacion" class="input-field" placeholder="Introduce la población" />
-                        <span asp-validation-for="Poblacion" class="error-message"></span>
+                        @Html.LabelFor(m => m.Poblacion, "Población", new { @class = "label" })
+                        @Html.TextBoxFor(m => m.Poblacion, new { @class = "input-field", placeholder = "Introduce tu población" })
+                        @Html.ValidationMessageFor(m => m.Poblacion, "", new { @class = "error-message" })
+                    </div>
+
+                    @* Dirección *@
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Direccion, "Dirección", new { @class = "label" })
+                        @Html.TextBoxFor(m => m.Direccion, new { @class = "input-field", placeholder = "Introduce tu dirección" })
+                        @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "error-message" })
                     </div>
 
                     @* Teléfono *@
                     <div class="form-group">
-                        <label asp-for="Telefono" class="label">Teléfono</label>
-                        <input asp-for="Telefono" class="input-field" placeholder="Introduce el teléfono" />
-                        <span asp-validation-for="Telefono" class="error-message"></span>
+                        @Html.LabelFor(m => m.Telefono, "Telefono", new { @class = "label" })
+                        @Html.TextBoxFor(m => m.Telefono, new { @class = "input-field", placeholder = "Introduce tu teléfono" })
+                        @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "error-message" })
                     </div>
 
                     @* País *@
                     <div class="form-group">
-                        <label asp-for="Pais" class="label">País</label>
-                        <input asp-for="Pais" class="input-field" placeholder="Introduce el país" />
-                        <span asp-validation-for="Pais" class="error-message"></span>
+                        @Html.LabelFor(m => m.Pais, "Pais", new { @class = "label" })
+                        @Html.DropDownListFor(m => m.Pais, new SelectList(new[] { "Argentina", "España" }), new { @class = "input-field select-field" })
+                        @Html.ValidationMessageFor(m => m.Pais, "", new { @class = "error-message" })
                     </div>
 
-                    @* Nick *@
-                    <div class="form-group">
-                        <label asp-for="Nick" class="label">Nick</label>
-                        <input asp-for="Nick" class="input-field" placeholder="Introduce el nick" />
-                        <span asp-validation-for="Nick" class="error-message"></span>
+                    @* Imagen de Perfil *@
+                    <div class="image-preview-container">
+                        @Html.LabelFor(m => m.URLImagenUsuario, "Imagen de Perfil", new { @class = "label" })
+                        <div class="image-preview" onclick="document.getElementById('imageUpload').click();"></div>
+                        <input type="file" id="imageUpload" style="display: none;" onchange="previewImage(event)" />
+                        @Html.HiddenFor(m => m.URLImagenUsuario)
                     </div>
-
-                    <input type="hidden" asp-for="IDUsuario" />
 
                     <div class="button-container">
                         <button type="submit" class="submit-button">Guardar cambios</button>
@@ -225,5 +217,18 @@
             }
         </div>
     </div>
+
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.querySelector('.image-preview');
+                output.style.backgroundImage = 'url(' + reader.result + ')';
+                document.getElementById('URLImagenUsuario').value = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+    </script>
 </body>
 </html>
