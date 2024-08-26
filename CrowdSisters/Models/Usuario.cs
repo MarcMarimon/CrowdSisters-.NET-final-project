@@ -25,7 +25,7 @@ namespace CrowdSisters.Models
         [Required]
         public bool IsAdmin { get; set; }
 
-        [StringLength(200)]
+        [StringLength(2000)]
         public string? PerfilPublico { get; set; }
 
         [StringLength(200)]
