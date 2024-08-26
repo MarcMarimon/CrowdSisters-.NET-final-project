@@ -19,6 +19,10 @@ a.navbar-brand {
     justify-items: center;
 
 }
+.monedero {
+    margin-right: 33px;
+    margin-left: 33px;
+}
 a {
     color: #f7f0fc;
     text-decoration: none;
