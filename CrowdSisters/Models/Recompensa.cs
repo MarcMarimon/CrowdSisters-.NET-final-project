@@ -31,6 +31,6 @@ namespace CrowdSisters.Models
         [StringLength(200)]
         public string URLImagenRecompensa { get; set; }
 
-        public ICollection<Donacion> Donaciones { get; set; }
+        public ICollection<Donacion> Donaciones { get; set; } = new List<Donacion>();
     }
 }

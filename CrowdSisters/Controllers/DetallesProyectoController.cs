@@ -11,11 +11,18 @@ namespace CrowdSisters.Controllers
     {
         private readonly ServiceProyecto _serviceProyecto;
         private readonly ILogger<DetallesProyectoController> _logger;
+        private readonly ServiceDonacion _serviceDonacion;
+        private readonly ServiceUsuario _serviceUsuario;
+        private readonly ServiceRecompensa _serviceRecompensa;
 
-        public DetallesProyectoController(ServiceProyecto serviceProyecto, ILogger<DetallesProyectoController> logger)
+        public DetallesProyectoController(ServiceProyecto serviceProyecto, ILogger<DetallesProyectoController> logger, ServiceDonacion serviceDonacion,
+           ServiceUsuario serviceUsuario, ServiceRecompensa serviceRecompensa )
         {
             _serviceProyecto = serviceProyecto;
             _logger = logger;
+            _serviceDonacion = serviceDonacion;
+            _serviceUsuario = serviceUsuario;
+            _serviceRecompensa = serviceRecompensa;
         }
 
         // Acción para mostrar los detalles de un proyecto
@@ -36,5 +43,44 @@ namespace CrowdSisters.Controllers
                 return StatusCode(500, "Ocurrió un error al intentar obtener los detalles del proyecto. Por favor, inténtalo de nuevo más tarde.");
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Donacion(Donacion model)
+        {
+            try
+            {
+                /*Crear donación*/
+
+                await _serviceDonacion.CrearDonacionAsync(model, (int)HttpContext.Session.GetInt32("IdUsuario"));
+
+                /*Buscar recompensa*/
+
+                Recompensa recompensa = await _serviceRecompensa.GetRecompensaByIdAsync(model.FKRecompensa);
+
+                /*Restar dinero al monedero del usuario*/
+
+                await _serviceUsuario.RestarMonederoUsuarioAsync(recompensa.Monto, (int)HttpContext.Session.GetInt32("IdUsuario"));
+
+                /*Añadir dinero al proyecto*/
+
+                await _serviceProyecto.UpdateMontoRecaudadoAsync(recompensa.Monto, model.FKProyecto);
+
+                /* Buscar Proyecto */
+
+                var proyecto = await _serviceProyecto.GetByIdAsync(model.FKProyecto);
+
+                /*Añadir dinero al propietario del proyecto*/
+
+                await _serviceUsuario.SumarMonederoUsuarioAsync(recompensa.Monto, proyecto.FKUsuario);
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrió un error al intentar obtener los detalles del proyecto. Por favor, inténtalo de nuevo más tarde.");
+
+            }
+        }
+
     }
 }

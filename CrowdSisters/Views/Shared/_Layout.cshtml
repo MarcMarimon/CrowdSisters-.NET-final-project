@@ -5,18 +5,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page - CrowdSisters</title>
+    <link rel="icon" href="~/img/CrowdSistersLogoMano.png" type="image/png">
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/site.css?v=PBl3qNtJZz6Oz-WIhg7sjTVYk0GrCr762k2GdAtV_EM" />
     <link rel="stylesheet" href="/css/index.css?v=cxwFxy9q0bP2A6fPuf46Iu1Og5FtqIQ4Z3wr2Kxoww0" />
     <link rel="stylesheet" href="/css/global.css?v=LeXFsuf3Z500C2-CETWDCKnyj5FvslpdBQFbQKw-Kps" />
     <link rel="stylesheet" href="/css/desktop.css?v=1BKq0X8peVCoPBonhE7yJwqnWK2h2D73w3UuEd1cWWc" />
     <link rel="stylesheet" href="/CrowdSisters.styles.css?v=49GoNgxPLejrRYb-0NpPp84AZD3CfrEaDCsAbAi6-7I" />
+
     <link rel="stylesheet" href="./global.css" />
     <link rel="stylesheet" href="./index.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
     
 </head>
+
 <body>
     <div b-i5hh0g375h class="desktop-1">
         <header b-i5hh0g375h class="desktop-1-inner">
@@ -24,9 +27,9 @@
                 <div b-i5hh0g375h class="inicia-sesin-regstrate-parent">
                     <div b-i5hh0g375h class="inicia-sesin-regstrate">
                         <a href="@Url.Action("Index", "Proyecto")">
-                            <img b-i5hh0g375h class="star-icon" alt="" src="./public/star.svg" />
-                            <b b-i5hh0g375h class="button">Descubrir proyectos </b>
-                            <img b-i5hh0g375h class="star-icon" alt="" src="./public/x.svg" />
+                        <img b-i5hh0g375h class="star-icon" alt="" src="./public/star.svg" />
+                        <b b-i5hh0g375h class="button">Descubrir proyectos </b>
+                        <img b-i5hh0g375h class="star-icon" alt="" src="./public/x.svg" />
                         </a>
                     </div>
                     @if (string.IsNullOrEmpty(ViewContext.HttpContext.Session.GetString("Username")))
@@ -54,7 +57,7 @@
                         </div>
                     }
                     <a href="@Url.Action("Index", "Home")">
-                        <img class="logoblanco-icon" loading="lazy" alt="" src="/img/CrowdsistersLogoBlanco2.png" />
+                    <img class="logoblanco-icon" loading="lazy" alt="" src="/img/CrowdsistersLogoBlanco2.png" />
                     </a>
                 </div>
                 <div b-i5hh0g375h class="buscador-parent">
@@ -77,8 +80,10 @@
                     }
                     else
                     {
-                        <div class="hover-target">
-                            <b class="button2" style="top:-15px;">¡Bienvenida @ViewContext.HttpContext.Session.GetString("Username")! </b>
+
+                        <div class="hover-target monedero-container">
+
+                            <a href="@Url.Action("Edit","Login")" class="button2" style="top:-15px;">¡Bienvenida @ViewContext.HttpContext.Session.GetString("Username")! </a>
                             <p class="monedero">Monedero: @ViewContext.HttpContext.Session.GetInt32("Monedero")€ </p>
                         </div>
                         <a href="@Url.Action("Logout", "Login")">
@@ -87,7 +92,7 @@
                             <img class="buttonLogout" alt="" src="~/img/Logout.png" style="width: 30px; height: 30px; margin-top:-33px;" />
                             <img class="star-icon" alt="" src="./public/x2.svg" />
                         </a>
-
+                        
                     }
                 </div>
             </div>

@@ -1,8 +1,15 @@
-.card-121:nth-child(odd) {
+.card-121.odd .ecobeauty-1,
+.card-121.odd .das1 span,
+.card-121.odd .das2,
+.card-121.odd .de-40004 {
+    color: #494949; /* Color específico para las tarjetas impares */
+}
+
+.card-121.even {
     background-color: #A46EE2; /* Color para las tarjetas impares */
 }
 
-.card-121:nth-child(even) {
+.card-121.odd {
     background-color: #D0BCFF; /* Color para las tarjetas pares */
 }
 
@@ -13,30 +20,28 @@
 
 .card-1-group1 {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+    grid-template-columns: repeat(3, 1fr);
     padding: 20px;
     width: 1179.5px;
     height: auto;
-    flex-direction: row;
     gap: var(--gap-xl);
     max-width: 100%;
     text-align: left;
     font-size: var(--font-size-mini);
-    color: var(--color-ghostwhite);
     margin-left: 48px;
+
 }
 
 .card-121 {
-    border: 1px solid #ddd;
     overflow: hidden;
     width: 307.5px;
     border-radius: var(--br-5xs);
-    background-color: var(--color-mediumpurple);
     overflow: hidden;
     flex-shrink: 0;
     padding: var(--padding-smi) var(--padding-xs) var(--padding-smi-8);
     box-sizing: border-box;
     gap: var(--gap-7xs);
+    height:350px;
 }
 
 .imagenproyecto-icon1 {
@@ -149,7 +154,7 @@
     width: 1640px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 34px;
+    gap: 32px;
     flex-shrink: 0;
     margin-left: -1496px;
 }
@@ -202,7 +207,6 @@
     left: 0;
     border-radius: var(--br-6xl);
     background-color: var(--color-ghostwhite);
-    width: 100%;
     height: 100%;
     display: none;
 }
@@ -214,22 +218,20 @@
 }
 
 .frame-inner {
-    position: absolute;
-    top: 0;
-    left: 0;
     background-color: var(--color-lightgreen);
-    width: 147px;
-    z-index: 1;
 }
 
 .rectangle-parent {
     align-self: stretch;
     position: relative;
     background-color: var(--color-ghostwhite);
+    top:10px;
 }
 
 .ecobeauty-1 {
     margin: 0;
+    color: #f7f0fc;
+    margin-top:10px;
 }
 
 .cosmticos-sostenibles1 {
@@ -271,10 +273,12 @@
     width: 42px;
     position: relative;
     letter-spacing: -0.02em;
-    line-height: 140%;
+    line-height: 90%;
     font-weight: 600;
     display: inline-block;
     flex-shrink: 0;
+    margin-top: 27px;
+    margin-left: 4px;
 }
 
 .de-40004 {
@@ -287,11 +291,12 @@
     height: 56px;
     position: relative;
     letter-spacing: -0.02em;
-    line-height: 140%;
+    line-height: 115%;
     font-weight: 600;
     text-align: right;
     display: inline-block;
     color: var(--color-ghostwhite);
+    margin-top: 12px;
 }
 
 .card-12,
@@ -308,7 +313,7 @@
     gap: var(--gap-xl);
     text-align: center;
     font-size: var(--font-size-9xl);
-    color: var(--color-darkslategray-100);
+    color: #f7f0fc;
 }
 
 .card-12,
@@ -466,27 +471,13 @@
     min-width: 292px;
 }
 
-.card-121,
+
 .card-9,
 .card-9-parent {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     flex-shrink: 0;
-}
-
-.card-121 {
-    height: 342.8px;
-    width: 307px;
-    border-radius: var(--br-5xs);
-    background-color: var(--color-plum-200);
-    overflow: hidden;
-    flex-direction: column;
-    padding: var(--padding-smi) var(--padding-xs) var(--padding-smi-8);
-    box-sizing: border-box;
-    gap: var(--gap-7xs);
-    min-width: 292px;
-    color: var(--color-darkslategray-100);
 }
 
 .card-9-parent {
@@ -696,6 +687,61 @@
     line-height: normal;
     letter-spacing: normal;
 }
+
+/* Estilos básicos */
+.navigation-pill {
+    position: relative;
+    padding: 10px;
+    background-color: #F7F0FC;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+/* Ocultar subcategorías por defecto */
+.subcategories {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: #F7F0FC;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    min-width: 200px;
+    z-index: 1000;
+}
+
+/* Mostrar subcategorías al pasar el cursor */
+.navigation-pill:hover .subcategories {
+    display: block;
+}
+
+/* Estilo para los elementos de las subcategorías */
+.subcategories p {
+    margin: 0;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+    .subcategories p:hover {
+        background-color: #F7F0FC;
+    }
+
+/* Estilo para los enlaces de subcategorías */
+.subcategory-link {
+    text-decoration: none; /* Elimina el subrayado */
+    color: #581E99; /* Cambia el color del texto a un azul agradable */
+    font-weight: bold; /* Hace el texto más grueso */
+    display: block; /* Hace que cada enlace ocupe toda la línea */
+    padding: 10px; /* Agrega espacio alrededor del texto */
+    border-radius: 5px; /* Redondea las esquinas */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave para el color de fondo y el texto */
+}
+
+    .subcategory-link:hover {
+        background-color: #581E99; /* Cambia el color de fondo al pasar el mouse */
+        color: #F7F0FC; /* Cambia el color del texto al pasar el mouse */
+    }
+
 
 @media screen and (max-width: 1200px) {
     .se-estn-impulsando-12-proyect-parent {

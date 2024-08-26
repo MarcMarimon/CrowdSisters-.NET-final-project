@@ -17,7 +17,7 @@ namespace CrowdSisters.DAL
         }
 
         // Crear
-        public async Task<bool> CreateAsync(Donacion donacion)
+        public async Task<bool> CreateAsync(Donacion donacion, int idUsuario)
         {
             const string query = @"
                 INSERT INTO Donacion (
@@ -37,7 +37,7 @@ namespace CrowdSisters.DAL
                 {
                     sqlConn.Open(); // Asegúrate de abrir la conexión
                     command.Parameters.AddWithValue("@FKProyecto", donacion.FKProyecto);
-                    command.Parameters.AddWithValue("@FKUsuario", donacion.FKUsuario);
+                    command.Parameters.AddWithValue("@FKUsuario", idUsuario);
                     command.Parameters.AddWithValue("@FKRecompensa", donacion.FKRecompensa);
 
                     return await command.ExecuteNonQueryAsync() > 0;

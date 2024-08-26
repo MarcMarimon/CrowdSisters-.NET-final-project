@@ -5,17 +5,24 @@ for details on configuring this project to bundle and minify static web assets. 
     background-color: transparent !important;
 }
 
+
 a.navbar-brand {
     white-space: normal;
     text-align: center;
     word-break: break-all;
 }
+.monedero-container {
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-items: center;
 
+}
 a {
     color: #f7f0fc;
     text-decoration: none;
 }
-
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;

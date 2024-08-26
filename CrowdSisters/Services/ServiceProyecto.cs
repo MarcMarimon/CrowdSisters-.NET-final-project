@@ -58,6 +58,20 @@ namespace CrowdSisters.Services
             }
         }
 
+        // Actualizar Proyecto
+        public async Task<bool> UpdateMontoRecaudadoAsync(decimal resta, int idProyecto)
+        {
+            try
+            {
+                return await _dalProyecto.UpdateMontoRecaudadoAsync(resta, idProyecto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en Service al actualizar el proyecto: {ex.Message}");
+                return false;
+            }
+        }
+
         // Eliminar Proyecto
         public async Task<bool> DeleteAsync(int id)
         {
@@ -78,6 +92,20 @@ namespace CrowdSisters.Services
             try
             {
                 return await _dalProyecto.GetAllAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en Service al obtener todos los proyectos: {ex.Message}");
+                return null;
+            }
+        }
+
+        // Obtener todos los Proyectos segun subcategoria
+        public async Task<IEnumerable<Proyecto>> GetAllProyectosSubcategoriaAsync(int idSucategoria)
+        {
+            try
+            {
+                return await _dalProyecto.GetAllProyectosSubcategoriaAsync(idSucategoria);
             }
             catch (Exception ex)
             {
