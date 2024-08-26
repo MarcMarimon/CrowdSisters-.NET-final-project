@@ -27,7 +27,7 @@ namespace CrowdSisters.Models
         public string Titulo { get; set; }
 
         [Required]
-        [StringLength(500)]
+        [StringLength(2000)]
         public string DescripcionGeneral { get; set; }
 
         [Required]
@@ -47,15 +47,15 @@ namespace CrowdSisters.Models
         public int? Estado { get; set; }
 
         [Required]
-        [StringLength(150)]
+        [StringLength(250)]
         public string Subtitulo { get; set; }
 
         [Required]
-        [StringLength(500)]
+        [StringLength(2000)]
         public string DescripcionFinalidad { get; set; }
 
         [Required]
-        [StringLength(500)]
+        [StringLength(2000)]
         public string DescripcionPresupuesto { get; set; }
 
         [Required]
