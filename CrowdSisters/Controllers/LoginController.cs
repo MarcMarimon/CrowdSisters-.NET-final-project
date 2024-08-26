@@ -97,20 +97,14 @@ namespace CrowdSisters.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Usuario user, string ContrasenaHidden)
-        {
-            if (!ModelState.IsValid)
-            {
-                // Si hay errores de validación, se vuelve a mostrar el formulario
-                return View(user);
-            }
-
+        {            
             try
             {
                 if (string.IsNullOrEmpty(user.Contrasena))
                     user.Contrasena = ContrasenaHidden;
 
                 await _serviceLogin.UpdateAsync(user);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             catch
             {
