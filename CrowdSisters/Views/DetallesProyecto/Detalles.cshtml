@@ -22,83 +22,89 @@
 </head>
 <style>
     .fotorecompensa1-icon {
-        align-self: center;
-        height: 185.3px;
-        margin-top: 12px;
-        border-radius: var(--br-5xs);
-        max-width: 100%;
-        overflow: hidden;
-        flex-shrink: 0;
-        object-fit: cover;
+        width: 100%;
+    height: 185.3px;
+    border-radius: 10%;
+    object-fit: cover;
+    flex-shrink: 0;
+    padding: 10px;
+}
     }
 
     .ttulo35 {
-        position: relative;
-        letter-spacing: -0.02em;
-        line-height: 120%;
-        font-weight: 600;
-        display: inline-block;
-        min-width: 102px;
-        margin-top: 12px;
-        margin-left: 14px;
+        font-size: var(--font-size-md);
+        font-weight: bold;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+        max-width: 100%;
     }
 
     .descripcionrecompnesa1 {
-        align-self: stretch;
-        position: relative;
         font-size: var(--font-size-mini);
         letter-spacing: -0.02em;
         line-height: 120%;
         font-weight: 600;
-        margin-left: 14px;
+        margin-left: 10px;
+        margin-right: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        height: auto;
+        max-height: 140px;
     }
+
 
     .titulorecompnesa1-parent {
-        align-self: stretch;
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         align-items: flex-start;
-        justify-content: flex-start;
         gap: var(--gap-lgi);
+        flex-grow: 1;
+        text-align: center;
     }
 
+
     .impulsoras1 {
-        width: 102px;
-        position: relative;
+        width: auto;
+        font-weight: 600;
         letter-spacing: -0.02em;
         line-height: 140%;
-        font-weight: 600;
+        text-align: right;
+        margin-right: 14px;
     }
 
     .impulsoras1-parent {
-        align-self: stretch;
         display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: var(--gap-xl);
-        text-align: center;
+        justify-content: center;
         font-size: var(--font-size-5xl);
-        margin-left: 190px;
+        padding-top: 10px;
+        width: 100%;
     }
 
     .frame-parent26 {
         align-self: stretch;
-        gap: 56px;
+        gap: 30px;
     }
 
     .cardrecompensa1 {
         width: 307.5px;
+        height: 400px; /* Establecemos una altura fija para la tarjeta */
         border-radius: var(--br-5xs);
         background-color: #9D76C7;
         overflow: hidden;
         flex-shrink: 0;
         padding: var(--padding-mini) var(--padding-2xs) var(--padding-4xs-3) var(--padding-xs);
         box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Aseguramos la distribución de los elementos */
         gap: var(--gap-sm-7);
         cursor: pointer;
     }
-
     .submitBtn {
         background-color: #9D76C7;
         border: none;
@@ -172,8 +178,10 @@
                                         <p class="qu-es-ecobeauty">Descripción de la campaña</p>
                                     </b>
                                 </div>
+                                <div class="descripcion1-wrapper">
                                 <div class="descripcion1">
                                     <p class="qu-es-ecobeauty">@Model.DescripcionFinalidad</p>
+                                </div>
                                 </div>
 
                             </div>
@@ -187,9 +195,10 @@
                                     </b>
                                 </div>
 
-
+                                <div class="descripcion1-wrapper">
                                 <div class="descripcion1">
                                     <p class="qu-es-ecobeauty">@Model.DescripcionPresupuesto</p>
+                                </div>
                                 </div>
                             </div>
 
@@ -202,12 +211,14 @@
                                         <p class="qu-es-ecobeauty">¡Conoce al creador del proyecto!</p>
                                     </b>
                                 </div>
+                                <div class="descripcion1-wrapper">
                                 <div class="descripcion1">
                                     <p class="nombre-creadora">@ViewBag.UsuarioProyecto.Nombre @ViewBag.UsuarioProyecto.PrimerApellido @ViewBag.UsuarioProyecto.SegundoApellido</p>
                                     <p class="qu-es-ecobeauty">@ViewBag.UsuarioProyecto.PerfilPublico</p>
                                     <div class="foto2-wrapper">
                                         <img class="foto3-icon" loading="lazy" alt="Creador del proyecto" src="@ViewBag.UsuarioProyecto.URLImagenUsuario" />
                                     </div>
+                                </div>
                                 </div>
 
                             </div>
@@ -221,24 +232,24 @@
                             <div class="rewards-carousel">
                                 @foreach (var recompensa in ViewBag.ListaRecompensas as List<Recompensa>)
                                 {
-                                    <div class="cardrecompensa1" data-id="@recompensa.IDRecompensa">
-                                        <img class="fotorecompensa1-icon" loading="lazy" alt="Recompensa" src="@recompensa.URLImagenRecompensa" />
-                                        <div class="frame-parent26">
-                                            <div class="titulorecompnesa1-parent">
-                                                <div class="titulorecompnesa1">
-                                                    <div class="ttulo35">@recompensa.Titulo</div>
+                                        <div class="cardrecompensa1" data-id="@recompensa.IDRecompensa">
+                                            <img class="fotorecompensa1-icon" loading="lazy" alt="Recompensa" src="@recompensa.URLImagenRecompensa" />
+                                            <div class="frame-parent26">
+                                                <div class="titulorecompnesa1-parent">
+                                                    <div class="titulorecompnesa1">
+                                                        <div class="ttulo35">@recompensa.Titulo</div>
+                                                    </div>
+                                                    <div class="descripcionrecompnesa1">
+                                                        <p>@recompensa.Descripcion</p>
+                                                    </div>
                                                 </div>
-                                                <div class="descripcionrecompnesa1">
-                                                    <p>@recompensa.Descripcion</p>
+                                                <div class="impulsoras1-parent">
+                                                    <div class="impulsoras1">
+                                                        <p>@recompensa.Monto.ToString("C")</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="impulsoras1-parent">
-                                                <div class="impulsoras1">
-                                                    <p>@recompensa.Monto.ToString("C")</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                        
                                         @if (@Model.FKUsuario != ViewBag.UsuarioActivo)
                                         {
                                             <!-- Formulario oculto para realizar la donación -->
@@ -302,6 +313,21 @@
                     });
                 });
             });
+            function toggleExpand(button) {
+                const card = button.closest('.titulorecompnesa1-parent');
+                const description = card.querySelector('.descripcionrecompnesa1');
+                const title = card.querySelector('.ttulo35');
+
+                if (description.classList.contains('expanded')) {
+                    description.classList.remove('expanded');
+                    title.style.whiteSpace = "nowrap"; // Contrae el título
+                    button.textContent = "Leer más...";
+                } else {
+                    description.classList.add('expanded');
+                    title.style.whiteSpace = "normal"; // Expande el título
+                    button.textContent = "Leer menos";
+                }
+            }
         </script>
     }
 

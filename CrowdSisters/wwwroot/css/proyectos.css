@@ -41,7 +41,7 @@
     padding: var(--padding-smi) var(--padding-xs) var(--padding-smi-8);
     box-sizing: border-box;
     gap: var(--gap-7xs);
-    height:350px;
+    height:370px;
 }
 
 .imagenproyecto-icon1 {
@@ -232,6 +232,7 @@
     margin: 0;
     color: #f7f0fc;
     margin-top:10px;
+    height:37px;
 }
 
 .cosmticos-sostenibles1 {

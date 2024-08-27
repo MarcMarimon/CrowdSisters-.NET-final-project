@@ -136,7 +136,7 @@
 
 
 .nombre-creadora {
-    margin: 10px;
+    margin: 10px 10px 10px 0;
     font-weight: bold;
 }
 .digitosdias {
@@ -541,8 +541,8 @@
     height: 23px;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
     padding: 0;
     box-sizing: border-box;
 }
@@ -552,15 +552,6 @@
     font-family: inherit;
     font-size: inherit;
     padding-left: var(--padding-xl);
-}
-
-.descripcionrecompnesa1 {
-    align-self: stretch;
-    position: relative;
-    font-size: var(--font-size-mini);
-    letter-spacing: -0.02em;
-    line-height: 120%;
-    font-weight: 600;
 }
 
 .titulorecompnesa1-parent {
