@@ -24,7 +24,7 @@
     .fotorecompensa1-icon {
         align-self: center;
         height: 185.3px;
-        margin-top:12px;
+        margin-top: 12px;
         border-radius: var(--br-5xs);
         max-width: 100%;
         overflow: hidden;
@@ -132,79 +132,92 @@
                                 </div>
                             </div>
                             <div class="project-stats-container">
-                                <div class="project-stats-values-wrapper">
-                                    <div class="project-stats-values">
-                                        <div class="digitosdias">
-                                            <div class="digito3">
-                                                <div class="digito3-child"></div>
-                                                <div class="days-value">@((Model.FechaFinalizacion - DateTime.Now).Days)</div>
-                                            </div>
-                                        </div>
-                                        <div class="digitosrecaudacion">
-                                            <div class="backers-icon">
-                                                <div class="digito3">
-                                                    <div class="digito3-child"></div>
-                                                    <div class="days-value">@Model.MontoRecaudado.ToString("C")</div>
-                                                </div>
-                                            </div>
-                                            <div class="impulsoras">DE @Model.MontoObjetivo.ToString("C")</div>
-                                        </div>
-                                    </div>
+
+
+                                <div class="digito3">
+
+                                    <div class="days-value">@((Model.FechaFinalizacion - DateTime.Now).Days)</div>
+                                    <div class="das25">DÍAS RESTANTES</div>
                                 </div>
-                                <div class="project-stats-container-inner">
-                                    <div class="project-description-content-parent">
-                                        <div class="project-description-content">
-                                            <div class="project-description-block">
-                                                <div class="project-description-area">
-                                                    <div class="das25">DÍAS</div>
-                                                </div>
-                                                <b class="titulodescripcion1">
-                                                    <p class="qu-es-ecobeauty">¿Qué es @Model.Titulo?</p>
-                                                </b>
-                                            </div>
-                                            <div class="descripcion1-wrapper">
-                                                <div class="descripcion1">
-                                                    <p class="qu-es-ecobeauty">@Model.DescripcionGeneral</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                                <div class="digito3">
+                                    <div class="days-value">@Model.MontoRecaudado.ToString("C")</div>
+                                    <div class="das25">MONTO RECAUDADO</div>
+
+                                </div>
+
+                            </div>
+                            <div class="project-stats-container-inner">
+
+                                <div class="project-description-block">
+
+                                    <b class="titulodescripcion1">
+                                        <p class="qu-es-ecobeauty">¿Qué es @Model.Titulo?</p>
+                                    </b>
                                 </div>
                                 <div class="descripcion1-wrapper">
                                     <div class="descripcion1">
-                                        <p class="qu-es-ecobeauty">@Model.DescripcionFinalidad</p>
+                                        <p class="qu-es-ecobeauty">@Model.DescripcionGeneral</p>
                                     </div>
                                 </div>
-                                <div class="foto2-wrapper">
-                                    <img class="foto2-icon" loading="lazy" alt="" src="@Model.UrlFoto1" />
+
+                            </div>
+                            <div class="foto2-wrapper">
+                                <img class="foto2-icon" loading="lazy" alt="" src="@Model.UrlFoto1" />
+                            </div>
+                            <div class="project-stats-container-inner">
+                                <div class="project-description-block">
+
+                                    <b class="titulodescripcion1">
+                                        <p class="qu-es-ecobeauty">Descripción de la campaña</p>
+                                    </b>
                                 </div>
-                                <div class="project-subtitles-container-inner">
-                                    <div class="titulodescripcion2-parent">
-                                        <b class="titulodescripcion2">Presupuesto del proyecto</b>
-                                        <div class="second-info-content">
-                                            <div class="descripcion3">
-                                                <p>@Model.DescripcionPresupuesto</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="descripcion1">
+                                    <p class="qu-es-ecobeauty">@Model.DescripcionFinalidad</p>
                                 </div>
-                                <div class="foto2-wrapper">
-                                    <img class="foto2-icon" loading="lazy" alt="" src="@Model.UrlFoto2" />
+
+                            </div>
+                            <div class="foto2-wrapper">
+                                <img class="foto2-icon" loading="lazy" alt="" src="@Model.UrlFoto2" />
+                            </div>
+                            <div class="project-stats-container-inner">
+                                <div class="project-description-block">
+                                    <b class="titulodescripcion1">
+                                        <p class="qu-es-ecobeauty">Presupuesto del Proyecto</p>
+                                    </b>
                                 </div>
-                                <div class="project-subtitles-container-inner1">
-                                    <div class="titulodescripcion3-parent">
-                                        <b class="titulodescripcion4">¡Conoce al creador del proyecto!</b>
-                                        <div class="descripcion4">
-                                            <img class="foto2-icon" loading="lazy" alt="Creador del proyecto" src="@Model.Usuario.URLImagenUsuario" />
-                                            <p>@Model.Usuario.Nombre @Model.Usuario.PrimerApellido @Model.Usuario.SegundoApellido</p>
-                                            <p>@Model.Usuario.PerfilPublico</p>
-                                        </div>
-                                    </div>
+
+
+                                <div class="descripcion1">
+                                    <p class="qu-es-ecobeauty">@Model.DescripcionPresupuesto</p>
                                 </div>
                             </div>
-                            <div class="rewards-title-container">
-                                <div class="titulorecompensas">Recompensas</div>
+
+                            <div class="foto2-wrapper">
+                                <img class="foto2-icon" loading="lazy" alt="" src="@Model.UrlFoto3" />
                             </div>
+                            <div class="project-stats-container-inner">
+                                <div class="project-description-block">
+                                    <b class="titulodescripcion1">
+                                        <p class="qu-es-ecobeauty">¡Conoce al creador del proyecto!</p>
+                                    </b>
+                                </div>
+                                <div class="descripcion1">
+                                    <p class="nombre-creadora">@ViewBag.UsuarioProyecto.Nombre @ViewBag.UsuarioProyecto.PrimerApellido @ViewBag.UsuarioProyecto.SegundoApellido</p>
+                                    <p class="qu-es-ecobeauty">@ViewBag.UsuarioProyecto.PerfilPublico</p>
+                                    <div class="foto2-wrapper">
+                                        <img class="foto3-icon" loading="lazy" alt="Creador del proyecto" src="@ViewBag.UsuarioProyecto.URLImagenUsuario" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="project-stats-container-inner">
+
+                                <div class="project-description-block1">
+                                    <b class="titulodescripcio1">
+                                        <p class="qu-es-ecobeauty">Recompensas<p>
+                                    </b>
+                                </div>
                             <div class="rewards-carousel">
                                 @foreach (var recompensa in ViewBag.ListaRecompensas as List<Recompensa>)
                                 {
@@ -245,6 +258,7 @@
                                 }
 
 
+                            </div>
                             </div>
                         </div>
                     </div>
