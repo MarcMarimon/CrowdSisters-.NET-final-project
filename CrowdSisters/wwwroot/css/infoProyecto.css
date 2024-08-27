@@ -474,15 +474,6 @@
     padding-left: var(--padding-xl);
 }
 
-.descripcionrecompnesa1 {
-    align-self: stretch;
-    position: relative;
-    font-size: var(--font-size-mini);
-    letter-spacing: -0.02em;
-    line-height: 120%;
-    font-weight: 600;
-}
-
 .titulorecompnesa1-parent {
     align-self: stretch;
     display: flex;
