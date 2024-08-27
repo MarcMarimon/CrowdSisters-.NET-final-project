@@ -14,15 +14,16 @@
 
     <div class="home">
 
-        <img class="imagenproyecto-icon" alt="" src="~/img/HeartOfFire2.jpg" style="width: 1550px" />
 
+        
+        <img id="imagen" class="imagenproyecto-icon" src="img/HeartOfFire2.jpg" alt="Imagen" style="width: 1550px; transition: opacity 1.0s ease-in-out;">
 
         <section class="project-header">
             <div class="ttuloproyecto-parent">
                 <div class="ttuloproyecto">
                     <h1 class="ttulo">
-                        <p class="ecobeauty-" style="margin-top:25px; margin-left:15px">Heart of Fire -</p>
-                        <p class="ecobeauty-" style="margin-left:15px">El legado de la llama eterna </p>
+                        <p id="texto1" class="ecobeauty-" style="margin-top:25px; margin-left:15px">Heart of Fire -</p>
+                        <p id="texto2" class="ecobeauty-" style="margin-left:15px">El legado de la llama eterna </p>
                     </h1>
                 </div>
                 <div class="project-details">
@@ -33,13 +34,13 @@
                                     <img class="flecha-izquierda-icon" loading="lazy" alt="" src="/img/FlechaIzquierdaBlanco.png" />
                                 </div>
                                 <div class="das-restantes" style="margin-top:25px; margin-left:15px">
-                                    <p class="ecobeauty-">25</p>
+                                    <p class="ecobeauty-">77</p>
                                     <p class="das">DÍAS</p>
                                 </div>
                             </div>
                             <div class="recaudacin" style="margin-top:25px; margin-left:15px">
-                                <p class="ecobeauty-">2.000 €</p>
-                                <p class="das">DE 4.000€</p>
+                                <p class="ecobeauty-">305 €</p>
+                                <p class="das">DE 6.000€</p>
                             </div>
                         </div>
                         <div class="project-buttons">
@@ -187,5 +188,38 @@
     <script type="text/javascript" src="/_vs/browserLink" async="async" id="__browserLink_initializationData" data-requestId="5a9d2a26245e41f5845fa70f24b9ce80" data-requestMappingFromServer="false" data-connectUrl="http://localhost:60159/36adb8a2f1cd4b37b74ee7e4bcd18cb4/browserLink"></script>
     <!-- End Browser Link -->
     <script src="/_framework/aspnetcore-browser-refresh.js"></script>
+    <script>
+        const imagenes = [
+            'img/HeartOfFire2.jpg',
+            'img/Corto.png',
+            'img/ProyectoEcoBeauty.jpg'
+        ];
+        const textos1 = [
+            'Heart of Fire -',
+            'Monica -',
+            'EcoBeuty -'
+        ];
+
+        const textos2 = [
+            'El legado de la llama eterna',
+            'Cortometraje',
+            'Cosméticos sostenibles'
+        ];
+        let indice = 0;
+
+        function cambiarContenido() {
+            // Cambiar imagen
+            document.getElementById('imagen').src = imagenes[indice];
+
+            // Cambiar textos
+            document.getElementById('texto1').innerText = textos1[indice];
+            document.getElementById('texto2').innerText = textos2[indice];
+
+            // Actualizar índice para el próximo ciclo
+            indice = (indice + 1) % imagenes.length; // Ciclo para repetir
+        }
+
+        setInterval(cambiarContenido, 4000); // Cambia cada 4 segundos
+    </script>
 </body>
 </html>
