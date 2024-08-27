@@ -1,0 +1,335 @@
+﻿@model CrowdSisters.Models.Proyecto
+
+@{
+    ViewData["Title"] = Model.Titulo;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    // Calcular el porcentaje de la recaudación con respecto al objetivo
+    var porcentajeRecaudacion = (int)Math.Ceiling((Model.MontoRecaudado / (decimal)Model.MontoObjetivo) * 100);
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/infoProyecto.css" />
+    <link rel="stylesheet" href="/css/detalles.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,300&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
+</head>
+<style>
+    .fotorecompensa1-icon {
+        width: 100%;
+    height: 185.3px;
+    border-radius: 10%;
+    object-fit: cover;
+    flex-shrink: 0;
+    padding: 10px;
+}
+    }
+
+    .ttulo35 {
+        font-size: var(--font-size-md);
+        font-weight: bold;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+        max-width: 100%;
+    }
+
+    .descripcionrecompnesa1 {
+        font-size: var(--font-size-mini);
+        letter-spacing: -0.02em;
+        line-height: 120%;
+        font-weight: 600;
+        margin-left: 10px;
+        margin-right: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        height: auto;
+        max-height: 140px;
+    }
+
+
+    .titulorecompnesa1-parent {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: var(--gap-lgi);
+        flex-grow: 1;
+        text-align: center;
+    }
+
+
+    .impulsoras1 {
+        width: auto;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 140%;
+        text-align: right;
+        margin-right: 14px;
+    }
+
+    .impulsoras1-parent {
+        display: flex;
+        justify-content: center;
+        font-size: var(--font-size-5xl);
+        padding-top: 10px;
+        width: 100%;
+    }
+
+    .frame-parent26 {
+        align-self: stretch;
+        gap: 30px;
+    }
+
+    .cardrecompensa1 {
+        width: 307.5px;
+        height: 400px; /* Establecemos una altura fija para la tarjeta */
+        border-radius: var(--br-5xs);
+        background-color: #9D76C7;
+        overflow: hidden;
+        flex-shrink: 0;
+        padding: var(--padding-mini) var(--padding-2xs) var(--padding-4xs-3) var(--padding-xs);
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Aseguramos la distribución de los elementos */
+        gap: var(--gap-sm-7);
+        cursor: pointer;
+    }
+    .submitBtn {
+        background-color: #9D76C7;
+        border: none;
+    }
+
+</style>
+<body>
+    <div class="infoproyecto">
+        <img class="foto1-icon" loading="lazy" alt="" src="@Model.UrlFotoEncabezado" />
+
+        <div class="progress-bar-container">
+            <div class="lineaenteraprogreso"></div>
+        </div>
+        <div class="lineaverdeprogreso" style="width: @porcentajeRecaudacion%;"></div>
+
+        <main class="project-details-container">
+            <section class="project-title-container">
+                <div class="project-subtitles-container-wrapper">
+                    <div class="project-subtitles-container">
+                        <div class="project-title-wrapper">
+                            <div class="project-title-block-wrapper">
+                                <div class="project-title-block">
+                                    <div class="project-title-area">
+                                        <div class="ttuloproyecto1">
+                                            <b class="ttulo33">@Model.Titulo</b>
+                                        </div>
+                                    </div>
+                                    <div class="subtituloproyecto">
+                                        <b class="ttulo34">@Model.Subtitulo</b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-stats-container">
+
+
+                                <div class="digito3">
+
+                                    <div class="days-value">@((Model.FechaFinalizacion - DateTime.Now).Days)</div>
+                                    <div class="das25">DÍAS RESTANTES</div>
+                                </div>
+
+                                <div class="digito3">
+                                    <div class="days-value">@Model.MontoRecaudado.ToString("C")</div>
+                                    <div class="das25">MONTO RECAUDADO</div>
+
+                                </div>
+
+                            </div>
+                            <div class="project-stats-container-inner">
+
+                                <div class="project-description-block">
+
+                                    <b class="titulodescripcion1">
+                                        <p class="qu-es-ecobeauty">¿Qué es @Model.Titulo?</p>
+                                    </b>
+                                </div>
+                                <div class="descripcion1-wrapper">
+                                    <div class="descripcion1">
+                                        <p class="qu-es-ecobeauty">@Model.DescripcionGeneral</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="foto2-wrapper">
+                                <img class="foto2-icon" loading="lazy" alt="" src="@Model.UrlFoto1" />
+                            </div>
+                            <div class="project-stats-container-inner">
+                                <div class="project-description-block">
+
+                                    <b class="titulodescripcion1">
+                                        <p class="qu-es-ecobeauty">Descripción de la campaña</p>
+                                    </b>
+                                </div>
+                                <div class="descripcion1-wrapper">
+                                <div class="descripcion1">
+                                    <p class="qu-es-ecobeauty">@Model.DescripcionFinalidad</p>
+                                </div>
+                                </div>
+
+                            </div>
+                            <div class="foto2-wrapper">
+                                <img class="foto2-icon" loading="lazy" alt="" src="@Model.UrlFoto2" />
+                            </div>
+                            <div class="project-stats-container-inner">
+                                <div class="project-description-block">
+                                    <b class="titulodescripcion1">
+                                        <p class="qu-es-ecobeauty">Presupuesto del Proyecto</p>
+                                    </b>
+                                </div>
+
+                                <div class="descripcion1-wrapper">
+                                <div class="descripcion1">
+                                    <p class="qu-es-ecobeauty">@Model.DescripcionPresupuesto</p>
+                                </div>
+                                </div>
+                            </div>
+
+                            <div class="foto2-wrapper">
+                                <img class="foto2-icon" loading="lazy" alt="" src="@Model.UrlFoto3" />
+                            </div>
+                            <div class="project-stats-container-inner">
+                                <div class="project-description-block">
+                                    <b class="titulodescripcion1">
+                                        <p class="qu-es-ecobeauty">¡Conoce al creador del proyecto!</p>
+                                    </b>
+                                </div>
+                                <div class="descripcion1-wrapper">
+                                <div class="descripcion1">
+                                    <p class="nombre-creadora">@ViewBag.UsuarioProyecto.Nombre @ViewBag.UsuarioProyecto.PrimerApellido @ViewBag.UsuarioProyecto.SegundoApellido</p>
+                                    <p class="qu-es-ecobeauty">@ViewBag.UsuarioProyecto.PerfilPublico</p>
+                                    <div class="foto2-wrapper">
+                                        <img class="foto3-icon" loading="lazy" alt="Creador del proyecto" src="@ViewBag.UsuarioProyecto.URLImagenUsuario" />
+                                    </div>
+                                </div>
+                                </div>
+
+                            </div>
+                            <div class="project-stats-container-inner">
+
+                                <div class="project-description-block1">
+                                    <b class="titulodescripcio1">
+                                        <p class="qu-es-ecobeauty">Recompensas<p>
+                                    </b>
+                                </div>
+                            <div class="rewards-carousel">
+                                @foreach (var recompensa in ViewBag.ListaRecompensas as List<Recompensa>)
+                                {
+                                        <div class="cardrecompensa1" data-id="@recompensa.IDRecompensa">
+                                            <img class="fotorecompensa1-icon" loading="lazy" alt="Recompensa" src="@recompensa.URLImagenRecompensa" />
+                                            <div class="frame-parent26">
+                                                <div class="titulorecompnesa1-parent">
+                                                    <div class="titulorecompnesa1">
+                                                        <div class="ttulo35">@recompensa.Titulo</div>
+                                                    </div>
+                                                    <div class="descripcionrecompnesa1">
+                                                        <p>@recompensa.Descripcion</p>
+                                                    </div>
+                                                </div>
+                                                <div class="impulsoras1-parent">
+                                                    <div class="impulsoras1">
+                                                        <p>@recompensa.Monto.ToString("C")</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        @if (@Model.FKUsuario != ViewBag.UsuarioActivo)
+                                        {
+                                            <!-- Formulario oculto para realizar la donación -->
+                                            <form asp-action="Donacion" method="post" class="crearDonacionForm" id="crearDonacionForm_@recompensa.IDRecompensa">
+                                                <!-- Campo oculto para enviar el ID de la recompensa -->
+                                                <input type="hidden" name="FKRecompensa" value="@recompensa.IDRecompensa" />
+
+                                                <!-- Campo oculto para enviar el ID del proyecto relacionado -->
+                                                <input type="hidden" name="FKProyecto" value="@Model.IDProyecto" />
+
+                                                <input type="hidden" name="FKUsuario" value="@Model.FKUsuario" />
+                                            </form>
+                                        }
+                                    </div>
+
+
+                                }
+
+
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    @section Scripts {
+
+        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Seleccionar todas las tarjetas con clase 'cardrecompensa1'
+                const recompensaCards = document.querySelectorAll('.cardrecompensa1');
+
+                recompensaCards.forEach(card => {
+                    card.addEventListener('click', function (event) {
+                        event.preventDefault();
+
+                        // Obtener el id de la recompensa desde el data-id de la tarjeta
+                        const idRecompensa = card.getAttribute('data-id');
+
+                        // Mostrar la confirmación con SweetAlert2
+                        Swal.fire({
+                            title: '¿Estás seguro de que quieres donar a este proyecto?',
+                            text: "¡No podrás revertir esto!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#9b59b6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Sí, donar',
+                            cancelButtonText: 'No, cancelar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Usar el id de la recompensa para seleccionar el formulario correcto y enviarlo
+                                document.getElementById(`crearDonacionForm_${idRecompensa}`).submit();
+                            }
+                        });
+                    });
+                });
+            });
+            function toggleExpand(button) {
+                const card = button.closest('.titulorecompnesa1-parent');
+                const description = card.querySelector('.descripcionrecompnesa1');
+                const title = card.querySelector('.ttulo35');
+
+                if (description.classList.contains('expanded')) {
+                    description.classList.remove('expanded');
+                    title.style.whiteSpace = "nowrap"; // Contrae el título
+                    button.textContent = "Leer más...";
+                } else {
+                    description.classList.add('expanded');
+                    title.style.whiteSpace = "normal"; // Expande el título
+                    button.textContent = "Leer menos";
+                }
+            }
+        </script>
+    }
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+﻿@model IEnumerable<CrowdSisters.Models.Proyecto>
+
+@{
+    ViewData["Title"] = "Lista de Proyectos Filtrados";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="/css/home.css" />
+    <link rel="stylesheet" href="/css/proyectos.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
+
+</head>
+<body>
+    <div class="descubreproyectos">
+        <section class="frame-group">
+            <div class="imagenproyecto-wrapper">
+                <img class="imagenproyecto-icon1" style="object-fit:fill" alt="" src="~/img/DescubreProyectos.png" />
+            </div>
+            <div class="navigation-divider-top-parent">
+                <div class="navigation-divider-top"></div>
+                <div class="frame-wrapper">
+                    <div class="navigation-pill-parent">
+                        @foreach (var categoria in ViewBag.ListCategoria as List<Categoria>)
+                        {
+                            <div class="navigation-pill" data-id="@categoria.IDCategoria">
+                                <b class="title">@categoria.Nombre</b>
+                                <!-- Contenedor para subcategorías, inicialmente oculto -->
+                                <div class="subcategories" style="display: none;">
+                                    <!-- Aquí se cargarán las subcategorías vía AJAX -->
+                                </div>
+                            </div>
+                        }
+                        <div class="navigation-pill">
+                            <b class="title6">Comunidad</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-divider-bottom"></div>
+            </div>
+        </section>
+
+        <section class="descubreproyectos-inner">
+            <div class="frame-container">
+                <h1>Has realizado un filtro por la subcategoría <span style="color:#5E991E;">@ViewBag.Subcategoria.Nombre</span>!</h1>
+                <h1>¡Se están impulsando <span style="color:#5E991E;">@Model.Count()</span> proyectos!</h1>
+
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                {
+                    <div class="alert alert-warning">
+                        <p>@ViewBag.ErrorMessage</p>
+                        <img src="~/images/no-projects.png" alt="No hay proyectos disponibles" style="width:200px;" />
+                    </div>
+                }
+                else
+                {
+                    <div class="card-1-group1">
+                        @{
+                            var proyectos = Model.ToList();
+                        }
+                        @for (int i = 0; i < proyectos.Count; i++)
+                        {
+                            var proyecto = proyectos[i];
+                            var cardClass = i % 2 == 0 ? "card-121 even" : "card-121 odd";
+
+                            // Calcula el porcentaje de recaudación
+                            var porcentajeRecaudacion = (int)Math.Ceiling((proyecto.MontoRecaudado / (decimal)proyecto.MontoObjetivo) * 100);
+
+                            <a href="@Url.Action("Detalles", "DetallesProyecto", new { id = proyecto.IDProyecto })" class="card-link" style="text-decoration:none">
+                                <div class="@cardClass">
+                                    <img class="image-icon3" loading="lazy" alt="@proyecto.Titulo" src="@proyecto.UrlFotoEncabezado" />
+                                    <div class="frame-div">
+                                        <div class="frame-parent1">
+                                            <div class="rectangle-parent">
+                                                <div class="frame-item"></div>
+                                                <div class="frame-inner" style="width:@porcentajeRecaudacion% !important"></div>
+
+                                            </div>
+                                            <div class="ttulo8">
+                                                <div class="ttulo9">
+                                                    <p class="ecobeauty-1">@proyecto.Titulo</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="das-parent">
+                                            <div class="das1">
+                                                <span>@((proyecto.FechaFinalizacion - DateTime.Now).Days)</span>
+                                                <span class="das2">DÍAS</span>
+                                            </div>
+                                            <div class="de-40003">
+                                                <p class="ecobeauty-1">@proyecto.MontoRecaudado.ToString("C")</p>
+                                                <p class="de-40004">DE @proyecto.MontoObjetivo.ToString("C")</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                }
+            </div>
+        </section>
+
+        <section class="descripcin-crowdsisters">
+            <div class="logo">
+                <div class="logo-container">
+                    <img class="crowdsisterslogomano-1-icon" loading="lazy" alt="" src="/img/CrowdSistersManoYLogo.png" />
+                </div>
+            </div>
+            <div class="description-container">
+                <div class="description-details">
+                    <div class="title-description">
+                        <h1 class="ttulo7">¡Haz realidad tu proyecto con CrowdSisters!</h1>
+                        <div class="descripcin">
+                            Somos un equipo apasionado por empoderar a mujeres emprendedoras y estamos aquí para acompañarte en toda tu aventura. Con las herramientas más efectivas y una comunidad global de impulsoras entusiastas, estamos listas para ayudarte a alcanzar tus sueños empresariales. ¿Qué esperas para dar el siguiente paso en tu emprendimiento?
+                        </div>
+                    </div>
+                    @if (string.IsNullOrEmpty(ViewContext.HttpContext.Session.GetString("Username")))
+                    {
+                        <div class="botn-empieza-tu-proyecto-wrapper">
+                            <div class="botn-empieza-tu-proyecto">
+                                <a href="@Url.Action("Index", "Login")" style="text-decoration:none; color:inherit;">
+                                    <img class="star-icon3" alt="" src="/images/star3.svg" />
+                                    <div class="button4">¡Empieza tu proyecto!</div>
+                                    <img class="star-icon3" alt="" src="/images/x3.svg" />
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="botn-empieza-tu-proyecto-wrapper">
+                            <div class="botn-empieza-tu-proyecto">
+                                <a href="@Url.Action("Index", "CrearProyecto")" style="text-decoration:none; color:inherit;">
+                                    <img class="star-icon3" alt="" src="/images/star3.svg" />
+                                    <div class="button4">¡Empieza tu proyecto!</div>
+                                    <img class="star-icon3" alt="" src="/images/x3.svg" />
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Coloca el script correctamente aquí -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var baseUrl = '@Url.Action("ProyectosSubcategoria", "Proyecto", new { subcategoria = "__id__" })';
+
+        $(document).ready(function () {
+            $('.navigation-pill').on('click', function () {
+                var idCategoria = $(this).data('id');
+                var subcategoryContainer = $(this).find('.subcategories');
+
+                // Si las subcategorías ya están cargadas, solo alterna la visibilidad
+                if (subcategoryContainer.children().length > 0) {
+                    subcategoryContainer.toggle();
+                } else {
+                    // Realiza la solicitud AJAX para obtener las subcategorías
+                    $.ajax({
+                        url: '@Url.Action("GetSubcategorias", "CrearProyecto")', // Reemplaza "CrearProyecto" con el nombre correcto del controlador
+                        type: 'GET',
+                        data: { idCategoria: idCategoria },
+                        success: function (data) {
+                            subcategoryContainer.empty(); // Limpia cualquier contenido previo
+                            $.each(data, function (index, subcategoria) {
+                                var href = baseUrl.replace('__id__', subcategoria.idSubcategoria);
+                                console.log('Enlace generado:', href);
+                                subcategoryContainer.append('<a href="' + href + '" class="subcategory-link">' + subcategoria.nombre + '</a><br/>');
+                            });
+                            subcategoryContainer.show(); // Muestra el contenedor con las subcategorías
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error al obtener subcategorías:', error);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

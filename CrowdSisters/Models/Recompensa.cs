@@ -13,8 +13,11 @@ namespace CrowdSisters.Models
         [Required]
         [ForeignKey("Proyecto")]
         public int FKProyecto { get; set; }
+        public Proyecto Proyecto { get; set; } = new Proyecto();
 
-        public Proyecto Proyecto { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Titulo { get; set; }
 
         [Required]
         [StringLength(200)]
@@ -22,16 +25,12 @@ namespace CrowdSisters.Models
 
         [Required]
         [Column(TypeName = "money")]
-        public decimal MontoMinimo { get; set; }
-
-        [Column(TypeName = "money")]
-        public decimal? MontoMaximo { get; set; }
-
-        [Required]
-        public int CantidadDisponible { get; set; }
+        public decimal Monto { get; set; }
 
         [Required]
         [StringLength(200)]
         public string URLImagenRecompensa { get; set; }
+
+        public ICollection<Donacion> Donaciones { get; set; } = new List<Donacion>();
     }
 }

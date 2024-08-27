@@ -13,23 +13,16 @@ namespace CrowdSisters.Models
         [Required]
         [ForeignKey("Proyecto")]
         public int FKProyecto { get; set; }
-
         public Proyecto Proyecto { get; set; }
 
         [Required]
         [ForeignKey("Usuario")]
         public int FKUsuario { get; set; }
-
         public Usuario Usuario { get; set; }
 
         [Required]
-        [Column(TypeName = "money")]
-        public decimal Monto { get; set; }
-
-        [Required]
-        public DateTime FechaDonacion { get; set; }
-
-        [Required]
-        public int MetodoPago { get; set; }
+        [ForeignKey("Recompensa")]
+        public int FKRecompensa { get; set; }
+        public Recompensa Recompensa { get; set; }
     }
 }

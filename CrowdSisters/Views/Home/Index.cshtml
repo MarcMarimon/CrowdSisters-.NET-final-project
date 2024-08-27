@@ -1,8 +1,243 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/desktop.css" />
+    <link rel="stylesheet" href="/css/home.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" />
+    <title>Home Page</title>
+</head>
+<body>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div class="home">
+
+
+        
+        <img id="imagen" class="imagenproyecto-icon" src="img/ProyectoEcoBeauty.jpg" alt="Imagen" style="width: 1550px; transition: opacity 1.0s ease-in-out;">
+
+        <section class="project-header">
+            <div class="ttuloproyecto-parent">
+                <div class="ttuloproyecto">
+                    <h1 class="ttulo">
+                        <p id="texto1" class="ecobeauty-" style="margin-top:25px; margin-left:15px">EcoBeauty -</p>
+                        <p id="texto2" class="ecobeauty-" style="margin-left:15px">Cosméticos Sostenibles</p>
+                    </h1>
+                </div>
+                <div class="project-details">
+                    <div class="project-countdown">
+                        <div class="countdown-details">
+                            <div class="days-remaining-container-parent">
+                                <div class="days-remaining-container">
+                                    <img class="flecha-izquierda-icon" loading="lazy" alt="" src="/img/FlechaIzquierdaBlanco.png" />
+                                </div>
+                                <div class="das-restantes" style="margin-top:25px; margin-left:15px">
+                                    <p id="dias" class="ecobeauty-">177</p>
+                                    <p class="das">DÍAS</p>
+                                </div>
+                            </div>
+                            <div class="recaudacin" style="margin-top:25px; margin-left:15px">
+                                <p id="recaudacion1" class="ecobeauty-">4.000 €</p>
+                                <p id="recaudacion2" class="das">DE 35.000 €</p>
+                            </div>
+                        </div>
+                        <div class="project-buttons">
+                            <div class="botn-descubre-ms-proyectos-wrapper">
+                                <button class="botn-descubre-ms-proyectos">
+                                    <a href="@Url.Action("Index", "Proyecto")" style="text-decoration:none">
+                                    <img class="star-icon3" alt="" src="/images/star3.svg" />
+                                    <div class="button3">Descubre más proyectos</div>
+                                    <img class="star-icon3" alt="" src="/images/x3.svg" />
+                                    </a>
+                                </button>
+                            </div>
+                            <div class="projects-boosted">
+                                <h1 class="proyectos-impulsados">¡Proyectos impulsados!</h1>
+                            </div>
+                            <div class="projects-slider">
+                                <div class="flecha-izquierda-wrapper">
+                                    <img class="flecha-izquierda-icon1" loading="lazy" alt="" src="/img/FlechaIzquierdaColor.png" />
+                                </div>
+                                <div class="project-cards">
+                                    <div class="card-1">
+                                        <img class="image-icon" loading="lazy" alt="" src="/img/card1 (1).png" />
+                                        <div class="image-overlay"></div>
+                                        <div class="project-card-details">
+                                            <div class="ttulo1">
+                                                <div class="ttulo2">
+                                                    <p class="ecobeauty-">EcoFashion Revolution -</p>
+                                                    <p class="ecobeauty-">Moda Sostenible por Mujeres</p>
+                                                </div>
+                                            </div>
+                                            <div class="project-card-footer">
+                                                <img class="crowdsisterslogomanoverde-1-icon" loading="lazy" alt="" src="/img/CrowdSistersLogoManoVerde.png" />
+                                                <div class="project-euro">
+                                                    <div class="de-8500">
+                                                        <p class="ecobeauty-">12.000 €</p>
+                                                        <p class="de-85001">DE 8.500€</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-2">
+                                    <img class="image-icon" loading="lazy" alt="" src="/img/card2.png" />
+                                    <div class="image-overlay"></div>
+                                    <div class="project-card-details">
+                                        <div class="ttulo-wrapper">
+                                            <div class="ttulo3">
+                                                <div class="ttulo2">
+                                                    <p class="ecobeauty-">Community Bloom -</p>
+                                                    <p class="ecobeauty-">Empoderando Mujeres Locales</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="second-card-footer">
+                                            <img class="crowdsisterslogomanoverde-1-icon" loading="lazy" alt="" src="/img/CrowdSistersLogoManoVerde.png" />
+                                            <div class="project-euro">
+                                                <div class="de-8500">
+                                                    <p class="ecobeauty-">5.600 €</p>
+                                                    <p class="de-40002">DE 4.000€</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flecha-derecha-parent">
+                        <img class="flecha-izquierda-icon" loading="lazy" alt="" src="/img/FlechaDerechaBlanco.png" />
+                        <div class="card-1-parent">
+                            <div class="card-11">
+                                <img class="image-icon" loading="lazy" alt="" src="/img/card3.png" />
+                                <div class="image-overlay"></div>
+                                <div class="project-card-details">
+                                    <div class="ttulo5">
+                                        <div class="ttulo6">
+                                            <p class="ecobeauty-">Mompreneur Network -</p>
+                                            <p class="ecobeauty-">Conectando Madres Emprendedoras</p>
+                                        </div>
+                                    </div>
+                                    <div class="project-card-footer">
+                                        <img class="crowdsisterslogomanoverde-1-icon" loading="lazy" alt="" src="/img/CrowdSistersLogoManoVerde.png" />
+                                        <div class="project-euro">
+                                            <div class="de-8500">
+                                                <p class="ecobeauty-">2.500 €</p>
+                                                <p class="de-85001">DE 1.000€</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flecha-izquierda-wrapper">
+                                <img class="flecha-izquierda-icon1" loading="lazy" alt="" src="/img/FlechaDerechaColor.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="descripcin-crowdsisters">
+            <div class="logo">
+                <div class="logo-container">
+                    <img class="crowdsisterslogomano-1-icon" loading="lazy" alt="" src="/img/CrowdSistersManoYLogo.png" />
+                </div>
+            </div>
+            <div class="description-container">
+                <div class="description-details">
+                    <div class="title-description">
+                        <h1 class="ttulo7">¡Haz realidad tu proyecto con CrowdSisters!</h1>
+                        <div class="descripcin">
+                            Somos un equipo apasionado por empoderar a mujeres emprendedoras y estamos aquí para acompañarte en toda tu aventura. Con las herramientas más efectivas y una comunidad global de impulsoras entusiastas, estamos listas para ayudarte a alcanzar tus sueños empresariales. ¿Qué esperas para dar el siguiente paso en tu emprendimiento?
+                        </div>
+                    </div>
+                    @if (string.IsNullOrEmpty(ViewContext.HttpContext.Session.GetString("Username")))
+                    {
+                        <div class="botn-empieza-tu-proyecto-wrapper">
+                            <div class="botn-empieza-tu-proyecto">
+                                <a href="@Url.Action("Index", "Login")" style="text-decoration:none; color:inherit;">
+                                    <img class="star-icon3" alt="" src="/images/star3.svg" />
+                                    <div class="button4">¡Empieza tu proyecto!</div>
+                                    <img class="star-icon3" alt="" src="/images/x3.svg" />
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="botn-empieza-tu-proyecto-wrapper">
+                            <div class="botn-empieza-tu-proyecto">
+                                <a href="@Url.Action("Index", "CrearProyecto")" style="text-decoration:none; color:inherit;">
+                                    <img class="star-icon3" alt="" src="/images/star3.svg" />
+                                    <div class="button4">¡Empieza tu proyecto!</div>
+                                    <img class="star-icon3" alt="" src="/images/x3.svg" />
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Visual Studio Browser Link -->
+    <script type="text/javascript" src="/_vs/browserLink" async="async" id="__browserLink_initializationData" data-requestId="5a9d2a26245e41f5845fa70f24b9ce80" data-requestMappingFromServer="false" data-connectUrl="http://localhost:60159/36adb8a2f1cd4b37b74ee7e4bcd18cb4/browserLink"></script>
+    <!-- End Browser Link -->
+    <script src="/_framework/aspnetcore-browser-refresh.js"></script>
+    <script>
+        const imagenes = [
+            'img/ProyectoEcoBeauty.jpg',
+            'img/Corto.png',
+            'img/p2.jpg'
+        ];
+        const textos1 = [
+            'EcoBeauty -',
+            'Monica -',
+            'Heart of Fire -'
+        ];
+            
+        const textos2 = [
+            'Cosméticos Sostenibles',
+            'Cortometraje',
+            'El legado de la llama eterna'
+        ];
+        const dias = [
+            '177',
+            '93',
+            '41'
+        ];
+        const recaudacion1 = [
+            '4.000 €',
+            '5.000 €',
+            '2.000 €'
+        ];
+        const recaudacion2 = [
+            'DE 35.000 €',
+            'DE 9.300 €',
+            'DE 6.000 €'
+        ];
+        let indice = 0;
+
+        function cambiarContenido() {
+            // Cambiar imagen
+            document.getElementById('imagen').src = imagenes[indice];
+
+            // Cambiar textos
+            document.getElementById('texto1').innerText = textos1[indice];
+            document.getElementById('texto2').innerText = textos2[indice];
+            document.getElementById('dias').innerText = dias[indice];
+            document.getElementById('recaudacion1').innerText = recaudacion1[indice];
+            document.getElementById('recaudacion2').innerText = recaudacion2[indice];
+
+            // Actualizar índice para el próximo ciclo
+            indice = (indice + 1) % imagenes.length; // Ciclo para repetir
+        }
+
+        setInterval(cambiarContenido, 4000); // Cambia cada 4 segundos
+    </script>
+</body>
+</html>
